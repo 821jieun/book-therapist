@@ -4,19 +4,16 @@ const app = express();
 const morgan = require('morgan');
 
 app.use(morgan('common'));
-app.use(express.static('public'));
-// app.get('/', (req, res) => {
-//   res.sendFile(__dirname + '/browser/home.html');
-// });
+app.use(express.static('browser'));
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/browser/index.html');
+});
 app.get('/api/recommendations', (req, res) => {
-  res.sendFile(__dirname + '/browser/home.html');
+  res.json({
+    
+  })
 });
-app.get('/api/login', (req, res) => {
-  res.sendFile(__dirname + '/browser/login.html');
-});
-app.get('/api/signup', (req, res) => {
-  res.sendFile(__dirname + '/browser/signup.html');
-});
+
 
 app.get('*', (req, res) => {
   res.json('not found');
