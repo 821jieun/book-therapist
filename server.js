@@ -22,7 +22,7 @@ app.post('/api/signup', inputParser, (req, res) => {
     //extract body.username and body.password
     const { username, password } = req.body
     
-    //this is where the logic resides, checking wether input is valid and users does not already exist
+    //this is where the logic resides, checking wether input is valid and the username/e-mail does not already exist
     //there may be more stuff to do, like sending an actication e-mail
     
     //TODO remove this mock
