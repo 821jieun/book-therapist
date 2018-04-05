@@ -31,7 +31,7 @@ app.post('/api/signup', inputParser, (req, res) => {
 
         // send HTTP status code 200 OK and finish processing this request
         // the status and code in the response are just fields I made up
-        // they have nothing to do with http status codes, this is the DSL of our API
+        // they have nothing to do with HTTP status codes, this is the DSL of our API
         res.json({ status: "OK" }, 200).end()
     }
     res.json({ status: "ERROR", code: "ALREADY_SIGNED_UP" }, 400).end()
