@@ -30,7 +30,7 @@ function getBookRecommendations(callbackFn) {
 
 function displayBookRecommendations(data) {
   for (index in data.bookRecommendations) {
-    $('h4').append(
+    $('h3').append(
       `<p>${data.bookRecommendations[index].title}</p>`
     )
   }

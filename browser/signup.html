@@ -10,18 +10,19 @@
         crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>book therapist</h1>
+    <h1>sign up</h1>
 
-    <form id="js-sentiment-entry-form">
-      <label class="entry-input" for="sentiment-input">how do you feel?</label>
-      <input id="sentiment-input" required>
-      <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
+    <form id="js-signup-form">
+      <label class="username" for="username-input">username</label>
+      <input id="username-input" required>
+      <label class="password" for="password-input">password</label>
+      <input id="pw-input" required>
+      <label class="firstName" for="firstName-input">username</label>
+      <input id="firstName-input" required>
+      <label class="lastName" for="lastName-input">password</label>
+      <input id="lasName-input" required>
+      <button type="submit" class="signup-button" aria-label="signup-button">sign up</button>
     </form>
-    <h2>most recent book recommendations</h2>
-    <div class="js-book-recommendations-results" hidden></div>
-
-    <h3>all book recommendations</h3>
-    <div class="js-all-book-recommendations-results" hidden></div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
