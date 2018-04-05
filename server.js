@@ -4,18 +4,20 @@ const app = express();
 const morgan = require('morgan');
 
 app.use(morgan('common'));
-app.use(express.static('public'));
+app.use(express.static('browser'));
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/browser/home.html');
 // });
+
 app.get('/api/recommendations', (req, res) => {
-  res.sendFile(__dirname + '/browser/home.html');
+  // res.sendFile(__dirname + '/browser/home.html');
 });
 app.get('/api/login', (req, res) => {
-  res.sendFile(__dirname + '/browser/login.html');
+  // res.sendFile(__dirname + '/browser/login.html');
 });
-app.get('/api/signup', (req, res) => {
-  res.sendFile(__dirname + '/browser/signup.html');
+app.post('/api/signup', (req, res) => {
+  console.log('/api/signup:', req.body)
+
 });
 
 app.get('*', (req, res) => {
