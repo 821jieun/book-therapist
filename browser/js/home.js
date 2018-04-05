@@ -22,22 +22,22 @@ const MOCK_BOOK_RECOMMENDATIONS = {
   ]
 };
 
-function getBookRecommendations(callbackFn) {
+function getAllBookRecommendations(callbackFn) {
   setTimeout(function() {
     callbackFn(MOCK_BOOK_RECOMMENDATIONS)
   }, 100);
 }
 
-function displayBookRecommendations(data) {
+function displayAllBookRecommendations(data) {
   for (index in data.bookRecommendations) {
-    $('h3').append(
+    $('.js-all-book-recommendations-results').append(
       `<p>${data.bookRecommendations[index].title}</p>`
     )
   }
 }
 
 function getAndDisplayBookRecommendations() {
-  getBookRecommendations(displayBookRecommendations);
+  getAllBookRecommendations(displayAllBookRecommendations);
 }
 
 $(function() {
