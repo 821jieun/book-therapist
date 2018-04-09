@@ -159,6 +159,24 @@ describe('PUT endpoint', function() {
   });
 });
 
+  describe('DELETE endpoint', function() {
+    it('delete a recommendation by id', function() {
+      let recommendation;
 
+      return Recommendations
+        .findOne()
+        .then(function(_recommendation) {
+          recommendation = _recommendation;
+          return chai.request(app).delete(`/recommendations/${recommendation.id}`);
+        })
+        .then(function(res) {
+          expect(res).to.have.status(204);
+          return Recommendations.findById(recommendation.id);
+        })
+        .then(function(_recommendation) {
+          expect(_recommendation).to.be.null;
+        });
+    });
+  });
 //
 });
