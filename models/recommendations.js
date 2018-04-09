@@ -1,6 +1,7 @@
 'use strict';
 
 const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
 const  recommendationSchema = mongoose.Schema({
   title: {
@@ -34,6 +35,6 @@ recommendationSchema.methods.serialize = function() {
   };
 }
 
-const Recommendations = mongoose.model('Recommendation', recommendationSchema);
+const RecList = mongoose.model('Recommendation', recommendationSchema);
 
 module.exports = {RecList};

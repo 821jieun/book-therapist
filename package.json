@@ -2,9 +2,10 @@
   "name": "book-therapist",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "test": "mocha"
+    "start": "node server.js",
+    "test": "mocha --exit"
   },
   "keywords": [],
   "author": "",

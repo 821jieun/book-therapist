@@ -4,7 +4,7 @@ const MOCK_BOOK_RECOMMENDATIONS = {
       "bookId": "abc",
       "title": "the stranger",
       "author": "albert camus",
-      "description": "Meursault, the narrator, is a young man living in Algiers. After receiving a telegram informing him of his mother's death, he takes a bus to Marengo, where his mother had been living in an old persons' home. He sleeps for almost the entire trip. When he arrives, he speaks to the director of the home."
+      "description": "Meursault, the narrator, is a young man living in Algiers. After receiving a telegram informing him of his mother's death, he takes a bus to Marengo, where his mother had been living in an old persons' home. He sleeps for almost the entire trip. When he arrives, he speaks to the director of the home.",
       "entryText": "feeling very anti-social"
     },
     {

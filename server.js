@@ -5,11 +5,13 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const { RecList } = require('./models/recommendations.js');
+mongoose.Promise = global.Promise;
+const {PORT, DATABASE_URL} = require('./config');
+const { RecList } = require('./models/recommendations');
 
 app.use(morgan('common'));
 app.use(express.static('browser'));
-app.user(bodyParser.json());
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/browser/index.html');
@@ -22,7 +24,7 @@ app.get('/recommendations', (req, res) => {
       res.json({
         recommendations: recommendations.map((recommendation) => {
           return recommendation.serialize();
-        });
+        })
       })
     })
     .catch(err => {
@@ -107,28 +109,35 @@ app.use('*', function (req, res) {
 
 let server;
 
-function runServer() {
-  const port = process.env.PORT || 8080;
+function runServer(databaseUrl = DATABASE_URL, port = PORT) {
 
   return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      console.log(`listening attentively on port ${port}`);
-      resolve(server);
-    }).on('error', err => {
-      reject(err);
+    mongoose.connect(databaseUrl, err => {
+      if (err) {
+        return reject(err);
+      }
+
+      server = app.listen(port, () => {
+        console.log(`listening attentively on port ${port}`);
+        resolve(server);
+      }).on('error', err => {
+        reject(err);
+      });
     });
   });
 }
 
 function closeServer() {
-  return new Promise((resolve, reject) => {
-    console.log('Closing server');
-    server.close(err => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve();
+  return mongoose.disconnect().then(() => {
+    return new Promise((resolve, reject) => {
+      console.log('Closing server');
+      server.close(err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve();
+      });
     });
   });
 }
