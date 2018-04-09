@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
 const {PORT, DATABASE_URL} = require('./config');
-const { RecList } = require('./models/recommendations');
+const { Recommendations } = require('./models/recommendations');
 
 app.use(morgan('common'));
 app.use(express.static('browser'));
@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/recommendations', (req, res) => {
-  RecList
+  Recommendations
     .find()
     .then(recommendations => {
       res.json({
@@ -34,7 +34,7 @@ app.get('/recommendations', (req, res) => {
 });
 
 app.get('/recommendations/:id', (req, res) => {
-  RecList
+  Recommendations
   .findById(req.params.id)
   .then(recommendation => res.json(recommendation.serialize()))
   .catch(err => {
@@ -44,7 +44,7 @@ app.get('/recommendations/:id', (req, res) => {
 });
 
 app.post('/recommendations', (req, res) => {
-  const requiredFields = ['title', 'author', 'entryText'];
+  const requiredFields = ['entryText'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
     if (!(field in req.body)) {
@@ -53,7 +53,7 @@ app.post('/recommendations', (req, res) => {
       return res.status(400).send(message)
     }
   }
-  RecList
+  Recommendations
     .create({
       title: req.body.title,
       author: req.body.author,
@@ -80,7 +80,7 @@ app.put('/recommendations/:id', (req, res) => {
   }
 
   const toUpdate = {};
-  const updateableFields = ['name', 'description', 'entryText', 'author'];
+  const updateableFields = ['title', 'description', 'bookId', 'author'];
 
   updateableFields.forEach(field => {
     if (field in req.body) {
@@ -88,7 +88,7 @@ app.put('/recommendations/:id', (req, res) => {
     }
   });
 
-  RecList
+  Recommendations
     // all key/value pairs in toUpdate will be updated -- that's what `$set` does
     .findByIdAndUpdate(req.params.id, { $set: toUpdate })
     .then(recommendation => res.status(204).end())
@@ -96,7 +96,7 @@ app.put('/recommendations/:id', (req, res) => {
 });
 
 app.delete('/recommendations/:id', (req, res) => {
-  RecList
+  Recommendations
     .findByIdAndRemove(req.params.id)
     .then(recommendation => res.status(204).end())
     .catch(err => res.status(500).json({ message: 'Internal server error' }));

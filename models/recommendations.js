@@ -5,12 +5,10 @@ mongoose.Promise = global.Promise;
 
 const  recommendationSchema = mongoose.Schema({
   title: {
-    type: String,
-    required: true
+    type: String
   },
   author: {
-    type: String,
-    required: true
+    type: String
   },
   entryText: {
     type: String,
@@ -35,6 +33,6 @@ recommendationSchema.methods.serialize = function() {
   };
 }
 
-const RecList = mongoose.model('Recommendation', recommendationSchema);
+const Recommendations = mongoose.model('Recommendation', recommendationSchema);
 
-module.exports = {RecList};
+module.exports = {Recommendations};

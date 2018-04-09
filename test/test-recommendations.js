@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const should = chai.should();
 const expect = chai.expect;
 
-const {RecList} = require('../models/recommendations.js');
+const {Recommendations} = require('../models/recommendations.js');
 const {app, runServer, closeServer} = require('../server');
 const {TEST_DATABASE_URL} = require('../config');
 // console.log(TEST_DATABASE_URL, 'test database url here in tests')
@@ -29,9 +29,9 @@ function seedRecData() {
   for (let i = 1; i <= 6; i++) {
     seedData.push(generateRecData());
   }
-  console.log(seedData, 'seedData in seedRecData()')
+  // console.log(seedData, 'seedData in seedRecData()')
 
-  return RecList.insertMany(seedData);
+  return Recommendations.insertMany(seedData);
 }
 
 function generateEntryText() {
@@ -97,7 +97,7 @@ describe('Recommendations API resource', function() {
           res = _res;
           res.should.have.status(200);
           res.body.recommendations.should.have.lengthOf.at.least(1);
-          return RecList.count();
+          return Recommendations.count();
         })
         .then((count) => {
           res.body.recommendations.should.have.lengthOf(count);
@@ -105,6 +105,60 @@ describe('Recommendations API resource', function() {
     });
   });
 
+describe('POST endpoint', function() {
+  it('should add a new entryText', function() {
+    const newEntry= {
+      entryText: 'feeling lost and tired'
+    };
+
+    return chai.request(app)
+      .post('/recommendations')
+      .send(newEntry)
+      .then(function(res) {
+        expect(res).to.have.status(201);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('object');
+        expect(res.body).to.include.keys('id', 'entryText');
+        expect(res.body.entryText).to.equal(newEntry.entryText);
+        expect(res.body.id).to.not.be.null;
+        return Recommendations.findById(res.body.id);
+      })
+      .then(function(recommendation) {
+        expect(recommendation.entryText).to.equal(newEntry.entryText);
+      });
+  });
+});
+
+describe('PUT endpoint', function() {
+  it('should update fields', function() {
+    const updateData = {
+      title: 'the odyssey',
+      author: 'homer',
+      description: 'tired man trying to get home',
+      bookId: 'lmno'
+    };
+
+    return Recommendations
+      .findOne()
+      .then(function(recommendation) {
+        updateData.id = recommendation.id;
+        return chai.request(app)
+          .put(`/recommendations/${recommendation.id}`)
+          .send(updateData);
+      })
+      .then(function(res) {
+        expect(res).to.have.status(204);
+        return Recommendations.findById(updateData.id);
+      })
+      .then(function(recommendation) {
+        expect(recommendation.title).to.equal(updateData.title);
+        expect(recommendation.author).to.equal(updateData.author);
+        expect(recommendation.description).to.equal(updateData.description);
+        expect(recommendation.bookId).to.equal(updateData.bookId);
+      });
+  });
+});
 
 
+//
 });
