@@ -103,6 +103,30 @@ describe('Recommendations API resource', function() {
           res.body.recommendations.should.have.lengthOf(count);
         });
     });
+
+    it('should return recommendations with right fields', function() {
+      let resRecommendations;
+      return chai.request(app)
+        .get('/recommendations')
+        .then(function(res) {
+          expect(res).to.have.status(200);
+          expect(res).to.be.json;
+          expect(res.body.recommendations).to.be.a('array');
+          expect(res.body.recommendations).to.have.lengthOf.at.least(1);
+
+          res.body.recommendations.forEach(function(recommendation) {
+            expect(recommendation).to.be.a('object')
+            expect(recommendation).to.include.keys('id', 'entryText')
+
+          });
+          resRecommendations = res.body.recommendations[0];
+          return Recommendations.findById(resRecommendations.id);
+        })
+        .then(function(recommendation) {
+          expect(resRecommendations.id).to.equal(recommendation.id);
+          expect(resRecommendations.entryText).to.equal(recommendation.entryText);
+        });
+    });
   });
 
 describe('POST endpoint', function() {
