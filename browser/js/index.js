@@ -1,78 +1,104 @@
-const MOCK_BOOK_RECOMMENDATIONS = {
-  "bookRecommendations": [
-    {
-      "bookId": "abc",
-      "title": "the stranger",
-      "author": "albert camus",
-      "description": "Meursault, the narrator, is a young man living in Algiers. After receiving a telegram informing him of his mother's death, he takes a bus to Marengo, where his mother had been living in an old persons' home. He sleeps for almost the entire trip. When he arrives, he speaks to the director of the home.",
-      "entryText": "feeling very anti-social"
-    },
-    {
-      "bookId": "def",
-      "title": "the golden notebook",
-      "author": "doris lessing",
-      "description":  "Lessing, in her preface, claimed the most important theme in the novel is fragmentation; the mental breakdown that Anna suffers, perhaps from the compartmentalization of her life reflected in the division of the four notebooks, but also reflecting the fragmentation of society. Her relationship and attempt to draw everything together in the golden notebook at the end of the novel are both the final stage of her intolerable mental breakdown, and her attempt to overcome the fragmentation and madness.",
-      "entryText": "i feel like i am fragmenting into a million pieces"
-    },
-    {
-      "bookId": "ghi",
-      "title": "the little prince",
-      "author": "antoine de saint-exupéry",
-      "description": "Though ostensibly styled as a children's book, The Little Prince makes several observations about life and human nature. For example, Saint-Exupéry tells of a fox meeting the young prince during his travels on Earth. The story's essence is contained in the fox saying that 'One sees clearly only with the heart. The essential is invisible to the eye'.",
-      "entryText": "i feel cynical and sad"
-    }
-  ]
-};
 
-function getAllBookRecommendations(callbackFn) {
-  //make an ajax call to the /recommendations endpoint
-  const url = 'http://localhost:8080/recommendations';
-  $.ajax({
-    url: url,
+//post
+function displayEntryText(data) {
+  const entryText = data.entryText;
+  // const textToInsert = `feelings entry: ${entryText}`;
+  // const entryTextOuput = $('.js-entryText');
+
+  // entryTextOuput
+  //   .prop('hidden', false)
+  //   .append(`<p></p>`)
+  //
+  // $('.js-entryText p').html(textToInsert);
+
+  extractEntities(entryText);
+
+}
+
+function extractEntities(entryText) {
+    const text = encodeURIComponent(entryText);
+    const token = '2e0335e9f4b440f7aa8283398c390d69';
+    const baseUrl = `https://api.dandelion.eu/datatxt/nex/v1/?text`
+
+    $.ajax({
+    url: `${baseUrl}=${text}&token=${token}`,
     dataType: 'json',
     type: 'GET',
     success: function(data) {
-      console.log('inside the success of ajax call')
+      // console.log(data)
+      const keyWords = [];
+      data.annotations.forEach((word) => {
+        keyWords.push(word.spot);
+      })
+      console.log(keyWords, 'keyWords here')
+      googleBookSearchForTitles(keyWords, entryText);
+
     },
     error: function(err) {
-      const errorMessage = err.responseJSON.msg;
-      const outputElem = $(".js-all-book-recommendations-results");
-      outputElem
-        .prop('hidden', false)
-        .html(`<p>${errorMessage}</p>`)
-    }
+      console.log(err);
+       }
+  });
+
+}
+
+
+function googleBookSearchForTitles(keyWords, entryText) {
+  //make api call to return titles, bookId, author, description
+  const apiKey = 'AIzaSyD1sCrYVwhHVJT17fJf5mRFohJNIfIEV9I';
+
+  let searchTerms = keyWords.join("+") || entryText.split(" ").join("+");
+
+  console.log(searchTerms);
+
+  const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apiKey}&country=US`
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'GET',
+      success: function(data) {
+
+        const recommendations = [];
+
+        data.items.forEach((result) => {
+          const bookData = {
+            title: result.volumeInfo.title || 'n/a',
+            author: result.volumeInfo.authors || 'n/a',
+            bookId: result.id || 'n/a',
+            description: result.volumeInfo.description || 'n/a',
+            image: result.volumeInfo.imageLinks.thumbnail || 'n/a'
+          };
+
+          recommendations.push(bookData);
+        });
+
+        console.log('recommendations here: ', recommendations);
+        displayBookRecommendations(recommendations)
+      },
+      error: function(err) {
+        console.log(err);
+         }
+    });
+}
+
+function displayBookRecommendations(recommendations) {
+
+  const results = $('.js-most-recent-recommendations-results');
+
+  results.empty();
+
+  recommendations.forEach((recommendation) => {
+
+    $('.js-most-recent-recommendations-results').append(
+      `<p>${recommendation.title}</p>
+      <p>${recommendation.author}</p>
+      <p>${recommendation.description}</p>
+      <img src="${recommendation.image}">
+      <button class="save-book-button">save</button>
+
+      `
+    )
   })
 }
-
-// function displayAllBookRecommendations(data) {
-//   for (index in data.bookRecommendations) {
-//     $('.js-all-book-recommendations-results').append(
-//       `<p>${data.bookRecommendations[index].title}</p>`
-//     )
-//   }
-// }
-
-function displayEntryText(data) {
-  const entryText = data.entryText;
-  const entryTextOuput = $('.js-entryText')
-  // $('.js-entryText').append(
-  //   `<p>${entryText}</p><button class="book-please-button">book, please</button>`
-  // )
-  entryTextOuput
-    .prop('hidden', false)
-    .append(`<p></p><button class="book-please-button">book, please</button>`)
-
-  $('.js-entryText p').html(entryText)
-
-    extractEntities(entryText);
-    // analyzeSentimentOfEntry(entryText)
-    // googleBookSearchForTitles(entryText);
-}
-
-// function getAndDisplayBookRecommendations() {
-//   getAllBookRecommendations(displayAllBookRecommendations);
-// }
-// $(".js-entryText").on('click', '.book-please-button', onAnnotatedLinkClick);
 
 function handleEntrySubmitForm() {
   $('#js-sentiment-entry-form').submit((e) => {
@@ -82,9 +108,7 @@ function handleEntrySubmitForm() {
   $('#sentiment-input').val('');
 
 const attrPresence = $('.js-entryText').attr('hidden')
-console.log(attrPresence, 'attr Presence here')
 if (!attrPresence) {
-    // $('.js-entryText').html('');
     $('.js-entryText').empty();
 }
 
@@ -111,7 +135,3 @@ if (!attrPresence) {
 }
 
 $(handleEntrySubmitForm());
-
-// $(function() {
-//   getAndDisplayBookRecommendations();
-// });
