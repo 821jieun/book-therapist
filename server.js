@@ -11,7 +11,11 @@ const { Recommendations } = require('./models/recommendations');
 
 app.use(morgan('common'));
 app.use(express.static('browser'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
+
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/browser/index.html');
@@ -21,6 +25,7 @@ app.get('/recommendations', (req, res) => {
   Recommendations
     .find()
     .then(recommendations => {
+
       res.json({
         recommendations: recommendations.map((recommendation) => {
           return recommendation.serialize();
@@ -47,6 +52,7 @@ app.post('/recommendations', (req, res) => {
   const requiredFields = ['entryText'];
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
+    console.log(req.body, 'req here!! in post route')
     if (!(field in req.body)) {
       const message = `missing ${field} in request body`
       console.error(message);
@@ -55,11 +61,11 @@ app.post('/recommendations', (req, res) => {
   }
   Recommendations
     .create({
-      title: req.body.title,
-      author: req.body.author,
-      entryText: req.body.entryText,
-      description: req.body.description,
-      bookId: req.body.bookId
+      // title: req.body.title,
+      // author: req.body.author,
+      entryText: req.body.entryText
+      // description: req.body.description,
+      // bookId: req.body.bookId
     })
     .then(recommendation => res.status(201).json(recommendation.serialize()))
     .catch(err => {

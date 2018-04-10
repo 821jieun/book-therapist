@@ -14,17 +14,20 @@
 
     <form id="js-sentiment-entry-form">
       <label class="entry-input" for="sentiment-input">how do you feel?</label>
-      <input id="sentiment-input" required>
+      <input id="sentiment-input" name="entryText" required>
       <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
     </form>
-    <!-- <h2>most recent book recommendations</h2>
-    <div class="js-book-recommendations-results" hidden></div> -->
 
-    <h2>all book recommendations</h2>
-    <div class="js-all-book-recommendations-results"></div>
+    <div class="js-entryText" hidden></div>
+
+    <section class="" hidden>
+      <h2>all book recommendations</h2>
+      <div class="js-all-book-recommendations-results"></div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script type="text/javascript" src="./js/home.js"></script>
+    <!-- <script type="text/javascript" src="./js/home.js"></script> -->
     <script type="text/javascript" src="./js/submitEntry.js"></script>
+    <script type="text/javascript" src="./js/index.js"></script>
   </body>
 </html>
