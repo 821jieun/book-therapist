@@ -24,11 +24,11 @@ const  recommendationSchema = mongoose.Schema({
 
 recommendationSchema.methods.serialize = function() {
   return {
-    bookId: this.bookId,
+    bookId: this.bookId || 'n/a',
     id: this._id,
-    title: this.title,
-    author: this.author,
-    description: this.description,
+    title: this.title || 'n/a',
+    author: this.author || 'n/a',
+    description: this.description || 'n/a',
     entryText: this.entryText
   };
 }

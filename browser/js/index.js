@@ -1,23 +1,10 @@
-
 //post
-function displayEntryText(data) {
-  const entryText = data.entryText;
-  // const textToInsert = `feelings entry: ${entryText}`;
-  // const entryTextOuput = $('.js-entryText');
 
-  // entryTextOuput
-  //   .prop('hidden', false)
-  //   .append(`<p></p>`)
-  //
-  // $('.js-entryText p').html(textToInsert);
-
-  extractEntities(entryText);
-
-}
-
-function extractEntities(entryText) {
+function extractEntities(data) {
     const text = encodeURIComponent(entryText);
     const token = '2e0335e9f4b440f7aa8283398c390d69';
+    const entryText = data.entryText;
+    const id = data.id;
     const baseUrl = `https://api.dandelion.eu/datatxt/nex/v1/?text`
 
     $.ajax({
@@ -25,30 +12,25 @@ function extractEntities(entryText) {
     dataType: 'json',
     type: 'GET',
     success: function(data) {
-      // console.log(data)
       const keyWords = [];
       data.annotations.forEach((word) => {
         keyWords.push(word.spot);
       })
       console.log(keyWords, 'keyWords here')
-      googleBookSearchForTitles(keyWords, entryText);
-
+      googleBookSearchForTitles(keyWords, entryText, id);
     },
     error: function(err) {
       console.log(err);
        }
   });
-
 }
 
 
-function googleBookSearchForTitles(keyWords, entryText) {
+function googleBookSearchForTitles(keyWords, entryText, id) {
   //make api call to return titles, bookId, author, description
   const apiKey = 'AIzaSyD1sCrYVwhHVJT17fJf5mRFohJNIfIEV9I';
 
   let searchTerms = keyWords.join("+") || entryText.split(" ").join("+");
-
-  console.log(searchTerms);
 
   const url = `https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&key=${apiKey}&country=US`
     $.ajax({
@@ -59,7 +41,7 @@ function googleBookSearchForTitles(keyWords, entryText) {
 
         const recommendations = [];
 
-        data.items.forEach((result) => {
+        data.items.forEach((result, index) => {
           const bookData = {
             title: result.volumeInfo.title || 'n/a',
             author: result.volumeInfo.authors || 'n/a',
@@ -72,7 +54,7 @@ function googleBookSearchForTitles(keyWords, entryText) {
         });
 
         console.log('recommendations here: ', recommendations);
-        displayBookRecommendations(recommendations)
+        displayBookRecommendations(recommendations, id)
       },
       error: function(err) {
         console.log(err);
@@ -80,21 +62,20 @@ function googleBookSearchForTitles(keyWords, entryText) {
     });
 }
 
-function displayBookRecommendations(recommendations) {
-
+function displayBookRecommendations(recommendations, id) {
   const results = $('.js-most-recent-recommendations-results');
 
   results.empty();
 
-  recommendations.forEach((recommendation) => {
+  recommendations.forEach((recommendation, index) => {
 
     $('.js-most-recent-recommendations-results').append(
-      `<p>${recommendation.title}</p>
+      `
+      <p>${recommendation.title}</p>
       <p>${recommendation.author}</p>
       <p>${recommendation.description}</p>
       <img src="${recommendation.image}">
-      <button class="save-book-button">save</button>
-
+      <button class="save-book-button" data-id="${id}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
       `
     )
   })
@@ -107,11 +88,10 @@ function handleEntrySubmitForm() {
 
   $('#sentiment-input').val('');
 
-const attrPresence = $('.js-entryText').attr('hidden')
-if (!attrPresence) {
-    $('.js-entryText').empty();
-}
-
+  const attrPresence = $('.js-entryText').attr('hidden')
+  if (!attrPresence) {
+      $('.js-entryText').empty();
+  }
 
   const url = `http://localhost:8080/recommendations`;
 
@@ -123,14 +103,12 @@ if (!attrPresence) {
       },
       dataType: 'json',
       success: function(data) {
-        console.log(data, 'data in ajax call post');
-        displayEntryText(data);
+        extractEntities(data);
       },
       error: function(err) {
         console.error(err);
       }
     })
-
   });
 }
 
