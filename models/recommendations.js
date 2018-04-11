@@ -19,6 +19,9 @@ const  recommendationSchema = mongoose.Schema({
   },
   description: {
     type: String
+  },
+  image: {
+    type: String
   }
 });
 
@@ -29,7 +32,8 @@ recommendationSchema.methods.serialize = function() {
     title: this.title || 'n/a',
     author: this.author || 'n/a',
     description: this.description || 'n/a',
-    entryText: this.entryText
+    entryText: this.entryText,
+    image: this.image || 'n/a'
   };
 }
 
