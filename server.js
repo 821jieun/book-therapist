@@ -1,4 +1,4 @@
-
+'use strict';
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
@@ -15,7 +15,6 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
-
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/browser/index.html');
@@ -121,6 +120,7 @@ function runServer(databaseUrl = DATABASE_URL, port = PORT) {
 
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {
+      console.log(databaseUrl, 'database here')
       if (err) {
         return reject(err);
       }
