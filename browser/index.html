@@ -5,28 +5,44 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="book therapist app">
+    <link href="https://fonts.googleapis.com/css?family=Dokdo|Homemade+Apple" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
   </head>
   <body>
-    <h1>book therapist</h1>
 
-    <form id="js-sentiment-entry-form">
-      <label class="entry-input" for="sentiment-input">how do you feel?</label>
-      <input id="sentiment-input" name="entryText" required>
-      <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
-    </form>
+    <header role="banner" class="section-with-line">
+      <h1>book therapist</h1>
+    </header>
 
-    <div class="js-entryText" hidden></div>
+    <main role="main" class="flex-container">
+      <section role="region">
+        <form role="form" id="js-sentiment-entry-form" class="feelings-form">
+          <label class="entry-input" for="sentiment-input">how do you feel?</label>
+          <input id="sentiment-input" name="entryText" required>
+          <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
+        </form>
+      </section>
 
-    <div class="js-most-recent-recommendations-results">
-    </div>
+      <section role="region" class="show-and-hide-buttons">
+        <button class="get-all-entries-button">show all entries</button>
+        <button class="hide-all-entries-button displayNone">hide all entries</button>
+      </section>
 
-    <div class="js-all-book-recommendations-results">
-      <button class="get-all-saved-recs-button">saved recommendations</button>
-    </div>
+      <section role="region" class="recent-recs">
+        <div class="js-rec-results">
+        </div>
+        <div id="loading" class="displayNone">Loading...
+        </div>
+      </section>
 
+      <section role="region" class="all-saved-recs">
+        <div class="js-all-entries">
+        </div>
+      </section>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>

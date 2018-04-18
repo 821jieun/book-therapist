@@ -10,6 +10,10 @@ const  recommendationSchema = mongoose.Schema({
   author: {
     type: String
   },
+  publishDate: {
+    type: Date,
+    default: Date.now()
+  },
   entryText: {
     type: String,
     required: true
@@ -27,13 +31,14 @@ const  recommendationSchema = mongoose.Schema({
 
 recommendationSchema.methods.serialize = function() {
   return {
-    bookId: this.bookId || 'n/a',
+    bookId: this.bookId || '',
+    publishDate: this.publishDate || '',
     id: this._id,
-    title: this.title || 'n/a',
-    author: this.author || 'n/a',
-    description: this.description || 'n/a',
+    title: this.title || '',
+    author: this.author || '',
+    description: this.description || '',
     entryText: this.entryText,
-    image: this.image || 'n/a'
+    image: this.image || ''
   };
 }
 
