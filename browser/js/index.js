@@ -176,7 +176,7 @@ function displayBookRecommendations(recommendations, id) {
       <div class="book-rec">
       <p class="rec-title">Title: ${recommendation.title}</p>
       <p class="rec-author">Author: ${recommendation.author}</p>
-      <p class="rec-description">Description: ${recommendation.description}</p>
+      <p class="rec-description">Description: ${checkStrLength(recommendation.description)}</p>
       <div class="rec-thumbnail-image">
       <img src="${recommendation.image}" alt="thumbnail of ${recommendation.title}">
       </div>

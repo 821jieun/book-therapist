@@ -1,6 +1,6 @@
 const checkStrLength = (str) => {
-  if (str.length > 800) {
-    const truncatedStr = str.slice(0, 800);
+  if (str.length > 500) {
+    const truncatedStr = str.slice(0, 500);
     return `${truncatedStr}...`
   } else {
     return str;

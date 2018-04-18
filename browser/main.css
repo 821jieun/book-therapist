@@ -69,6 +69,7 @@ input {
   display: flex;
   width: 1200px;
   flex-wrap: wrap;
+  font-family: 'Sunflower', sans-serif;
 }
 
 .js-all-entries {
@@ -76,22 +77,30 @@ input {
   width: 1200px;
   /* flex-direction: column; */
   flex-wrap: wrap;
+  font-family: 'Sunflower', sans-serif;
 }
 
 .book-rec {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 580px;
-  height: 640px;
+  height: 740px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5px;
+  padding: 20px;
+  background-color: #f1f1f1;
 }
 
 .saved-book-rec {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 580px;
-  height: 640px;
+  height: 740px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 5px;
+  padding: 20px;
+  background-color: #f1f1f1;
+
 }
