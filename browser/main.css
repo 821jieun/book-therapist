@@ -68,7 +68,7 @@ input {
 .js-rec-results {
   display: flex;
   width: 1200px;
-  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .js-all-entries {

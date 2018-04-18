@@ -152,7 +152,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
             title: result.volumeInfo.title || 'n/a',
             author: result.volumeInfo.authors || 'n/a',
             bookId: result.id || 'n/a',
-            description: result.volumeInfo.description || 'n/a',
+            description: checkStrLength(result.volumeInfo.description) || 'n/a',
             image: result.volumeInfo.imageLinks.thumbnail || 'n/a'
           };
           recommendations.push(bookData);
