@@ -52,14 +52,17 @@ function displayAllEntries(data) {
   $('.js-all-entries').html('');
 
   recArray.forEach((rec) => {
-    $('.js-all-entries').append(
+    let description = rec.description;
+    description = checkStrLength(description);
+
+    $('.js-all-entries').prepend(
       `
       <div class="saved-book-rec">
         <p class="feelings-entry">Feelings Entry: ${rec.entryText}</p>
         <p class="date">Date: ${rec.publishDate}</p>
         <p class="title">Title: ${rec.title}</p>
         <p class="author">Author: ${rec.author}</p>
-        <p class="description">Description: ${rec.description}</p>
+        <p class="description">Description: ${description}</p>
         <div class="thumbnail-image">
           <img src="${rec.image}" alt="image of ${rec.title}">
         </div>
@@ -152,7 +155,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
             title: result.volumeInfo.title || 'n/a',
             author: result.volumeInfo.authors || 'n/a',
             bookId: result.id || 'n/a',
-            description: checkStrLength(result.volumeInfo.description) || 'n/a',
+            description: result.volumeInfo.description || 'n/a',
             image: result.volumeInfo.imageLinks.thumbnail || 'n/a'
           };
           recommendations.push(bookData);
@@ -227,6 +230,8 @@ function handleEntrySubmitForm() {
 
   $(".all-saved-recs").addClass('displayNone');
   $(".recent-recs").removeClass('displayNone');
+
+  $(".hide-all-entries-button").addClass('displayNone');
 
   const url = `http://localhost:8080/recommendations`;
 

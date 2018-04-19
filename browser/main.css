@@ -43,15 +43,16 @@ h1 {
 }
 
 form {
-  font-family: 'Dokdo', cursive;
-  font-size: 2em;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.1em;
 }
 
 input {
-  font-size: 1.1em;
-  font-family: 'Dokdo', cursive;
+  font-size: 1.2em;
+  font-family: 'Roboto Mono', monospace;
   border-radius: 50px 20px;
   width: 35%;
+  text-align: center;
 }
 
 .flex-container {
@@ -69,27 +70,26 @@ input {
   display: flex;
   width: 1200px;
   flex-wrap: wrap;
-  font-family: 'Sunflower', sans-serif;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .js-all-entries {
   display: flex;
   width: 1200px;
-  /* flex-direction: column; */
   flex-wrap: wrap;
-  font-family: 'Sunflower', sans-serif;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .book-rec {
   /* border: 1px solid red; */
   width: 580px;
-  height: 740px;
+  height: 700px;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5px;
   padding: 20px;
-  background-color: #f1f1f1;
+  background: rgb(250, 250, 250, 0.5);
 }
 
 .saved-book-rec {
@@ -101,6 +101,5 @@ input {
   align-items: center;
   margin: 5px;
   padding: 20px;
-  background-color: #f1f1f1;
-
+  background: rgb(250, 250, 250, 0.5);
 }
