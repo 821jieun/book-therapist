@@ -31,7 +31,7 @@ $('.get-all-entries-button').click(() => {
   $('.get-all-entries-button').addClass('displayNone');
   $('.hide-all-entries-button').removeClass('displayNone');
 
-  const url = `http://localhost:8080/recommendations`;
+  const url = `http://localhost:8080/recommendations/all`;
     $.ajax({
       url: url,
       dataType: 'json',
@@ -81,7 +81,7 @@ function deleteRecommendation() {
   console.log(id)
   console.log('inside deleteRecs')
 
-  const url = `http://localhost:8080/recommendations/${id}`;
+  const url = `http://localhost:8080/recommendations/delete/${id}`;
 
     $.ajax({
       url: url,
@@ -107,7 +107,7 @@ function saveBookAndUpdateDb() {
   const id = $(this).data('id');
 
   //make get call to update db entry for savedbook
-  const url = `http://localhost:8080/recommendations/${id}`;
+  const url = `http://localhost:8080/recommendations/update/${id}`;
   console.log(url, 'update/ put url here')
     $.ajax({
       url: url,
@@ -233,7 +233,7 @@ function handleEntrySubmitForm() {
 
   $(".hide-all-entries-button").addClass('displayNone');
 
-  const url = `http://localhost:8080/recommendations`;
+  const url = `http://localhost:8080/recommendations/create`;
 
     $.ajax({
       type: 'POST',

@@ -42,6 +42,8 @@ recommendationSchema.methods.serialize = function() {
   };
 }
 
-const Recommendations = mongoose.model('Recommendation', recommendationSchema);
+// const Recommendations = mongoose.model('Recommendation', recommendationSchema);
+//
+// module.exports = {Recommendations};
 
-module.exports = {Recommendations};
+module.exports = mongoose.model('Recommendation', recommendationSchema);
