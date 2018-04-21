@@ -1,11 +1,11 @@
 //Loading message
-$(document).ajaxStart(function() {
-  $('#loading').show();
-});
-
-$(document).ajaxStop(function() {
-  $('#loading').hide();
-});
+// $(document).ajaxStart(function() {
+//   $('#loading').show();
+// });
+//
+// $(document).ajaxStop(function() {
+//   $('#loading').hide();
+// });
 
 //animate to results
 $(".entry-button").click(function() {
@@ -232,6 +232,7 @@ function handleEntrySubmitForm() {
   $(".recent-recs").removeClass('displayNone');
 
   $(".hide-all-entries-button").addClass('displayNone');
+  $(".get-all-entries-button").removeClass('displayNone');
 
   const url = `http://localhost:8080/recommendations/create`;
 
