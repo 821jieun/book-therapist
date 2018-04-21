@@ -17,9 +17,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/browser/index.html');
-});
+app.use(express.static('public'));
+
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/browser/index.html');
+// });
 
 let server;
 
