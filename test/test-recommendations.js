@@ -7,10 +7,10 @@ const mongoose = require('mongoose');
 const should = chai.should();
 const expect = chai.expect;
 
-const {Recommendations} = require('../models/recommendations.js');
+const recommendationModel = require('../src/recommendation/model.recommendation');
 const {app, runServer, closeServer} = require('../server');
 const {TEST_DATABASE_URL} = require('../config');
-// console.log(TEST_DATABASE_URL, 'test database url here in tests')
+console.log(TEST_DATABASE_URL, 'test database url here in tests')
 
 chai.use(chaiHttp);
 
@@ -31,7 +31,7 @@ function seedRecData() {
   }
   // console.log(seedData, 'seedData in seedRecData()')
 
-  return Recommendations.insertMany(seedData);
+  return recommendationModel.insertMany(seedData);
 }
 
 function generateEntryText() {
@@ -92,12 +92,13 @@ describe('Recommendations API resource', function() {
     it('should return all existing recommendations', function() {
       let res;
       return chai.request(app)
-        .get('/recommendations')
+        .get('/recommendations/all')
+        // .get('/recommendations')
         .then((_res) => {
           res = _res;
           res.should.have.status(200);
           res.body.recommendations.should.have.lengthOf.at.least(1);
-          return Recommendations.count();
+          return recommendationModel.count();
         })
         .then((count) => {
           res.body.recommendations.should.have.lengthOf(count);
@@ -107,7 +108,8 @@ describe('Recommendations API resource', function() {
     it('should return recommendations with right fields', function() {
       let resRecommendations;
       return chai.request(app)
-        .get('/recommendations')
+        // .get('/recommendations')
+        .get('/recommendations/all')
         .then(function(res) {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
@@ -120,7 +122,7 @@ describe('Recommendations API resource', function() {
 
           });
           resRecommendations = res.body.recommendations[0];
-          return Recommendations.findById(resRecommendations.id);
+          return recommendationModel.findById(resRecommendations.id);
         })
         .then(function(recommendation) {
           expect(resRecommendations.id).to.equal(recommendation.id);
@@ -136,7 +138,8 @@ describe('POST endpoint', function() {
     };
 
     return chai.request(app)
-      .post('/recommendations')
+      .post('/recommendations/create')
+      // .post('/recommendations')
       .send(newEntry)
       .then(function(res) {
         expect(res).to.have.status(201);
@@ -145,7 +148,7 @@ describe('POST endpoint', function() {
         expect(res.body).to.include.keys('id', 'entryText');
         expect(res.body.entryText).to.equal(newEntry.entryText);
         expect(res.body.id).to.not.be.null;
-        return Recommendations.findById(res.body.id);
+        return recommendationModel.findById(res.body.id);
       })
       .then(function(recommendation) {
         expect(recommendation.entryText).to.equal(newEntry.entryText);
@@ -162,17 +165,18 @@ describe('PUT endpoint', function() {
       bookId: 'lmno'
     };
 
-    return Recommendations
+    return recommendationModel
       .findOne()
       .then(function(recommendation) {
         updateData.id = recommendation.id;
         return chai.request(app)
-          .put(`/recommendations/${recommendation.id}`)
+          .put(`/recommendations/update/${recommendation.id}`)
+          // .put(`/recommendations/${recommendation.id}`)
           .send(updateData);
       })
       .then(function(res) {
         expect(res).to.have.status(204);
-        return Recommendations.findById(updateData.id);
+        return recommendationModel.findById(updateData.id);
       })
       .then(function(recommendation) {
         expect(recommendation.title).to.equal(updateData.title);
@@ -187,15 +191,16 @@ describe('PUT endpoint', function() {
     it('delete a recommendation by id', function() {
       let recommendation;
 
-      return Recommendations
+      return recommendationModel
         .findOne()
         .then(function(_recommendation) {
           recommendation = _recommendation;
-          return chai.request(app).delete(`/recommendations/${recommendation.id}`);
+          return chai.request(app).delete(`/recommendations/delete/${recommendation.id}`);
+          // return chai.request(app).delete(`/recommendations/${recommendation.id}`);
         })
         .then(function(res) {
           expect(res).to.have.status(204);
-          return Recommendations.findById(recommendation.id);
+          return recommendationModel.findById(recommendation.id);
         })
         .then(function(_recommendation) {
           expect(_recommendation).to.be.null;
