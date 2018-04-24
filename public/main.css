@@ -24,7 +24,7 @@ ul {
 }
 
 li {
-    float: left;
+    float: right;
 }
 
 li a {
@@ -36,7 +36,7 @@ li a {
 }
 
 li a:hover:not(.active) {
-    background-color: #006D6F;
+    /* background-color: #006D6F; */
 }
 
 button {
@@ -45,7 +45,7 @@ button {
 }
 
 .active {
-    background-color: #006D6F;
+    /* background-color: #006D6F; */
 }
 
 /*header styling*/
@@ -79,21 +79,21 @@ h1 {
 }
 
 form {
-  /* font-family: 'Gamja Flower', cursive; */
   font-family: 'Roboto Mono', monospace;
   font-size: 1.2em;
 }
 
 #sentiment-input {
-  font-size: 1.2em;
-  /* font-family: 'Gamja Flower', cursive; */
+  font-size: 0.8em;
   font-family: 'Roboto Mono', monospace;
   border-radius: 50px 20px;
-  width: 35%;
+  width: 50%;
   text-align: center;
 }
 
 .entry-button {
+  margin-top: 10px;
+  float:right;
   border-radius: 50px 20px;
   padding: 10px;
 }
@@ -111,40 +111,39 @@ form {
 
 .js-rec-results {
   display: flex;
-  width: 1200px;
+  justify-content: center;
   flex-wrap: wrap;
   font-family: 'Roboto Mono', monospace;
 }
 
 .js-all-entries {
   display: flex;
-  width: 1200px;
+  justify-content: center;
   flex-wrap: wrap;
   font-family: 'Roboto Mono', monospace;
 }
 
 .book-rec {
-  /* border: 1px solid red; */
-  width: 580px;
-  height: 700px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   margin: 5px;
   padding: 20px;
   background: rgb(250, 250, 250, 0.5);
+  width: 100%;
 }
 
+.book-component {
+    border-left: 1px solid #e0e0e0;
+    padding-left: 2px;
+    padding-right: 4px;
+}
 .saved-book-rec {
-  /* border: 1px solid red; */
-  width: 580px;
-  height: 740px;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
   margin: 5px;
   padding: 20px;
   background: rgb(250, 250, 250, 0.5);
+  width: 100%;
 }
 
 .signup, .login {
@@ -166,6 +165,7 @@ form {
   bottom: 0;
   z-index: 9;
   height: 8vh;
+  /* text-align:center; */
 }
 
 .btn-footer {
@@ -173,12 +173,12 @@ form {
   justify-content: center;
 }
 
-.btn-footer button {
-  width: 30%;
-  height: 70%;
-  font-size: 1em;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 10px;
-  border-radius: 50px 20px;
+.btn-footer button{
+width: 25%;
+ height: 70%;
+ font-size: 1em;
+ margin-left: 20px;
+ margin-right: 20px;
+ margin-top: 10px;
+ border-radius: 50px 20px;
 }

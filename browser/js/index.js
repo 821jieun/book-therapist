@@ -1,6 +1,7 @@
 
 var showAll = false;
 //Loading message
+// TODO:figure out why this isn't working correctly
 // $(document).ajaxStart(function() {
 //   $('#loading').show();
 // });
@@ -12,7 +13,6 @@ var showAll = false;
 //
 $(".clear-results-btn").click(function() {
   $(".recent-recs").addClass("displayNone");
-  // $(".recent-recs").html("");
 });
 
 //get all saved recommendations
@@ -42,7 +42,7 @@ $(".show-and-hide-btn").click(() => {
       dataType: 'json',
       type: 'GET',
       success: function(data) {
-        console.log(data, '=>this is the data stored in mongo db');
+        console.log(data, '~this is the data stored in mongo db');
         displayAllEntries(data)
       },
       error: function(err) {
@@ -63,19 +63,20 @@ function displayAllEntries(data) {
     let date = rec.publishDate;
     date = makeDateReadable(date);
 
+    // TODO:add button for emailing recommendation
     $('.js-all-entries').prepend(
       `
       <div class="saved-book-rec">
-        <p class="feelings-entry">Feelings Entry: ${rec.entryText}</p>
-        <p class="date">Date: ${date}</p>
-        <p class="title">Title: ${rec.title}</p>
-        <p class="author">Author: ${rec.author}</p>
-        <p class="description">Description: ${description}</p>
-        <div class="thumbnail-image">
+        <div class="book-component"><p class="feelings-entry">Feelings Entry: ${rec.entryText}</p></div>
+        <div class="book-component"><p class="date">Date: ${date}</p></div>
+        <div class="book-component"><p class="title">Title: ${rec.title}</p></div>
+        <div class="book-component"><p class="author">Author: ${rec.author}</p></div>
+        <div class="book-component"><p class="description">Description: ${description}</p></div>
+        <div class="thumbnail-image book-component">
           <img src="${rec.image}" alt="image of ${rec.title}">
         </div>
         <br />
-        <button data-id=${rec.id} class="delete-button">delete</button>
+        <div class="book-component"><button data-id=${rec.id} class="delete-button">delete</button></div>
       </div>
       `
     )
@@ -88,8 +89,8 @@ $(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
 function deleteRecommendation() {
   const id = $(this).data('id');
 
-  $(this).parent().remove();
-
+  // $(this).parent().remove();
+  $(this).closest(".saved-book-rec").remove();
   const url = `http://localhost:8080/recommendations/delete/${id}`;
 
     $.ajax({
@@ -116,6 +117,12 @@ function saveBookAndUpdateDb() {
   const description = $(this).data('description');
   const image = $(this).data('image');
   const id = $(this).data('id');
+
+  // TODO: allow users to save multiple books per entry
+
+  // TODO:give user some visual indication that book is saved when button is clicked
+  // $(`.save-book-button[data-id=${id}]`).addClass('displayNone');
+  // $(`.fa-check[data-id=${id}]`).removeClass('displayNone');
 
   //make get call to update db entry for savedbook
   const url = `http://localhost:8080/recommendations/update/${id}`;
@@ -150,9 +157,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
       dataType: 'json',
       type: 'GET',
       success: function(data) {
-        console.log(data, '=>this is the data returned by googlebooks API');
         const recommendations = [];
-        console.log(recommendations, 'recommendations in google results')
         data.items.forEach((result, index) => {
           const bookData = {
             title: result.volumeInfo.title || 'n/a',
@@ -174,22 +179,30 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
 }
 
 function displayBookRecommendations(recommendations, id) {
+  // TODO:why isn't checkStrLength() working in this fn, possible solution: check string length in recommendations arr
   const results = $('.js-rec-results');
 
   results.empty();
-
+  console.log(recommendations, 'list of recommendations inside displayBookRecommendations fn')
   recommendations.forEach((recommendation, index) => {
     $('.js-rec-results').append(
       `
       <div class="book-rec">
-      <p class="rec-title">Title: ${recommendation.title}</p>
-      <p class="rec-author">Author: ${recommendation.author}</p>
-      <p class="rec-description">Description: ${checkStrLength(recommendation.description)}</p>
-      <div class="rec-thumbnail-image">
-      <img src="${recommendation.image}" alt="thumbnail of ${recommendation.title}">
+        <div class="book-component"><p class="rec-title">Title: ${recommendation.title}</p>
+      </div>
+      <div class="book-component">
+        <p class="rec-author">Author: ${recommendation.author}</p>
+      </div>
+      <div class="book-component">
+        <p class="rec-description">Description: ${checkStrLength(recommendation.description)}</p>
+      </div>
+      <div class="rec-thumbnail-image book-component">
+        <img src="${recommendation.image}" alt="thumbnail of ${recommendation.title}">
       </div>
       <br />
-      <button class="save-book-button" data-id="${id}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+      <div class="book-component">
+        <button class="save-book-button" data-id="${id}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+        </div>
       </div>
       `
     )
