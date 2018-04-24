@@ -9,10 +9,17 @@
 body {
   padding: 0;
   margin: 0;
+  /* background-image: url('http://1.bp.blogspot.com/_ZoShguOyP9w/TCOw_470OHI/AAAAAAAAA7c/pQohbcJphj4/s1600/blog+closeup+textures+4.jpg'); */
   background-image: url('http://s3.gomedia.us/wp-content/uploads/2012/04/watercolor0501-300x291.jpg');
   background-size: cover;
 }
 
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+    background-color: #006400;
+}
+
+/*header styling*/
 .section-with-line {
   position: relative;
   width: 90px;
@@ -43,18 +50,23 @@ h1 {
 }
 
 form {
+  /* font-family: 'Gamja Flower', cursive; */
   font-family: 'Roboto Mono', monospace;
   font-size: 1.1em;
 }
 
-input {
+#sentiment-input {
   font-size: 1.2em;
+  /* font-family: 'Gamja Flower', cursive; */
   font-family: 'Roboto Mono', monospace;
   border-radius: 50px 20px;
   width: 35%;
   text-align: center;
 }
 
+.entry-button {
+  border-radius: 50px 20px;
+}
 .flex-container {
   display: flex;
   justify-content: center;
@@ -102,4 +114,9 @@ input {
   margin: 5px;
   padding: 20px;
   background: rgb(250, 250, 250, 0.5);
+}
+
+.signup, .login {
+  font-family: 'Roboto Mono', monospace;
+
 }

@@ -5,19 +5,46 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="book therapist app">
-    <link href="https://fonts.googleapis.com/css?family=Dokdo|Homemade+Apple|Roboto+Mono" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dokdo|Homemade+Apple|Roboto+Mono|Gamja+Flower" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
+
   </head>
   <body>
-
     <header role="banner" class="section-with-line">
       <h1>book therapist</h1>
     </header>
-
     <main role="main" class="flex-container">
+      <section class="login displayNone">
+        <form role="form" id="js-login-form" class="login-form">
+          <label class="username" for="username">USERNAME: </label>
+          <input id="login-username" name="username" required>
+          <label class="password" for="password">PW: </label>
+          <input id="login-password" name="password" required>
+          <button type="submit" class="login-button" aria-label="login-button">login</button>
+        </form>
+      </section>
+
+      <section class="signup displayNone">
+        <form role="form" id="js-signup-form" class="signup-form">
+          <div>
+            <label class="username" for="username">USERNAME: </label>
+            <input id="login-username" name="username" required>
+            <label class="password" for="password">PW: </label>
+            <input id="login-password" name="password" required>
+          </div>
+          <div>
+            <label class="firstName" for="firstName">FIRST NAME: </label>
+            <input id="signup-firstName" name="firstName">
+            <label class="lastName" for="lastName">LAST NAME: </label>
+            <input id="signup-lastName" name="lastName">
+          <button type="submit" class="login-button" aria-label="login-button">signup</button>
+        </div>
+        </form>
+      </section>
+
       <section role="region">
         <form role="form" id="js-sentiment-entry-form" class="feelings-form">
           <label class="entry-input" for="sentiment-input">how do you feel?</label>
@@ -26,16 +53,11 @@
         </form>
       </section>
 
-      <section role="region" class="show-and-hide-buttons">
-        <button class="get-all-entries-button">show all entries</button>
-        <button class="hide-all-entries-button displayNone">hide all entries</button>
-      </section>
-
       <section role="region" class="recent-recs">
         <div class="js-rec-results">
         </div>
-        <div id="loading" class="displayNone">Loading...
-        </div>
+        <!-- <div id="loading" class="displayNone">Loading...
+        </div> -->
       </section>
 
       <section role="region" class="all-saved-recs">
@@ -43,6 +65,11 @@
         </div>
       </section>
     </main>
+
+    <section role="region" class="show-and-hide-buttons">
+      <button class="get-all-entries-button">show all entries</button>
+      <button class="hide-all-entries-button displayNone">hide all entries</button>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="./js/util.js"></script>
