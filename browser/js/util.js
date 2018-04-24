@@ -6,3 +6,10 @@ const checkStrLength = (str) => {
     return str;
   }
 };
+
+const makeDateReadable = (str) => {
+  let dateArr = str.split("-");
+  const trimDateDetail = dateArr[2].slice(0, 2);
+  const readableDate = `${dateArr[0]}-${dateArr[1]}-${trimDateDetail}`;
+  return readableDate;
+}

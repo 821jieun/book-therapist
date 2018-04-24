@@ -1,3 +1,5 @@
+
+var showAll = false;
 //Loading message
 // $(document).ajaxStart(function() {
 //   $('#loading').show();
@@ -7,38 +9,42 @@
 //   $('#loading').hide();
 // });
 
-//animate to results ???
-$("#js-sentiment-entry-form").on('click', 'button', function() {
-  $('html, body').animate({
-      scrollTop: $(".recent-recs").offset().top
-      // scrollTop: $(".jc-rec-results").offset().top
-  }, 1000);
-});
+//?
+// $("#js-sentiment-entry-form").submit(function() {
+//   $('html, body').animate({
+//       scrollTop: $(".recent-recs").offset().top
+//   }, 1000);
+// });
+
 $(".entry-button").click(function() {
   console.log('clicked on entry button!')
+  console.log(`this is recent recs dot offset dot top: ${$(".recent-recs").offset().top}`)
+  // TODO: figure out why this doesn't work
   $('html, body').animate({
-      // scrollTop: $(".recent-recs").offset().top
-      scrollTop: $(".jc-rec-results").offset().top
+      scrollTop: $(".recent-recs").offset().top
   }, 1000);
-});
-
-
-$(".hide-all-entries-button").click(() => {
-  $('html, body').animate({
-      scrollTop: $("header").offset().top
-  }, 1500);
 });
 
 //get all saved recommendations
-$('.get-all-entries-button').click(() => {
-  $('.recent-recs').addClass('displayNone');
-  $('.all-saved-recs').removeClass('displayNone');
-  $('.get-all-entries-button').addClass('displayNone');
-  $('.hide-all-entries-button').removeClass('displayNone');
+$(".show-and-hide-btn").click(() => {
+  showAll = !showAll;
+  if (showAll) {
+    $('.recent-recs').addClass('displayNone');
+    $('.all-saved-recs').removeClass('displayNone');
+    $(".show-and-hide-btn").text('hide all saved entries');
 
-  $('html, body').animate({
-      scrollTop: $(".all-saved-recs").offset().top
-  }, 1000);
+    $('html, body').animate({
+        scrollTop: $(".all-saved-recs").offset().top
+    }, 1000);
+
+  } else {
+    $(".show-and-hide-btn").text('show all saved entries');
+    $('.all-saved-recs').addClass('displayNone');
+
+    $('html, body').animate({
+        scrollTop: $("header").offset().top
+    }, 1500);
+  }
 
   const url = `http://localhost:8080/recommendations/all`;
     $.ajax({
@@ -46,7 +52,7 @@ $('.get-all-entries-button').click(() => {
       dataType: 'json',
       type: 'GET',
       success: function(data) {
-        console.log(data, 'data in onGetAllRecsClick');
+        console.log(data, '=>this is the data stored in mongo db');
         displayAllEntries(data)
       },
       error: function(err) {
@@ -64,17 +70,21 @@ function displayAllEntries(data) {
     let description = rec.description;
     description = checkStrLength(description);
 
+    let date = rec.publishDate;
+    date = makeDateReadable(date);
+
     $('.js-all-entries').prepend(
       `
       <div class="saved-book-rec">
         <p class="feelings-entry">Feelings Entry: ${rec.entryText}</p>
-        <p class="date">Date: ${rec.publishDate}</p>
+        <p class="date">Date: ${date}</p>
         <p class="title">Title: ${rec.title}</p>
         <p class="author">Author: ${rec.author}</p>
         <p class="description">Description: ${description}</p>
         <div class="thumbnail-image">
           <img src="${rec.image}" alt="image of ${rec.title}">
         </div>
+        <br />
         <button data-id=${rec.id} class="delete-button">delete</button>
       </div>
       `
@@ -87,8 +97,8 @@ $(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
 
 function deleteRecommendation() {
   const id = $(this).data('id');
+
   $(this).parent().remove();
-  console.log('inside deleteRecs')
 
   const url = `http://localhost:8080/recommendations/delete/${id}`;
 
@@ -97,7 +107,6 @@ function deleteRecommendation() {
       type: 'DELETE',
       success: function(data) {
         console.log('successfully deleted!');
-
       },
       error: function(err) {
         console.error(err);
@@ -105,6 +114,8 @@ function deleteRecommendation() {
     })
 }
 
+//listen for click on save button
+$(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
 //update entryText with saved book information
 function saveBookAndUpdateDb() {
   console.log('inside saveBookAndUpdateDb')
@@ -131,7 +142,7 @@ function saveBookAndUpdateDb() {
         "image": image
       },
       success: function(data) {
-        console.log('SUCCESSfully updated!')
+        console.log('fullySUCCESSfully updated!')
       },
       error: function(err) {
         console.error(err);
@@ -139,14 +150,6 @@ function saveBookAndUpdateDb() {
     })
 }
 
-$(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
-$(".show-and-hide-buttons").on('click', '.hide-all-entries-button', hideAllBooks);
-
-function hideAllBooks() {
-  $(".get-all-entries-button").removeClass('displayNone');
-  $(".all-saved-recs").addClass('displayNone');
-  $('.hide-all-entries-button').addClass('displayNone');
-}
 //google books api call
 function googleBookSearchForTitles(keyWords, entryText, id) {
   const apiKey = 'AIzaSyD1sCrYVwhHVJT17fJf5mRFohJNIfIEV9I';
@@ -157,7 +160,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
       dataType: 'json',
       type: 'GET',
       success: function(data) {
-        console.log(data, 'data in google results');
+        console.log(data, '=>this is the data returned by googlebooks API');
         const recommendations = [];
         console.log(recommendations, 'recommendations in google results')
         data.items.forEach((result, index) => {
@@ -195,6 +198,7 @@ function displayBookRecommendations(recommendations, id) {
       <div class="rec-thumbnail-image">
       <img src="${recommendation.image}" alt="thumbnail of ${recommendation.title}">
       </div>
+      <br />
       <button class="save-book-button" data-id="${id}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
       </div>
       `
@@ -208,7 +212,6 @@ function extractEntities(data) {
     const id = data.id;
     const baseUrl = `https://api.dandelion.eu/datatxt/nex/v1/?text`;
     const text = encodeURIComponent(entryText);
-    // const token = API_KEY;
     const token = '2e0335e9f4b440f7aa8283398c390d69';
 
     $.ajax({
@@ -235,10 +238,6 @@ function extractEntities(data) {
 function handleEntrySubmitForm() {
   $('#js-sentiment-entry-form').submit((e) => {
   e.preventDefault();
-  // console.log($(".recent-recs").offset())
-  // $('html, body').animate({
-  //   scrollTop: $('.recent-recs').offset().top
-  // }, 1000);
 
   const entryText = $('#sentiment-input').val();
 
@@ -246,9 +245,6 @@ function handleEntrySubmitForm() {
 
   $(".all-saved-recs").addClass('displayNone');
   $(".recent-recs").removeClass('displayNone');
-
-  $(".hide-all-entries-button").addClass('displayNone');
-  $(".get-all-entries-button").removeClass('displayNone');
 
   const url = `http://localhost:8080/recommendations/create`;
 
