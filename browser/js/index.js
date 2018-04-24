@@ -7,22 +7,27 @@
 //   $('#loading').hide();
 // });
 
-//animate to results
-$(".entry-button").click(function() {
+//animate to results ???
+$("#js-sentiment-entry-form").on('click', 'button', function() {
   $('html, body').animate({
       scrollTop: $(".recent-recs").offset().top
+      // scrollTop: $(".jc-rec-results").offset().top
   }, 1000);
 });
-
-$(".get-all-entries-button").click(function() {
+$(".entry-button").click(function() {
+  console.log('clicked on entry button!')
   $('html, body').animate({
-      scrollTop: $(".all-saved-recs").offset().top
+      // scrollTop: $(".recent-recs").offset().top
+      scrollTop: $(".jc-rec-results").offset().top
   }, 1000);
 });
 
-$('html, body').animate({
-    scrollTop: $("header").offset().top
-}, 1000);
+
+$(".hide-all-entries-button").click(() => {
+  $('html, body').animate({
+      scrollTop: $("header").offset().top
+  }, 1500);
+});
 
 //get all saved recommendations
 $('.get-all-entries-button').click(() => {
@@ -30,6 +35,10 @@ $('.get-all-entries-button').click(() => {
   $('.all-saved-recs').removeClass('displayNone');
   $('.get-all-entries-button').addClass('displayNone');
   $('.hide-all-entries-button').removeClass('displayNone');
+
+  $('html, body').animate({
+      scrollTop: $(".all-saved-recs").offset().top
+  }, 1000);
 
   const url = `http://localhost:8080/recommendations/all`;
     $.ajax({
@@ -78,7 +87,7 @@ $(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
 
 function deleteRecommendation() {
   const id = $(this).data('id');
-  console.log(id)
+  $(this).parent().remove();
   console.log('inside deleteRecs')
 
   const url = `http://localhost:8080/recommendations/delete/${id}`;
@@ -88,6 +97,7 @@ function deleteRecommendation() {
       type: 'DELETE',
       success: function(data) {
         console.log('successfully deleted!');
+
       },
       error: function(err) {
         console.error(err);
@@ -155,9 +165,11 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
             title: result.volumeInfo.title || 'n/a',
             author: result.volumeInfo.authors || 'n/a',
             bookId: result.id || 'n/a',
-            description: result.volumeInfo.description || 'n/a',
-            image: result.volumeInfo.imageLinks.thumbnail || 'n/a'
+            description: result.volumeInfo.description || 'n/a'
           };
+          if (result.volumeInfo.imageLinks) {
+            bookData.image = result.volumeInfo.imageLinks.thumbnail || 'n/a'
+          }
           recommendations.push(bookData);
         });
         displayBookRecommendations(recommendations, id)
@@ -222,7 +234,11 @@ function extractEntities(data) {
 
 function handleEntrySubmitForm() {
   $('#js-sentiment-entry-form').submit((e) => {
-  event.preventDefault();
+  e.preventDefault();
+  // console.log($(".recent-recs").offset())
+  // $('html, body').animate({
+  //   scrollTop: $('.recent-recs').offset().top
+  // }, 1000);
 
   const entryText = $('#sentiment-input').val();
 

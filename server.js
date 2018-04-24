@@ -4,11 +4,15 @@ const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 mongoose.Promise = global.Promise;
 const {PORT, DATABASE_URL} = require('./config');
 
 const recRoutes = require('./src/recommendation/routes.recommendation');
+const userRoutes = require('./src/user/routes.user');
+
+dotenv.config({path: './.env'});
 
 app.use(morgan('common'));
 app.use(express.static('browser'));
@@ -62,6 +66,7 @@ function closeServer() {
 
 
 app.use('/recommendations', recRoutes);
+app.use('/user', userRoutes);
 
 app.use('*', function (req, res) {
   res.status(404).json({ message: 'Not Found' });
