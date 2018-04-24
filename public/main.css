@@ -151,8 +151,34 @@ form {
   font-family: 'Roboto Mono', monospace;
 }
 
-
 .logout-button {
   font-family: 'Roboto Mono', monospace;
+}
 
+.btn-wrapper {
+  position: relative;
+}
+
+.btn-footer-wrapper {
+  position: fixed;
+  width: 100%;
+  background: black;
+  bottom: 0;
+  z-index: 9;
+  height: 8vh;
+}
+
+.btn-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-footer button {
+  width: 30%;
+  height: 70%;
+  font-size: 1em;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  border-radius: 50px 20px;
 }

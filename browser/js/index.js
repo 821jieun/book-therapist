@@ -9,20 +9,10 @@ var showAll = false;
 //   $('#loading').hide();
 // });
 
-//?
-// $("#js-sentiment-entry-form").submit(function() {
-//   $('html, body').animate({
-//       scrollTop: $(".recent-recs").offset().top
-//   }, 1000);
-// });
-
-$(".entry-button").click(function() {
-  console.log('clicked on entry button!')
-  console.log(`this is recent recs dot offset dot top: ${$(".recent-recs").offset().top}`)
-  // TODO: figure out why this doesn't work
-  $('html, body').animate({
-      scrollTop: $(".recent-recs").offset().top
-  }, 1000);
+//
+$(".clear-results-btn").click(function() {
+  $(".recent-recs").addClass("displayNone");
+  // $(".recent-recs").html("");
 });
 
 //get all saved recommendations
@@ -256,6 +246,11 @@ function handleEntrySubmitForm() {
       },
       dataType: 'json',
       success: function(data) {
+        console.log('inside success function of handleEntrySubmitForm fn!')
+          console.log(`this is recent recs dot offset dot top: ${$(".recent-recs").offset().top}`)
+        $('html, body').animate({
+            scrollTop: $(".recent-recs").offset().top
+        }, 1000);
         extractEntities(data);
       },
       error: function(err) {
