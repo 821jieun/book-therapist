@@ -63,7 +63,7 @@ function displayAllEntries(data) {
     let date = rec.publishDate;
     date = makeDateReadable(date);
 
-    // TODO:add button for emailing recommendation
+    // TODO:add button for emailing recommendation to self / to others
     $('.js-all-entries').prepend(
       `
       <div class="saved-book-rec">
@@ -88,8 +88,6 @@ $(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
 
 function deleteRecommendation() {
   const id = $(this).data('id');
-
-  // $(this).parent().remove();
   $(this).closest(".saved-book-rec").remove();
   const url = `http://localhost:8080/recommendations/delete/${id}`;
 
@@ -117,12 +115,12 @@ function saveBookAndUpdateDb() {
   const description = $(this).data('description');
   const image = $(this).data('image');
   const id = $(this).data('id');
-
+  const bookId = $(this).data('bookId');
   // TODO: allow users to save multiple books per entry
 
   // TODO:give user some visual indication that book is saved when button is clicked
-  // $(`.save-book-button[data-id=${id}]`).addClass('displayNone');
-  // $(`.fa-check[data-id=${id}]`).removeClass('displayNone');
+  $(this)
+    .text('saved!');
 
   //make get call to update db entry for savedbook
   const url = `http://localhost:8080/recommendations/update/${id}`;
@@ -132,6 +130,7 @@ function saveBookAndUpdateDb() {
       type: 'PUT',
       data: {
         "id": id,
+        "bookId": bookId,
         "publishDate": publishDate,
         "title": title,
         "author": author,
@@ -179,7 +178,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
 }
 
 function displayBookRecommendations(recommendations, id) {
-  // TODO:why isn't checkStrLength() working in this fn, possible solution: check string length in recommendations arr
+  // TODO:why does checkStrLength() work sometimes and not other times?
   const results = $('.js-rec-results');
 
   results.empty();
@@ -201,7 +200,7 @@ function displayBookRecommendations(recommendations, id) {
       </div>
       <br />
       <div class="book-component">
-        <button class="save-book-button" data-id="${id}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+        <button class="save-book-button" data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
         </div>
       </div>
       `
