@@ -14,9 +14,37 @@ body {
   background-size: cover;
 }
 
-/* Change the link color to #111 (black) on hover */
-li a:hover {
-    background-color: #006400;
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color: #006D6F;
+}
+
+button {
+  font-family: 'Roboto Mono', monospace;
+  /* font-size: 1.1em; */
+}
+
+.active {
+    background-color: #006D6F;
 }
 
 /*header styling*/
@@ -52,7 +80,7 @@ h1 {
 form {
   /* font-family: 'Gamja Flower', cursive; */
   font-family: 'Roboto Mono', monospace;
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 
 #sentiment-input {
@@ -66,7 +94,9 @@ form {
 
 .entry-button {
   border-radius: 50px 20px;
+  padding: 10px;
 }
+
 .flex-container {
   display: flex;
   justify-content: center;
@@ -118,5 +148,17 @@ form {
 
 .signup, .login {
   font-family: 'Roboto Mono', monospace;
+}
 
+.show-and-hide-buttons {
+  width: 80%;
+  align-content: center;
+  font-size: 1.2em;
+}
+
+.get-all-entries-button, .hide-all-entries-button {
+    position: sticky;
+    bottom: 0;
+    font-size: 1em;
+    padding: 2px;
 }
