@@ -15,7 +15,7 @@
   <body>
     <nav>
       <ul>
-        <li style="float:right"><a class="active" href="#about">logout</a></li>
+        <li style="float:right"><a class="active logout-button" href="#about">logout</a></li>
       </ul>
     </nav>
 
@@ -55,10 +55,12 @@
       <section role="region">
         <form role="form" id="js-sentiment-entry-form" class="feelings-form">
           <label class="entry-input" for="sentiment-input">how do you feel?</label>
-          <input id="sentiment-input" name="entryText" required>
+          <input id="sentiment-input" name="entryText">
           <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
         </form>
       </section>
+
+      <button class="show-and-hide-btn">show all saved entries</button>
 
       <section role="region" class="recent-recs">
         <div class="js-rec-results">
@@ -73,10 +75,10 @@
       </section>
     </main>
 
-    <section role="region" class="show-and-hide-buttons">
+    <!-- <section role="region" class="show-and-hide-buttons">
       <button class="get-all-entries-button">show all entries</button>
       <button class="hide-all-entries-button displayNone">hide all entries</button>
-    </section>
+    </section> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="./js/util.js"></script>
