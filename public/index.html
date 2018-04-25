@@ -13,9 +13,9 @@
 
   </head>
   <body>
-    <nav>
-      <ul>
-        <li><a class="active logout-button" href="#about">logout</a></li>
+    <nav role="navigation">
+      <ul class="nav-with-logout">
+        <li><a class="displayNone logout-button" href="#login-signup">logout</a></li>
       </ul>
     </nav>
 
@@ -24,23 +24,27 @@
     </header>
 
     <main role="main" class="flex-container">
-      <section class="login displayNone">
+
+      <section class="login">
         <form role="form" id="js-login-form" class="login-form">
           <label class="username" for="username">USERNAME: </label>
-          <input id="login-username" name="username" required>
-          <label class="password" for="password">PW: </label>
-          <input id="login-password" name="password" required>
+          <input id="login-username" type="text" name="username" required>
+          <label class="password" for="password">PASSWORD: </label>
+          <input id="login-password" type="password" name="password" required>
           <button type="submit" class="login-button" aria-label="login-button">login</button>
         </form>
       </section>
 
-      <section class="signup displayNone">
+      <div class="or"><div>or</div></div>
+      <br />
+
+      <section class="signup">
         <form role="form" id="js-signup-form" class="signup-form">
           <div>
             <label class="username" for="username">USERNAME: </label>
-            <input id="login-username" name="username" required>
-            <label class="password" for="password">PW: </label>
-            <input id="login-password" name="password" required>
+            <input id="signup-username" type="text" name="username" required>
+            <label class="password" for="password">PASSWORD: </label>
+            <input id="signup-password" type="password" name="password" required>
           </div>
           <div>
             <label class="firstName" for="firstName">FIRST NAME: </label>
@@ -53,7 +57,7 @@
       </section>
 
       <section role="region">
-        <form role="form" id="js-sentiment-entry-form" class="feelings-form">
+        <form role="form" id="js-sentiment-entry-form" class="feelings-form displayNone">
           <label class="entry-input" for="sentiment-input">how do you feel?</label>
           <input id="sentiment-input" name="entryText" required>
           <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
@@ -61,33 +65,31 @@
       </section>
 
 
-      <section role="region" class="recent-recs">
+      <section role="region" class="recent-recs displayNone">
         <div class="js-rec-results">
         </div>
         <!-- <div id="loading" class="displayNone">Loading...
         </div> -->
       </section>
 
-      <section role="region" class="all-saved-recs">
+      <section role="region" class="all-saved-recs displayNone">
         <div class="js-all-entries">
         </div>
       </section>
     </main>
 
-    <footer class="btn-wrapper">
+    <footer class="btn-wrapper displayNone">
       <div class="btn-footer-wrapper affix">
         <div class="btn-footer">
           <button class="show-and-hide-btn">show all saved entries</button>
           <button class="clear-results-btn">clear results</button>
         </div>
-        <!-- <div class="btn-footer">
-          <button class="clear-results-btn">clear results</button>
-        </div> -->
       </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script type="text/javascript" src="./js/util.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
+    <script type="text/javascript" src="./js/auth.js"></script>
   </body>
 </html>

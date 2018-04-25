@@ -63,7 +63,8 @@ function displayAllEntries(data) {
     let date = rec.publishDate;
     date = makeDateReadable(date);
 
-    // TODO:add button for emailing recommendation to self / to others
+    // TODO: add button for emailing or texting recommendation to self / to others
+    //TODO: consider adding another button that links to catalog of NYPL / eNYPL
     $('.js-all-entries').prepend(
       `
       <div class="saved-book-rec">
@@ -116,9 +117,9 @@ function saveBookAndUpdateDb() {
   const image = $(this).data('image');
   const id = $(this).data('id');
   const bookId = $(this).data('bookId');
-  // TODO: allow users to save multiple books per entry
+  // TODO: allow users to save multiple books per entry (possible solution? change db schema to arrays)
 
-  // TODO:give user some visual indication that book is saved when button is clicked
+  // TODO: find out if is this a11y-friendly?
   $(this)
     .text('saved!');
 

@@ -10,7 +10,11 @@ body {
   padding: 0;
   margin: 0;
   /* background-image: url('http://1.bp.blogspot.com/_ZoShguOyP9w/TCOw_470OHI/AAAAAAAAA7c/pQohbcJphj4/s1600/blog+closeup+textures+4.jpg'); */
-  background-image: url('http://s3.gomedia.us/wp-content/uploads/2012/04/watercolor0501-300x291.jpg');
+  /* background-image: url('http://s3.gomedia.us/wp-content/uploads/2012/04/watercolor0501-300x291.jpg'); */
+  /* background-image: url('https://image.freepik.com/free-vector/abstract-background-with-a-watercolor-texture_1048-2144.jpg'); */
+  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnqQ1007ISO5ybf63IrR23sBdNF2gFYJ6Ikiy6COdPxotnd19Ncw'); */
+  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTotdUJ48j_G-i6Qe1bekUrj4dljlWUgublZEZtmLpxG0y2k1yv'); */
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuWKTTToxKH2cgxdJYL9nJpVY4l2magqADW8pCMZSa03I6mcj5Ng');
   background-size: cover;
 }
 
@@ -20,7 +24,7 @@ ul {
     padding: 0;
     overflow: hidden;
     /* background-color: #e0e0e0; */
-    background-color: black;
+    /* background-color: #e1f5fe; */
 }
 
 li {
@@ -29,10 +33,18 @@ li {
 
 li a {
     display: block;
-    color: white;
+    color: black;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+    border-left: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+
+
+}
+
+li a:hover {
+  background-color: #b3e5fc
 }
 
 li a:hover:not(.active) {
@@ -159,9 +171,11 @@ form {
 }
 
 .btn-footer-wrapper {
+  margin-top:10px;
   position: fixed;
   width: 100%;
-  background: black;
+  background: #fce4ec;
+  /* background: black; */
   bottom: 0;
   z-index: 9;
   height: 8vh;
@@ -174,7 +188,7 @@ form {
 }
 
 .btn-footer button{
-  width: 25%;
+  width: 20%;
   height: 70%;
   font-size: 1em;
   margin-left: 20px;
@@ -183,29 +197,6 @@ form {
   border-radius: 50px 20px;
 }
 
-.checkmark {
-    display:inline-block;
-    width: 22px;
-    height:22px;
-    -ms-transform: rotate(45deg); /* IE 9 */
-    -webkit-transform: rotate(45deg); /* Chrome, Safari, Opera */
-    transform: rotate(45deg);
-}
-
-.checkmark_stem {
-    position: absolute;
-    width:3px;
-    height:9px;
-    background-color:green;
-    left:11px;
-    top:6px;
-}
-
-.checkmark_kick {
-    position: absolute;
-    width:3px;
-    height:3px;
-    background-color:green;
-    left:8px;
-    top:12px;
+.btn-footer button:hover{
+  background-color: #fce4ec;
 }

@@ -29,8 +29,6 @@ function seedRecData() {
   for (let i = 1; i <= 6; i++) {
     seedData.push(generateRecData());
   }
-  // console.log(seedData, 'seedData in seedRecData()')
-
   return recommendationModel.insertMany(seedData);
 }
 
