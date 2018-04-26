@@ -63,23 +63,38 @@ function displayAllEntries(data) {
     let date = rec.publishDate;
     date = makeDateReadable(date);
 
-    // TODO: add button for emailing or texting recommendation to self / to others
-    //TODO: consider adding another button that links to catalog of NYPL / eNYPL
+    const {id, entryText, title, author, image} = rec;
+    const body = encodeURIComponent(`
+    Title: ${title}
+    Author: ${author}
+    Description: ${description}
+    Link:
+    `);
+
+    const subject = encodeURIComponent('i thought this book might be of interest to you...');
+    const href = `mailto:email@email.com?subject=${subject}&body=${body}`
+
     $('.js-all-entries').prepend(
       `
       <div class="saved-book-rec">
-        <div class="book-component"><p class="feelings-entry">Feelings Entry: ${rec.entryText}</p></div>
+        <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
         <div class="book-component"><p class="date">Date: ${date}</p></div>
-        <div class="book-component"><p class="title">Title: ${rec.title}</p></div>
-        <div class="book-component"><p class="author">Author: ${rec.author}</p></div>
+        <div class="book-component"><p class="title">Title: ${title}</p></div>
+        <div class="book-component"><p class="author">Author: ${author}</p></div>
         <div class="book-component"><p class="description">Description: ${description}</p></div>
         <div class="thumbnail-image book-component">
-          <img src="${rec.image}" alt="image of ${rec.title}">
+          <img src="${image}" alt="image of ${title}">
         </div>
         <br />
-        <div class="book-component"><button data-id=${rec.id} class="delete-button">delete</button></div>
+        <div class=button-and-links>
+          <div class="book-component interactive"><button data-id=${id} class="delete-button">delete</button></div>
+          <div class="interactive"><a href=${href} data-id=${rec.id} class="email-link">share</a></div>
+          <div class="interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${rec.id} class="get-book-link">get</a></div>
+        </div>
       </div>
       `
+      // TODO: how to prepopulate search field with title name in .get-book-link in line 92?
+
     )
   })
 }

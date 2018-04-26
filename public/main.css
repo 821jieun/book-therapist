@@ -200,3 +200,15 @@ form {
 .btn-footer button:hover{
   background-color: #fce4ec;
 }
+
+.button-and-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.interactive {
+  flex: 1;
+  text-decoration: none;
+  color: black;
+  
+}
