@@ -1,14 +1,23 @@
-$(".nav-with-logout").on("click", "a", function() {
-
+$(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
+  $(".login-form").addClass('displayNone');
   $(".signup-form").removeClass('displayNone');
+});
+$(".nav-with-login-signup-logout").on("click", ".login-link", function() {
+  $(".login-form").removeClass('displayNone');
+  $(".signup-form").addClass('displayNone');
+});
+//
+$(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
+  $(".signup-link").removeClass("displayNone");
+  $(".login-link").removeClass("displayNone");
+
   $(".feelings-form").addClass('displayNone');
   $(".recent-recs").addClass('displayNone');
   $(".all-saved-recs").addClass('displayNone');
-
   $(".logout-button").addClass('displayNone');
 
+  // $(".signup-form").removeClass('displayNone');
   $(".login-form").removeClass('displayNone');
-  $(".or").removeClass('displayNone');
 
   $(".btn-wrapper").addClass('displayNone');
 });
@@ -43,17 +52,15 @@ $("#js-login-form").submit((e) => {
 });
 
 function onSuccessfulLogin() {
-
+  $(".signup-link").addClass("displayNone");
+  $(".login-link").addClass("displayNone");
   $(".signup-form").addClass('displayNone');
+  $(".login-form").addClass('displayNone');
+
   $(".feelings-form").removeClass('displayNone');
   $(".recent-recs").removeClass('displayNone');
   $(".all-saved-recs").removeClass('displayNone');
-
   $(".logout-button").removeClass('displayNone');
-
-  $(".login-form").addClass('displayNone');
-  $(".or").addClass('displayNone');
-
   $(".btn-wrapper").removeClass('displayNone');
 }
 
@@ -67,7 +74,7 @@ function handleRegisterUserFormSubmit() {
 
     $('#signup-username').val('');
     $('#signup-password').val('');
-    
+
     $('#signup-firstName').val('');
     $('#signup-lastName').val('');
 
@@ -90,7 +97,6 @@ function handleRegisterUserFormSubmit() {
           console.error(err);
         }
     });
-
   });
 }
 

@@ -42,7 +42,7 @@ $(".show-and-hide-btn").click(() => {
       dataType: 'json',
       type: 'GET',
       success: function(data) {
-        console.log(data, '~this is the data stored in mongo db');
+        console.log(data, 'this is the data retrieved from storage in mongo db');
         displayAllEntries(data)
       },
       error: function(err) {
@@ -53,7 +53,7 @@ $(".show-and-hide-btn").click(() => {
 
 function displayAllEntries(data) {
   const recArray = data.recommendations;
-
+  console.log(recArray, 'ARRAY OF RECOMMENDATIONS')
   $('.js-all-entries').html('');
 
   recArray.forEach((rec) => {
@@ -64,6 +64,7 @@ function displayAllEntries(data) {
     date = makeDateReadable(date);
 
     const {id, entryText, title, author, image} = rec;
+
     const body = encodeURIComponent(`
     Title: ${title}
     Author: ${author}
@@ -71,7 +72,7 @@ function displayAllEntries(data) {
     Link:
     `);
 
-    const subject = encodeURIComponent('i thought this book might be of interest to you...');
+    const subject = encodeURIComponent('i thought this book might be of interest to you!');
     const href = `mailto:email@email.com?subject=${subject}&body=${body}`
 
     $('.js-all-entries').prepend(
@@ -161,6 +162,51 @@ function saveBookAndUpdateDb() {
       }
     })
 }
+// function saveBookAndUpdateDb() {
+//   console.log('inside saveBookAndUpdateDb')
+//
+//   const title = [];
+//   title.push($(this).data('title'));
+//   const publishDate = $(this).data('publishDate');
+//   const author = [];
+//   author.push($(this).data('author'));
+//   const description = [];
+//   description.push($(this).data('description'));
+//   const image = [];
+//   image.push($(this).data('image'));
+//   const id = $(this).data('id');
+//   const bookId = [];
+//   bookId.push($(this).data('bookId'));
+//   // TODO: allow users to save multiple books per entry (possible solution? change db schema to arrays)
+//
+//   // TODO: find out if is this a11y-friendly?
+//   $(this)
+//     .text('saved!');
+//
+//   //make get call to update db entry for savedbook
+//   const url = `http://localhost:8080/recommendations/update/${id}`;
+//   console.log(url, 'update/ put url here')
+//     $.ajax({
+//       url: url,
+//       type: 'PUT',
+//       data: {
+//         "id": id,
+//         "bookId": bookId,
+//         "publishDate": publishDate,
+//         "title": title,
+//         "author": author,
+//         "description": description,
+//         "image": image
+//       },
+//       success: function(data) {
+//         console.log('fullySUCCESSfully updated!')
+//       },
+//       error: function(err) {
+//         console.error(err);
+//       }
+//     })
+// }
+
 
 //google books api call
 function googleBookSearchForTitles(keyWords, entryText, id) {

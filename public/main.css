@@ -18,6 +18,7 @@ body {
   background-size: cover;
 }
 
+/*logout button */
 ul {
     list-style-type: none;
     margin: 0;
@@ -39,25 +40,14 @@ li a {
     text-decoration: none;
     border-left: 1px solid #e0e0e0;
     border-bottom: 1px solid #e0e0e0;
-
-
 }
 
 li a:hover {
   background-color: #b3e5fc
 }
 
-li a:hover:not(.active) {
-    /* background-color: #006D6F; */
-}
-
 button {
   font-family: 'Roboto Mono', monospace;
-  /* font-size: 1.1em; */
-}
-
-.active {
-    /* background-color: #006D6F; */
 }
 
 /*header styling*/
@@ -162,7 +152,7 @@ form {
   font-family: 'Roboto Mono', monospace;
 }
 
-.logout-button {
+.logout-button, .signup-link, .login-link {
   font-family: 'Roboto Mono', monospace;
 }
 
@@ -175,11 +165,9 @@ form {
   position: fixed;
   width: 100%;
   background: #fce4ec;
-  /* background: black; */
   bottom: 0;
   z-index: 9;
   height: 8vh;
-  /* text-align:center; */
 }
 
 .btn-footer {
@@ -201,14 +189,25 @@ form {
   background-color: #fce4ec;
 }
 
+/*styling buttons and links for delete, share, get*/
 .button-and-links {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 .interactive {
   flex: 1;
   text-decoration: none;
+}
+
+.interactive a {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  padding: 2px;
+  border-radius: 30%;
+  text-decoration: none;
   color: black;
-  
+  font-family: 'Roboto Mono', monospace;
 }
