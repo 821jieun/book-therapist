@@ -230,7 +230,7 @@ form {
   }
 
   .feelings-form {
-    height:80vh
+    height:60vh
   }
 
   .interactive a {
@@ -261,6 +261,25 @@ form {
   .btn-footer {
     display: flex;
     justify-content: center;
+  }
+
+  header {
+    font-family: 'Roboto Mono', monospace;
+  }
+
+  .section-with-line {
+    position: relative;
+    width: 0px;
+    margin: 0px auto;
+    padding: 0;
+  }
+
+  .section-with-line:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0px;
+    height: 0;
   }
 
   .show-and-hide-btn {
