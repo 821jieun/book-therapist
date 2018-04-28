@@ -89,8 +89,8 @@ function displayAllEntries(data) {
         <br />
         <div class=button-and-links>
           <div class="book-component interactive"><button data-id=${id} class="delete-button">delete</button></div>
-          <div class="interactive"><a href=${href} data-id=${rec.id} class="email-link">share</a></div>
-          <div class="interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${rec.id} class="get-book-link">get</a></div>
+          <div class="book-component interactive"><a href=${href} data-id=${rec.id} class="email-link">share</a></div>
+          <div class="book-component interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${rec.id} class="get-book-link">get</a></div>
         </div>
       </div>
       `
@@ -106,7 +106,7 @@ $(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
 function deleteRecommendation() {
   const id = $(this).data('id');
   $(this).closest(".saved-book-rec").remove();
-  const url = `http://localhost:8080/recommendations/delete/${id}`;
+  const url = `http://localhost:8080/recommendations/delete/${id}/${localStorage.getItem("token")}`;
 
     $.ajax({
       url: url,
@@ -122,6 +122,12 @@ function deleteRecommendation() {
 
 //listen for click on save button
 $(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
+// $(".js-rec-results").on('click', '.save-book-button', addBookToDataObject);
+// $(".js-rec-results").on('click', '.done-saving-books-button', saveBookAndUpdateDb);
+// function addBookToDataObject() {
+//   //this function would have a data object..
+// }
+
 //update entryText with saved book information
 function saveBookAndUpdateDb() {
   console.log('inside saveBookAndUpdateDb')
@@ -140,7 +146,8 @@ function saveBookAndUpdateDb() {
     .text('saved!');
 
   //make get call to update db entry for savedbook
-  const url = `http://localhost:8080/recommendations/update/${id}`;
+  const url = `http://localhost:8080/recommendations/update/${id}/${localStorage.getItem("token")}`;
+
   console.log(url, 'update/ put url here')
     $.ajax({
       url: url,
@@ -162,50 +169,6 @@ function saveBookAndUpdateDb() {
       }
     })
 }
-// function saveBookAndUpdateDb() {
-//   console.log('inside saveBookAndUpdateDb')
-//
-//   const title = [];
-//   title.push($(this).data('title'));
-//   const publishDate = $(this).data('publishDate');
-//   const author = [];
-//   author.push($(this).data('author'));
-//   const description = [];
-//   description.push($(this).data('description'));
-//   const image = [];
-//   image.push($(this).data('image'));
-//   const id = $(this).data('id');
-//   const bookId = [];
-//   bookId.push($(this).data('bookId'));
-//   // TODO: allow users to save multiple books per entry (possible solution? change db schema to arrays)
-//
-//   // TODO: find out if is this a11y-friendly?
-//   $(this)
-//     .text('saved!');
-//
-//   //make get call to update db entry for savedbook
-//   const url = `http://localhost:8080/recommendations/update/${id}`;
-//   console.log(url, 'update/ put url here')
-//     $.ajax({
-//       url: url,
-//       type: 'PUT',
-//       data: {
-//         "id": id,
-//         "bookId": bookId,
-//         "publishDate": publishDate,
-//         "title": title,
-//         "author": author,
-//         "description": description,
-//         "image": image
-//       },
-//       success: function(data) {
-//         console.log('fullySUCCESSfully updated!')
-//       },
-//       error: function(err) {
-//         console.error(err);
-//       }
-//     })
-// }
 
 
 //google books api call
@@ -310,7 +273,7 @@ function handleEntrySubmitForm() {
   $(".all-saved-recs").addClass('displayNone');
   $(".recent-recs").removeClass('displayNone');
 
-  const url = `http://localhost:8080/recommendations/create`;
+  const url = `http://localhost:8080/recommendations/create/${localStorage.getItem("token")}`;
 
     $.ajax({
       type: 'POST',

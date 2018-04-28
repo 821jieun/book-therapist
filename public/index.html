@@ -27,7 +27,7 @@
 
       <main role="main" class="flex-container">
 
-      <section class="login">
+      <section role="region" class="login">
         <form role="form" id="js-login-form" class="login-form">
           <label class="username" for="username">USERNAME: </label>
           <input id="login-username" type="text" name="username" required>
@@ -37,7 +37,7 @@
         </form>
       </section>
 
-      <section class="signup">
+      <section role="region" class="signup">
         <form role="form" id="js-signup-form" class="displayNone signup-form">
           <div>
             <label class="username" for="username">USERNAME: </label>
@@ -58,7 +58,7 @@
       <section role="region">
         <form role="form" id="js-sentiment-entry-form" class="feelings-form displayNone">
           <label class="entry-input" for="sentiment-input">how do you feel?</label>
-          <input id="sentiment-input" name="entryText" required>
+          <input id="sentiment-input" aria-label="sentiment-search-box" name="entryText" required>
           <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
         </form>
       </section>
@@ -71,13 +71,13 @@
       </section>
 
       <section role="region" class="all-saved-recs displayNone">
-        <div class="js-all-entries">
+        <div class="js-all-entries" aria-live="assertive">
         </div>
       </section>
     </main>
 
-    <footer class="btn-wrapper displayNone">
-      <div class="btn-footer-wrapper affix">
+    <footer role="footer" class="btn-wrapper displayNone">
+      <div class="btn-footer-wrapper affix" aria-live="assertive">
         <div class="btn-footer">
           <button class="show-and-hide-btn">show all saved entries</button>
           <button class="clear-results-btn">clear results</button>

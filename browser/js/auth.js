@@ -6,7 +6,8 @@ $(".nav-with-login-signup-logout").on("click", ".login-link", function() {
   $(".login-form").removeClass('displayNone');
   $(".signup-form").addClass('displayNone');
 });
-//
+
+//when logout button is clicked
 $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
   $(".signup-link").removeClass("displayNone");
   $(".login-link").removeClass("displayNone");
@@ -16,10 +17,12 @@ $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
   $(".all-saved-recs").addClass('displayNone');
   $(".logout-button").addClass('displayNone');
 
-  // $(".signup-form").removeClass('displayNone');
+
   $(".login-form").removeClass('displayNone');
 
   $(".btn-wrapper").addClass('displayNone');
+
+  localStorage.clear();
 });
 
 $("#js-login-form").submit((e) => {
@@ -42,7 +45,10 @@ $("#js-login-form").submit((e) => {
       dataType: 'json',
       success: function(data) {
         console.log(data)
-        onSuccessfulLogin();
+        const token = data.data.token;
+        const userId = data.data.userId;
+        const username = data.data.username;
+        onSuccessfulLogin(token, userId, username);
 
       },
       error: function(err) {
@@ -51,7 +57,7 @@ $("#js-login-form").submit((e) => {
   });
 });
 
-function onSuccessfulLogin() {
+function onSuccessfulLogin(token, userId, username) {
   $(".signup-link").addClass("displayNone");
   $(".login-link").addClass("displayNone");
   $(".signup-form").addClass('displayNone');
@@ -62,6 +68,11 @@ function onSuccessfulLogin() {
   $(".all-saved-recs").removeClass('displayNone');
   $(".logout-button").removeClass('displayNone');
   $(".btn-wrapper").removeClass('displayNone');
+
+  localStorage.setItem("token", token);
+  localStorage.setItem("userId", userId);
+  localStorage.setItem("username", username);
+
 }
 
 function handleRegisterUserFormSubmit() {
@@ -100,4 +111,11 @@ function handleRegisterUserFormSubmit() {
   });
 }
 
+function init() {
+  if (localStorage.getItem("token")) {
+    onSuccessfulLogin(localStorage.getItem("token"), localStorage.getItem("userId"), localStorage.getItem("username"));
+  }
+}
+
+$(init())
 $(handleRegisterUserFormSubmit())

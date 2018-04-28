@@ -11,8 +11,8 @@ router.use((req, res, next) => {
 });
 
 router.get('/all', recController.getAllRecommendations);
-router.post('/create', recController.createRecommendation);
-router.put('/update/:id', recController.updateRecommendation);
-router.delete('/delete/:id', recController.deleteRecommendation);
+router.post('/create/:token', recController.verifyToken, recController.createRecommendation);
+router.put('/update/:id/:token', recController.verifyToken, recController.updateRecommendation);
+router.delete('/delete/:id/:token', recController.verifyToken, recController.deleteRecommendation);
 
 module.exports = router;

@@ -2,6 +2,7 @@
 
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
+const BookRecs = require('../recommendation/model.recommendation');
 
 mongoose.Promise = global.Promise;
 
