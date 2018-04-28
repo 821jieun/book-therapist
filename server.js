@@ -22,10 +22,29 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 app.use(express.static('public'));
+<<<<<<< HEAD
 
 // app.get('/', (req, res) => {
 //   res.sendFile(__dirname + '/browser/index.html');
 // });
+=======
+// app.get('/', (req, res) => {
+//   res.sendFile(__dirname + '/browser/home.html');
+// });
+app.get('/api/recommendations', (req, res) => {
+  res.sendFile(__dirname + '/browser/home.html');
+});
+app.get('/api/login', (req, res) => {
+  res.sendFile(__dirname + '/browser/login.html');
+});
+app.get('/api/signup', (req, res) => {
+  res.sendFile(__dirname + '/browser/signup.html');
+});
+
+app.get('*', (req, res) => {
+  res.json('not found');
+});
+>>>>>>> 0446dfa0e695996f5ae5786701319bce74bedc06
 
 let server;
 

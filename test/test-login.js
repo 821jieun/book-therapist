@@ -2,22 +2,21 @@ const chai = require('chai');
 const expect = require('chai').expect;
 const chaiHttp = require('chai-http');
 const {app, runServer, closeServer} = require('../server');
-const {TEST_DATABASE_URL} = require('../config');
 
 chai.use(chaiHttp);
 
-describe('root url is returning 200 status code', function() {
+describe('login url is returning 200 status code', function() {
   before (function() {
-    return runServer(TEST_DATABASE_URL);;
+    return runServer();
   });
 
   after(function() {
     return closeServer();
   });
 
-  it('should return hello world on GET', function() {
+  it('should return login page on GET', function() {
     return chai.request(app)
-    .get('/')
+    .get('/api/login')
     .then(function(res) {
       expect(res).to.have.status(200);
     })
