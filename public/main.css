@@ -18,6 +18,10 @@ body {
   background-size: cover;
 }
 
+main {
+  display: flex;
+}
+
 /*logout button */
 ul {
     list-style-type: none;
@@ -210,4 +214,74 @@ form {
   text-decoration: none;
   color: black;
   font-family: 'Roboto Mono', monospace;
+  background-color: white;
+}
+
+@media screen and (max-width:768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  section {
+    flex: 1;
+    display: flex;
+  }
+
+  .feelings-form {
+    height:80vh
+  }
+
+  .interactive a {
+    margin-left: 5px;
+  }
+
+  .saved-book-rec {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-rec {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-component {
+    width: 100%;
+  }
+
+  .btn-footer-wrapper {
+    flex: 1;
+    background: #fce4ec;
+    bottom: 0;
+    height: 20vh;
+  }
+
+  .btn-footer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .show-and-hide-btn {
+    flex: 1;
+  }
+
+  .clear-results-btn {
+    flex: 1;
+  }
+
+  footer {
+    flex: 1
+    display: flex;
+  }
+
+  header {
+    flex:1
+  }
+
+  nav {
+    flex: 1;
+  }
+
 }
