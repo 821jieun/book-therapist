@@ -70,7 +70,9 @@ function onSuccessfulLogin(token, userId, username) {
 
   $(".feelings-form").removeClass('displayNone');
   $(".recent-recs").removeClass('displayNone');
-  $(".all-saved-recs").removeClass('displayNone');
+
+  $(".all-saved-recs").addClass('displayNone');
+
   $(".logout-button").removeClass('displayNone');
   $(".btn-wrapper").removeClass('displayNone');
 

@@ -10,7 +10,7 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/all', recController.getAllRecommendations);
+router.get('/all/:token', recController.verifyToken, recController.getAllRecommendations);
 router.post('/create/:token', recController.verifyToken, recController.createRecommendation);
 router.put('/update/:id/:token', recController.verifyToken, recController.updateRecommendation);
 router.delete('/delete/:id/:token', recController.verifyToken, recController.deleteRecommendation);

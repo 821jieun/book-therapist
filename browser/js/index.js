@@ -21,14 +21,14 @@ $(".show-and-hide-btn").click(() => {
   if (showAll) {
     $('.recent-recs').addClass('displayNone');
     $('.all-saved-recs').removeClass('displayNone');
-    $(".show-and-hide-btn").text('hide all saved entries');
+    $(".show-and-hide-btn").text('hide all');
 
     $('html, body').animate({
         scrollTop: $(".all-saved-recs").offset().top
     }, 1000);
 
   } else {
-    $(".show-and-hide-btn").text('show all saved entries');
+    $(".show-and-hide-btn").text('show all');
     $('.all-saved-recs').addClass('displayNone');
 
     $('html, body').animate({
@@ -36,7 +36,7 @@ $(".show-and-hide-btn").click(() => {
     }, 1500);
   }
 
-  const url = `http://localhost:8080/recommendations/all`;
+  const url = `http://localhost:8080/recommendations/all/${localStorage.getItem("token")}`;
     $.ajax({
       url: url,
       dataType: 'json',
@@ -67,9 +67,11 @@ function displayAllEntries(data) {
 
     const body = encodeURIComponent(`
     Title: ${title}
+
     Author: ${author}
+
     Description: ${description}
-    Link:
+
     `);
 
     const subject = encodeURIComponent('i thought this book might be of interest to you!');
@@ -122,11 +124,6 @@ function deleteRecommendation() {
 
 //listen for click on save button
 $(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
-// $(".js-rec-results").on('click', '.save-book-button', addBookToDataObject);
-// $(".js-rec-results").on('click', '.done-saving-books-button', saveBookAndUpdateDb);
-// function addBookToDataObject() {
-//   //this function would have a data object..
-// }
 
 //update entryText with saved book information
 function saveBookAndUpdateDb() {
@@ -170,10 +167,6 @@ function saveBookAndUpdateDb() {
     })
 }
 
-
-
-
-
 function handleEntrySubmitForm() {
   $('#js-sentiment-entry-form').submit((e) => {
   e.preventDefault();
@@ -185,7 +178,13 @@ function handleEntrySubmitForm() {
   $(".all-saved-recs").addClass('displayNone');
   $(".recent-recs").removeClass('displayNone');
 
-  const url = `http://localhost:8080/recommendations/create/${localStorage.getItem("token")}`;
+  const token = localStorage.getItem("token");
+  const userId = localStorage.getItem("userId");
+  const username = localStorage.getItem("username");
+
+  // console.log(token, userId, username)
+
+  const url = `http://localhost:8080/recommendations/create/${token}`;
 
     $.ajax({
       type: 'POST',
@@ -195,8 +194,7 @@ function handleEntrySubmitForm() {
       },
       dataType: 'json',
       success: function(data) {
-        console.log('inside success function of handleEntrySubmitForm fn!')
-          console.log(`this is recent recs dot offset dot top: ${$(".recent-recs").offset().top}`)
+        console.log(data, 'data in front end create function ')
         $('html, body').animate({
             scrollTop: $(".recent-recs").offset().top
         }, 1000);
