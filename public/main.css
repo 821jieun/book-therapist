@@ -1,0 +1,287 @@
+* ,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  /* background-image: url('http://1.bp.blogspot.com/_ZoShguOyP9w/TCOw_470OHI/AAAAAAAAA7c/pQohbcJphj4/s1600/blog+closeup+textures+4.jpg'); */
+  /* background-image: url('http://s3.gomedia.us/wp-content/uploads/2012/04/watercolor0501-300x291.jpg'); */
+  /* background-image: url('https://image.freepik.com/free-vector/abstract-background-with-a-watercolor-texture_1048-2144.jpg'); */
+  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnqQ1007ISO5ybf63IrR23sBdNF2gFYJ6Ikiy6COdPxotnd19Ncw'); */
+  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTotdUJ48j_G-i6Qe1bekUrj4dljlWUgublZEZtmLpxG0y2k1yv'); */
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuWKTTToxKH2cgxdJYL9nJpVY4l2magqADW8pCMZSa03I6mcj5Ng');
+  background-size: cover;
+}
+
+main {
+  display: flex;
+}
+
+/*logout button */
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    /* background-color: #e0e0e0; */
+    /* background-color: #e1f5fe; */
+}
+
+li {
+    float: right;
+}
+
+li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-left: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+li a:hover {
+  background-color: #b3e5fc
+}
+
+button {
+  font-family: 'Roboto Mono', monospace;
+}
+
+/*header styling*/
+.section-with-line {
+  position: relative;
+  width: 90px;
+  margin: 60px auto;
+  padding: 10px 0;
+}
+
+.section-with-line:before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  border-top: 50px solid #000;
+  border-bottom: 30px solid #000;
+  -webkit-transform: rotate(8deg);
+  -ms-transform: rotate(8deg);
+  transform: rotate(8deg);
+}
+
+header {
+  font-family: 'Homemade Apple', cursive;
+}
+
+h1 {
+  line-height: 120%;
+}
+
+form {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.2em;
+}
+
+#sentiment-input {
+  font-size: 0.8em;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 50px 20px;
+  width: 50%;
+  text-align: center;
+}
+
+.entry-button {
+  margin-top: 10px;
+  float:right;
+  border-radius: 50px 20px;
+  padding: 10px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.displayNone {
+  display: none;
+}
+
+.js-rec-results {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.js-all-entries {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-family: 'Roboto Mono', monospace;
+}
+
+.book-rec {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 20px;
+  background: rgb(250, 250, 250, 0.5);
+  width: 100%;
+}
+
+.book-component {
+    border-left: 1px solid #e0e0e0;
+    padding-left: 2px;
+    padding-right: 4px;
+}
+.saved-book-rec {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px;
+  padding: 20px;
+  background: rgb(250, 250, 250, 0.5);
+  width: 100%;
+}
+
+.signup, .login {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.logout-button, .signup-link, .login-link {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.btn-wrapper {
+  position: relative;
+}
+
+.btn-footer-wrapper {
+  margin-top:10px;
+  position: fixed;
+  width: 100%;
+  background: #fce4ec;
+  bottom: 0;
+  z-index: 9;
+  height: 8vh;
+}
+
+.btn-footer {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-footer button{
+  width: 20%;
+  height: 70%;
+  font-size: 1em;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 10px;
+  border-radius: 50px 20px;
+}
+
+.btn-footer button:hover{
+  background-color: #fce4ec;
+}
+
+/*styling buttons and links for delete, share, get*/
+.button-and-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.interactive {
+  flex: 1;
+  text-decoration: none;
+}
+
+.interactive a {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  padding: 2px;
+  border-radius: 30%;
+  text-decoration: none;
+  color: black;
+  font-family: 'Roboto Mono', monospace;
+  background-color: white;
+}
+
+@media screen and (max-width:768px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  section {
+    flex: 1;
+    display: flex;
+  }
+
+  .feelings-form {
+    height:80vh
+  }
+
+  .interactive a {
+    margin-left: 5px;
+  }
+
+  .saved-book-rec {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-rec {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .book-component {
+    width: 100%;
+  }
+
+  .btn-footer-wrapper {
+    flex: 1;
+    background: #fce4ec;
+    bottom: 0;
+    height: 20vh;
+  }
+
+  .btn-footer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .show-and-hide-btn {
+    flex: 1;
+  }
+
+  .clear-results-btn {
+    flex: 1;
+  }
+
+  footer {
+    flex: 1
+    display: flex;
+  }
+
+  header {
+    flex:1
+  }
+
+  nav {
+    flex: 1;
+  }
+
+}
