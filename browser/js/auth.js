@@ -1,7 +1,10 @@
+//user clicks on signup link
 $(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
   $(".login-form").addClass('displayNone');
   $(".signup-form").removeClass('displayNone');
 });
+
+//user clicks on login link
 $(".nav-with-login-signup-logout").on("click", ".login-link", function() {
   $(".login-form").removeClass('displayNone');
   $(".signup-form").addClass('displayNone');
@@ -25,6 +28,7 @@ $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
   localStorage.clear();
 });
 
+//user log in form
 $("#js-login-form").submit((e) => {
   e.preventDefault();
   const username = $('#login-username').val();
@@ -57,6 +61,7 @@ $("#js-login-form").submit((e) => {
   });
 });
 
+//after user logs in
 function onSuccessfulLogin(token, userId, username) {
   $(".signup-link").addClass("displayNone");
   $(".login-link").addClass("displayNone");
@@ -75,6 +80,7 @@ function onSuccessfulLogin(token, userId, username) {
 
 }
 
+//user signs up
 function handleRegisterUserFormSubmit() {
   $('#js-signup-form').submit((e) => {
     e.preventDefault();
