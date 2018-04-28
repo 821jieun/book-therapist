@@ -63,17 +63,18 @@ $("#js-login-form").submit((e) => {
 
 //after user logs in
 function onSuccessfulLogin(token, userId, username) {
+  //disappear the links that were for signing up and logging in
   $(".signup-link").addClass("displayNone");
   $(".login-link").addClass("displayNone");
   $(".signup-form").addClass('displayNone');
   $(".login-form").addClass('displayNone');
 
+  //reveal the form for inputting feeling
   $(".feelings-form").removeClass('displayNone');
-  $(".recent-recs").removeClass('displayNone');
 
-  $(".all-saved-recs").addClass('displayNone');
-
+  //reveal the logout button, since user is now logged in
   $(".logout-button").removeClass('displayNone');
+  //reveal the 'show all saved recs' button and 'clear results'
   $(".btn-wrapper").removeClass('displayNone');
 
   localStorage.setItem("token", token);

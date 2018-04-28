@@ -1,5 +1,5 @@
 
-var showAll = false;
+// var showAll = false;
 //Loading message
 // TODO:figure out why this isn't working correctly
 // $(document).ajaxStart(function() {
@@ -15,20 +15,23 @@ $(".clear-results-btn").click(function() {
   $(".recent-recs").addClass("displayNone");
 });
 
+let showAll = false;
 //get all saved recommendations
 $(".show-and-hide-btn").click(() => {
+
   showAll = !showAll;
+
   if (showAll) {
     $('.recent-recs').addClass('displayNone');
     $('.all-saved-recs').removeClass('displayNone');
-    $(".show-and-hide-btn").text('hide all');
+    $(".show-and-hide-btn").text('hide saved');
 
     $('html, body').animate({
         scrollTop: $(".all-saved-recs").offset().top
     }, 1000);
 
   } else {
-    $(".show-and-hide-btn").text('show all');
+    $(".show-and-hide-btn").text('show saved');
     $('.all-saved-recs').addClass('displayNone');
 
     $('html, body').animate({
