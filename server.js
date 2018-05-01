@@ -30,7 +30,7 @@ function runServer(databaseUrl = MONGOLAB_URI, port = PORT) {
 
   return new Promise((resolve, reject) => {
     // mongoose.connect(databaseUrl, err => {
-    mongoose.connect(databaseUrl, { useMongoClient: true }, err => {
+    mongoose.connect(databaseUrl, err => {
       console.log(databaseUrl, 'database here')
       if (err) {
         return reject(err);
