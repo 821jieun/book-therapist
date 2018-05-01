@@ -23,18 +23,23 @@
 
       <header role="banner" class="section-with-line">
         <h1>book therapist</h1>
-
       </header>
 
       <main role="main" class="flex-container">
 
       <section role="region" class="login">
         <form role="form" id="js-login-form" class="login-form">
-          <label class="username" for="username">USERNAME: </label>
-          <input id="login-username" type="text" name="username" required>
-          <label class="password" for="password">PASSWORD: </label>
-          <input id="login-password" type="password" name="password" required>
-          <button type="submit" class="login-button" aria-label="login-button">login</button>
+          <div>
+            <label class="username" for="username">USERNAME: </label>
+            <input id="login-username" type="text" name="username" required>
+          </div>
+          <div>
+            <label class="password" for="password">PASSWORD: </label>
+            <input id="login-password" type="password" name="password" required>
+          </div>
+          <div>
+            <button type="submit" class="login-button" aria-label="login-button">login</button>
+          </div>
         </form>
       </section>
 
@@ -43,15 +48,21 @@
           <div>
             <label class="username" for="username">USERNAME: </label>
             <input id="signup-username" type="text" name="username" required>
+          </div>
+          <div>
             <label class="password" for="password">PASSWORD: </label>
             <input id="signup-password" type="password" name="password" required>
           </div>
           <div>
             <label class="firstName" for="firstName">FIRST NAME: </label>
             <input id="signup-firstName" name="firstName">
+          </div>
+          <div>
             <label class="lastName" for="lastName">LAST NAME: </label>
             <input id="signup-lastName" name="lastName">
-          <button type="submit" class="login-button" aria-label="login-button">signup</button>
+          </div>
+          <div>
+          <button type="submit" class="signup-button" aria-label="signup-button">signup</button>
         </div>
         </form>
       </section>

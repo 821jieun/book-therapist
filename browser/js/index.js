@@ -185,8 +185,6 @@ function handleEntrySubmitForm() {
   const userId = localStorage.getItem("userId");
   const username = localStorage.getItem("username");
 
-  // console.log(token, userId, username)
-
   const url = `http://localhost:8080/recommendations/create/${token}`;
 
     $.ajax({
@@ -199,6 +197,7 @@ function handleEntrySubmitForm() {
       success: function(data) {
         console.log(data, 'data in front end create function ')
         $('html, body').animate({
+          // TODO: figure out why this isn't working
             scrollTop: $(".recent-recs").offset().top
         }, 1000);
         extractEntities(data);

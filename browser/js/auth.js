@@ -1,29 +1,49 @@
+//cache jQuery variables
+const loginForm = $(".login-form");
+const signupForm = $(".signup-form");
+const signupLink = $(".signup-link");
+const loginLink = $(".login-link");
+const feelingsForm = $(".feelings-form");
+const recentRecs = $(".recent-recs");
+const allSavedRecs = $(".all-saved-recs");
+const logoutBtn = $(".logout-button");
+const btnWrapper = $(".btn-wrapper");
+const loginUsername = $('#login-username');
+const loginPassword = $('#login-password');
+const signupUsername = $('#signup-username');
+const signupPassword = $('#signup-password');
+const signupFirstname= $('#signup-firstName')
+const signupLastname= $('#signup-lastName');
+
 //user clicks on signup link
 $(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
-  $(".login-form").addClass('displayNone');
-  $(".signup-form").removeClass('displayNone');
+  loginForm.addClass('displayNone');
+  signupForm.removeClass('displayNone');
 });
 
 //user clicks on login link
 $(".nav-with-login-signup-logout").on("click", ".login-link", function() {
-  $(".login-form").removeClass('displayNone');
-  $(".signup-form").addClass('displayNone');
+  loginForm.removeClass('displayNone');
+  signupForm.addClass('displayNone');
 });
 
 //when logout button is clicked
 $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
-  $(".signup-link").removeClass("displayNone");
-  $(".login-link").removeClass("displayNone");
+  //reveal the options to signup and login
+  signupLink.removeClass("displayNone");
+  loginLink.removeClass("displayNone");
 
-  $(".feelings-form").addClass('displayNone');
-  $(".recent-recs").addClass('displayNone');
-  $(".all-saved-recs").addClass('displayNone');
-  $(".logout-button").addClass('displayNone');
+  //hide feelings entry form and all recent recs and saved recs
+  feelingsForm.addClass('displayNone');
+  recentRecs.addClass('displayNone');
+  allSavedRecs.addClass('displayNone');
 
-
-  $(".login-form").removeClass('displayNone');
-
-  $(".btn-wrapper").addClass('displayNone');
+  //hide logout button
+  logoutBtn.addClass('displayNone');
+  //reveal login form
+  loginForm.removeClass('displayNone');
+  //hide buttons that allow user to view all saved recs and clear recent recs
+  btnWrapper.addClass('displayNone');
 
   localStorage.clear();
 });
@@ -31,11 +51,11 @@ $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
 //user log in form
 $("#js-login-form").submit((e) => {
   e.preventDefault();
-  const username = $('#login-username').val();
-  const password = $('#login-password').val();
+  const username = loginUsername.val();
+  const password = loginPassword.val();
 
-  $('#login-username').val('');
-  $('#login-password').val('');
+  loginUsername.val('');
+  loginPassword.val('');
 
   const url = `http://localhost:8080/user/login`;
 
@@ -48,7 +68,7 @@ $("#js-login-form").submit((e) => {
       },
       dataType: 'json',
       success: function(data) {
-        console.log(data)
+
         const token = data.data.token;
         const userId = data.data.userId;
         const username = data.data.username;
@@ -64,18 +84,18 @@ $("#js-login-form").submit((e) => {
 //after user logs in
 function onSuccessfulLogin(token, userId, username) {
   //disappear the links that were for signing up and logging in
-  $(".signup-link").addClass("displayNone");
-  $(".login-link").addClass("displayNone");
-  $(".signup-form").addClass('displayNone');
-  $(".login-form").addClass('displayNone');
+  signupLink.addClass("displayNone");
+  loginLink.addClass("displayNone");
+  signupForm.addClass('displayNone');
+  loginForm.addClass('displayNone');
 
   //reveal the form for inputting feeling
-  $(".feelings-form").removeClass('displayNone');
+  feelingsForm.removeClass('displayNone');
 
   //reveal the logout button, since user is now logged in
-  $(".logout-button").removeClass('displayNone');
+  logoutBtn.removeClass('displayNone');
   //reveal the 'show all saved recs' button and 'clear results'
-  $(".btn-wrapper").removeClass('displayNone');
+  btnWrapper.removeClass('displayNone');
 
   localStorage.setItem("token", token);
   localStorage.setItem("userId", userId);
@@ -83,20 +103,20 @@ function onSuccessfulLogin(token, userId, username) {
 
 }
 
-//user signs up
+//handling what happens when user signs up
 function handleRegisterUserFormSubmit() {
   $('#js-signup-form').submit((e) => {
     e.preventDefault();
-    const username = $('#signup-username').val();
-    const password = $('#signup-password').val();
-    const firstName = $('#signup-firstName').val();
-    const lastName = $('#signup-lastName').val();
+    const username = signupUsername.val();
+    const password = signupPassword.val();
+    const firstName = signupFirstname.val();
+    const lastName = signupLastname.val();
 
-    $('#signup-username').val('');
-    $('#signup-password').val('');
+    signupUsername.val('');
+    signupPassword.val('');
 
-    $('#signup-firstName').val('');
-    $('#signup-lastName').val('');
+    signupFirstname.val('');
+    signupLastname.val('');
 
     const url = `http://localhost:8080/user/register`;
 

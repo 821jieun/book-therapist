@@ -216,7 +216,20 @@ form {
   font-family: 'Roboto Mono', monospace;
   background-color: white;
 }
+/*
+@media screen and (max-width:555px) {
+  #js-signup-form {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+  }
+  #js-login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
 
+  }
+} */
 @media screen and (max-width:768px) {
   body {
     display: flex;
@@ -230,7 +243,9 @@ form {
   }
 
   .feelings-form {
-    height:60vh
+    height:60vh;
+    margin-bottom: 20px;
+
   }
 
   .interactive a {
@@ -263,25 +278,10 @@ form {
     justify-content: center;
   }
 
-  header {
-    font-family: 'Roboto Mono', monospace;
+  main {
+    flex: 6;
+    heigt: 60vh
   }
-
-  .section-with-line {
-    position: relative;
-    width: 0px;
-    margin: 0px auto;
-    padding: 0;
-  }
-
-  .section-with-line:before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0px;
-    height: 0;
-  }
-
   .show-and-hide-btn {
     flex: 1;
   }
@@ -303,18 +303,19 @@ form {
     flex: 1;
   }
 
+  .feelings-form {
+      padding:20px;
+      margin-bottom: 20px;
+  }
 }
 
-.book-icon {
-  font-size: 24px;
-  float: left;
-}
 
 #js-login-form, #js-signup-form {
-  font-size: 0.8em;
+  padding: 10px;
+  /* font-size: 0.8em;
   font-family: 'Roboto Mono', monospace;
   border-radius: 50px 20px;
-  /* width: 50%; */
-  text-align: center;
+  width: 50%;
+   text-align: center; */
 
 }
