@@ -115,8 +115,7 @@ function deleteRecommendation() {
   $(this).closest(".saved-book-rec").remove();
 
     $.ajax({
-      url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`;
-,
+      url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`,
       type: 'DELETE',
       success: function(data) {
         console.log('successfully deleted!');
@@ -150,7 +149,7 @@ function saveBookAndUpdateDb() {
   //make get call to update db entry for savedbook
   console.log(url, 'update/ put url here')
     $.ajax({
-      url: `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`;,
+      url: `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`,
       type: 'PUT',
       data: {
         "id": id,
