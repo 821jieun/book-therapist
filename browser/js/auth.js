@@ -14,17 +14,22 @@ const signupUsername = $('#signup-username');
 const signupPassword = $('#signup-password');
 const signupFirstname= $('#signup-firstName')
 const signupLastname= $('#signup-lastName');
+const errorMsg = $(".error-message");
 
 //user clicks on signup link
 $(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
   loginForm.addClass('displayNone');
   signupForm.removeClass('displayNone');
+
+  errorMsg.html('');
 });
 
 //user clicks on login link
 $(".nav-with-login-signup-logout").on("click", ".login-link", function() {
   loginForm.removeClass('displayNone');
   signupForm.addClass('displayNone');
+
+  errorMsg.html('');
 });
 
 //when logout button is clicked

@@ -309,3 +309,7 @@ form {
 .intro {
   font-family: 'Roboto Mono', monospace;
 }
+
+cite {
+  float:right;
+}
