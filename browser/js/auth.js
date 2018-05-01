@@ -15,11 +15,6 @@ const signupPassword = $('#signup-password');
 const signupFirstname= $('#signup-firstName')
 const signupLastname= $('#signup-lastName');
 
-//
-// const url = 'http://localhost:8080'
-const url = 'https://cryptic-garden-89464.herokuapp.com'
-
-
 //user clicks on signup link
 $(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
   loginForm.addClass('displayNone');
