@@ -65,7 +65,7 @@ $("#js-login-form").submit((e) => {
 
   loginUsername.val('');
   loginPassword.val('');
-
+console.log(url,'url inside auth')
   $.ajax({
       type: 'POST',
       url: `${url}/user/login`,
