@@ -39,11 +39,9 @@ describe('Protected endpoint', function() {
 
     });
 
-
   afterEach(function() {
     return User.remove({});
   });
-
 
   describe('/user/register', function() {
        describe('POST', function() {

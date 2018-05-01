@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+// var Schema = mongoose.Schema;
+const User = require('../user/model.user');
 
 const  recommendationSchema = mongoose.Schema({
   title: {
@@ -27,8 +29,9 @@ const  recommendationSchema = mongoose.Schema({
   image: {
     type: String
   },
-  username: {
-    type: String
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 });
 
@@ -43,7 +46,7 @@ recommendationSchema.methods.serialize = function() {
     entryText: this.entryText,
     image: this.image || 'n/a',
     postedBy: this.postedBy || 'n/a',
-    username: this.username || 'n/a'
+    userId: this.userId 
   };
 }
 

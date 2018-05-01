@@ -27,7 +27,8 @@ exports.getAllRecommendations = (req, res) => {
   console.log(req, 'req in exports.getAllRecommendations')
   recommendationModel
     .find({
-      username: req.user.username})
+      userId: req.user.id})
+    .populate('userId', 'username')
     .then(recommendations => {
 
       res.json({
@@ -85,12 +86,8 @@ exports.createRecommendation = (req, res) => {
 
   recommendationModel
     .create({
-      // title: req.body.title,
-      // author: req.body.author,
       entryText: req.body.entryText,
-      username: req.user.username,
-      // description: req.body.description,
-      // bookId: req.body.bookId
+      userId: req.user.id
     })
     .then(recommendation => res.status(201).json(recommendation.serialize()))
     .catch(err => {

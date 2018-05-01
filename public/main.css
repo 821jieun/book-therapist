@@ -266,8 +266,8 @@ form {
   }
 
   main {
-    flex: 6;
-    heigt: 60vh
+    /* flex: 6; */
+    height: 60vh;
   }
   .show-and-hide-btn {
     flex: 1;

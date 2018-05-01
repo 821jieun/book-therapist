@@ -45,6 +45,10 @@ $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
   //hide buttons that allow user to view all saved recs and clear recent recs
   btnWrapper.addClass('displayNone');
 
+ const outputElem = $('.error-message');
+  outputElem
+    .prop('hidden', true)
+
   localStorage.clear();
 });
 
@@ -72,10 +76,20 @@ $("#js-login-form").submit((e) => {
         const token = data.data.token;
         const userId = data.data.userId;
         const username = data.data.username;
+
+        const outputElem = $('.error-message');
+         outputElem
+           .prop('hidden', true)
+           
         onSuccessfulLogin(token, userId, username);
 
       },
       error: function(err) {
+        const errorMessage = 'uh oh! something went awry...please try again';
+        const outputElem = $('.error-message');
+        outputElem
+          .prop('hidden', false)
+          .html(`<p>${errorMessage}</p>`);
         console.error(err);
       }
   });
@@ -135,6 +149,7 @@ function handleRegisterUserFormSubmit() {
         },
         error: function(err) {
           console.error(err);
+
         }
     });
   });

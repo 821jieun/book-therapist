@@ -46,6 +46,7 @@ $(".show-and-hide-btn").click(() => {
       type: 'GET',
       success: function(data) {
         console.log(data, 'this is the data retrieved from storage in mongo db');
+        
         displayAllEntries(data)
       },
       error: function(err) {
@@ -56,7 +57,7 @@ $(".show-and-hide-btn").click(() => {
 
 function displayAllEntries(data) {
   const recArray = data.recommendations;
-  console.log(recArray, 'ARRAY OF RECOMMENDATIONS')
+
   $('.js-all-entries').html('');
 
   recArray.forEach((rec) => {
@@ -197,7 +198,7 @@ function handleEntrySubmitForm() {
       success: function(data) {
         console.log(data, 'data in front end create function ')
         $('html, body').animate({
-          // TODO: figure out why this isn't working
+          // TODO: figure out why this isn't working!
             scrollTop: $(".recent-recs").offset().top
         }, 1000);
         extractEntities(data);

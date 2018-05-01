@@ -2,7 +2,6 @@
 
 const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
-const BookRecs = require('../recommendation/model.recommendation');
 
 mongoose.Promise = global.Promise;
 
@@ -17,13 +16,7 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   firstName: {type: String, default: ''},
-  lastName: {type: String, default: ''},
-  recommendations: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Recommendation'
-    }
-  ]
+  lastName: {type: String, default: ''}  
 });
 
 

@@ -128,7 +128,7 @@ describe('Recommendations API resource', function() {
       let resRecommendations;
       return chai.request(app)
         // .get('/recommendations')
-        .get(`/recommendations/all`)
+        .get(`/recommendations/all/${token}`)
         .then(function(res) {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
