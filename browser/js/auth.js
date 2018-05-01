@@ -15,6 +15,11 @@ const signupPassword = $('#signup-password');
 const signupFirstname= $('#signup-firstName')
 const signupLastname= $('#signup-lastName');
 
+//
+// const url = 'http://localhost:8080'
+const url = 'https://cryptic-garden-89464.herokuapp.com'
+
+
 //user clicks on signup link
 $(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
   loginForm.addClass('displayNone');
@@ -61,7 +66,7 @@ $("#js-login-form").submit((e) => {
   loginUsername.val('');
   loginPassword.val('');
 
-  const url = `http://localhost:8080/user/login`;
+  const url = `${url}/user/login`;
 
   $.ajax({
       type: 'POST',
@@ -80,7 +85,7 @@ $("#js-login-form").submit((e) => {
         const outputElem = $('.error-message');
          outputElem
            .prop('hidden', true)
-           
+
         onSuccessfulLogin(token, userId, username);
 
       },
@@ -132,7 +137,7 @@ function handleRegisterUserFormSubmit() {
     signupFirstname.val('');
     signupLastname.val('');
 
-    const url = `http://localhost:8080/user/register`;
+    const url = `${url}/user/register`;
 
     $.ajax({
         type: 'POST',

@@ -10,7 +10,9 @@
 //   $('#loading').hide();
 // });
 
-//
+// const url = 'http://localhost:8080'
+const url = 'https://cryptic-garden-89464.herokuapp.com'
+
 $(".clear-results-btn").click(function() {
   $(".recent-recs").addClass("displayNone");
 });
@@ -39,14 +41,14 @@ $(".show-and-hide-btn").click(() => {
     }, 1500);
   }
 
-  const url = `http://localhost:8080/recommendations/all/${localStorage.getItem("token")}`;
+  const url = `${url}/recommendations/all/${localStorage.getItem("token")}`;
     $.ajax({
       url: url,
       dataType: 'json',
       type: 'GET',
       success: function(data) {
         console.log(data, 'this is the data retrieved from storage in mongo db');
-        
+
         displayAllEntries(data)
       },
       error: function(err) {
@@ -112,7 +114,7 @@ $(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
 function deleteRecommendation() {
   const id = $(this).data('id');
   $(this).closest(".saved-book-rec").remove();
-  const url = `http://localhost:8080/recommendations/delete/${id}/${localStorage.getItem("token")}`;
+  const url = `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`;
 
     $.ajax({
       url: url,
@@ -147,7 +149,7 @@ function saveBookAndUpdateDb() {
     .text('saved!');
 
   //make get call to update db entry for savedbook
-  const url = `http://localhost:8080/recommendations/update/${id}/${localStorage.getItem("token")}`;
+  const url = `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`;
 
   console.log(url, 'update/ put url here')
     $.ajax({
@@ -186,7 +188,7 @@ function handleEntrySubmitForm() {
   const userId = localStorage.getItem("userId");
   const username = localStorage.getItem("username");
 
-  const url = `http://localhost:8080/recommendations/create/${token}`;
+  const url = `${url}/recommendations/create/${token}`;
 
     $.ajax({
       type: 'POST',
