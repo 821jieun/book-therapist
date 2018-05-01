@@ -10,8 +10,8 @@
 //   $('#loading').hide();
 // });
 
-const url = 'http://localhost:8080'
-// const url = 'https://cryptic-garden-89464.herokuapp.com'
+// const url = 'http://localhost:8080'
+const url = 'https://cryptic-garden-89464.herokuapp.com'
 
 $(".clear-results-btn").click(function() {
   $(".recent-recs").addClass("displayNone");
@@ -173,8 +173,6 @@ function handleEntrySubmitForm() {
 
   const entryText = $('#sentiment-input').val();
 
-  $('#sentiment-input').val('');
-
   $(".all-saved-recs").addClass('displayNone');
   $(".recent-recs").removeClass('displayNone');
 
@@ -195,7 +193,7 @@ function handleEntrySubmitForm() {
           // TODO: figure out why this isn't working!
             scrollTop: $(".recent-recs").offset().top
         }, 1000);
-
+        $('#sentiment-input').val('');
           googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
 
       },
