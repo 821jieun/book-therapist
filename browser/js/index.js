@@ -1,15 +1,4 @@
 
-// var showAll = false;
-//Loading message
-// TODO:figure out why this isn't working correctly
-// $(document).ajaxStart(function() {
-//   $('#loading').show();
-// });
-//
-// $(document).ajaxStop(function() {
-//   $('#loading').hide();
-// });
-
 const url = 'http://localhost:8080'
 // const url = 'https://cryptic-garden-89464.herokuapp.com'
 
@@ -129,8 +118,6 @@ $(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
 
 //update entryText with saved book information
 function saveBookAndUpdateDb() {
-  console.log('inside saveBookAndUpdateDb')
-
   const title = $(this).data('title');
   const publishDate = $(this).data('publishDate');
   const author = $(this).data('author');
@@ -187,6 +174,12 @@ function handleEntrySubmitForm() {
         "entryText": entryText
       },
       dataType: 'json',
+      beforeSend: function(){
+        $(".loading-rec").show();
+      },
+      complete: function(){
+        $(".loading-rec").hide();
+      },
       success: function(data) {
         console.log(data, 'data in front end create function ')
         $('html, body').animate({
@@ -201,6 +194,30 @@ function handleEntrySubmitForm() {
         console.error(err);
       }
     })
+    //
+    // $.ajax({
+    //   type: 'POST',
+    //   url: `${url}/recommendations/create/${token}`,
+    //   data: {
+    //     "entryText": entryText
+    //   },
+    //   dataType: 'json',
+    //   success: function(data) {
+    //     console.log(data, 'data in front end create function ')
+    //     $('html, body').animate({
+    //       // TODO: figure out why this isn't working!
+    //         scrollTop: $(".recent-recs").offset().top
+    //     }, 1000);
+    //     $('#sentiment-input').val('');
+    //       googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
+    //
+    //   },
+    //   error: function(err) {
+    //     console.error(err);
+    //   }
+    // })
+    //
+
   });
 }
 

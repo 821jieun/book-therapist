@@ -240,9 +240,7 @@ form {
   .book-component {
     width: 100%;
   }
-
 }
-
 
 #js-login-form, #js-signup-form {
   padding: 10px;
@@ -255,6 +253,8 @@ form {
 
 .intro {
   font-family: 'Roboto Mono', monospace;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 cite {
