@@ -66,11 +66,9 @@ $("#js-login-form").submit((e) => {
   loginUsername.val('');
   loginPassword.val('');
 
-  const url = `${url}/user/login`;
-
   $.ajax({
       type: 'POST',
-      url: url,
+      url: `${url}/user/login`,
       data: {
         username: username,
         password: password
@@ -137,11 +135,9 @@ function handleRegisterUserFormSubmit() {
     signupFirstname.val('');
     signupLastname.val('');
 
-    const url = `${url}/user/register`;
-
     $.ajax({
         type: 'POST',
-        url: url,
+        url: `${url}/user/register`,
         data: {
           username: username,
           password: password,
