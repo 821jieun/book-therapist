@@ -65,7 +65,7 @@ $("#js-login-form").submit((e) => {
 
   loginUsername.val('');
   loginPassword.val('');
-console.log(url,'url inside auth')
+
   $.ajax({
       type: 'POST',
       url: `${url}/user/login`,
@@ -100,6 +100,9 @@ console.log(url,'url inside auth')
 
 //after user logs in
 function onSuccessfulLogin(token, userId, username) {
+  //disappear quote
+  $(".intro").addClass("displayNone");
+
   //disappear the links that were for signing up and logging in
   signupLink.addClass("displayNone");
   loginLink.addClass("displayNone");

@@ -10,8 +10,8 @@
 //   $('#loading').hide();
 // });
 
-// const url = 'http://localhost:8080'
-const url = 'https://cryptic-garden-89464.herokuapp.com'
+const url = 'http://localhost:8080'
+// const url = 'https://cryptic-garden-89464.herokuapp.com'
 
 $(".clear-results-btn").click(function() {
   $(".recent-recs").addClass("displayNone");
@@ -57,8 +57,8 @@ $(".show-and-hide-btn").click(() => {
 });
 
 function displayAllEntries(data) {
-  const recArray = data.recommendations;
-
+  let recArray = data.recommendations;
+  recArray = checkIfEntryHasTitle(recArray);
   $('.js-all-entries').html('');
 
   recArray.forEach((rec) => {
