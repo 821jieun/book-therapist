@@ -10,8 +10,8 @@
 //   $('#loading').hide();
 // });
 
-// const url = 'http://localhost:8080'
-const url = 'https://cryptic-garden-89464.herokuapp.com'
+const url = 'http://localhost:8080'
+// const url = 'https://cryptic-garden-89464.herokuapp.com'
 
 $(".clear-results-btn").click(function() {
   $(".recent-recs").addClass("displayNone");
@@ -85,8 +85,8 @@ function displayAllEntries(data) {
       <div class="saved-book-rec">
         <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
         <div class="book-component"><p class="date">Date: ${date}</p></div>
-        <div class="book-component"><p class="title">Title: ${title}</p></div>
-        <div class="book-component"><p class="author">Author: ${author}</p></div>
+        <div class="book-component title"><p class="title">Title: ${title}</p></div>
+        <div class="book-component author"><p class="author">Author: ${author}</p></div>
         <div class="book-component"><p class="description">Description: ${description}</p></div>
         <div class="thumbnail-image book-component">
           <img src="${image}" alt="image of ${title}">

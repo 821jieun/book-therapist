@@ -34,6 +34,9 @@ $(".nav-with-login-signup-logout").on("click", ".login-link", function() {
 
 //when logout button is clicked
 $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
+  //show quote again
+  $(".intro").removeClass('displayNone');
+  
   //reveal the options to signup and login
   signupLink.removeClass("displayNone");
   loginLink.removeClass("displayNone");
