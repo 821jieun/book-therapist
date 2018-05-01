@@ -7,8 +7,8 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 mongoose.Promise = global.Promise;
-const {PORT, DATABASE_URL} = require('./config');
-
+const {PORT, MONGOLAB_URI} = require('./config');
+console.log(MONGOLAB_URI, 'mongolab uri here')
 const recRoutes = require('./src/recommendation/routes.recommendation');
 const userRoutes = require('./src/user/routes.user');
 
@@ -26,7 +26,7 @@ app.use(express.static('public'));
 
 let server;
 
-function runServer(databaseUrl = DATABASE_URL, port = PORT) {
+function runServer(databaseUrl = MONGOLAB_URI, port = PORT) {
 
   return new Promise((resolve, reject) => {
     mongoose.connect(databaseUrl, err => {

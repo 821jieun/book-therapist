@@ -3,6 +3,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
 
 const should = chai.should();
 const expect = chai.expect;
@@ -58,22 +59,42 @@ function generateBookId() {
   return ids[Math.floor(Math.random() * ids.length)];
 }
 
+function generateUsername() {
+  const ids = 'a@a.com,b@b.com,c@c.com,d@d.com,e@e.com,f@f.com'.split(',');
+  return ids[Math.floor(Math.random() * ids.length)];
+}
+
+function generateId() {
+  const ids = 'abcdefg,hikjlmnop,qrstuvwx,wz12345,456ljfdlks'.split(',');
+  return ids[Math.floor(Math.random() * ids.length)];
+}
+
 function generateRecData() {
   return {
+      _id: generateId(),
       bookId: generateBookId(),
       title: generateTitle(),
       author: generateAuthor(),
       description: generateDescription(),
-      entryText: generateEntryText()
+      entryText: generateEntryText(),
+      username: generateUsername()
     }
 }
 
 describe('Recommendations API resource', function() {
+
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
+    let userToken = {
+      username: generateRecData().username,
+      id: generateRecData()._id
+    };
+
+    let token = jwt.sign(userToken, process.env.JWT_SECRET);
+
     return seedRecData();
   });
 
@@ -90,8 +111,8 @@ describe('Recommendations API resource', function() {
     it('should return all existing recommendations', function() {
       let res;
       return chai.request(app)
-        .get('/recommendations/all')
-        // .get('/recommendations')
+        // .get(`/recommendations/all/`)
+        .get(`/recommendations/all/${token}`)
         .then((_res) => {
           res = _res;
           res.should.have.status(200);
@@ -107,7 +128,7 @@ describe('Recommendations API resource', function() {
       let resRecommendations;
       return chai.request(app)
         // .get('/recommendations')
-        .get('/recommendations/all')
+        .get(`/recommendations/all`)
         .then(function(res) {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
@@ -116,7 +137,7 @@ describe('Recommendations API resource', function() {
 
           res.body.recommendations.forEach(function(recommendation) {
             expect(recommendation).to.be.a('object')
-            expect(recommendation).to.include.keys('id', 'entryText')
+            expect(recommendation).to.include.keys('id', 'entryText', 'username')
 
           });
           resRecommendations = res.body.recommendations[0];
@@ -136,7 +157,7 @@ describe('POST endpoint', function() {
     };
 
     return chai.request(app)
-      .post('/recommendations/create')
+      .post(`/recommendations/create/${token}`)
       // .post('/recommendations')
       .send(newEntry)
       .then(function(res) {
@@ -168,7 +189,7 @@ describe('PUT endpoint', function() {
       .then(function(recommendation) {
         updateData.id = recommendation.id;
         return chai.request(app)
-          .put(`/recommendations/update/${recommendation.id}`)
+          .put(`/recommendations/update/${recommendation.id}/${token}`)
           // .put(`/recommendations/${recommendation.id}`)
           .send(updateData);
       })
@@ -193,7 +214,7 @@ describe('PUT endpoint', function() {
         .findOne()
         .then(function(_recommendation) {
           recommendation = _recommendation;
-          return chai.request(app).delete(`/recommendations/delete/${recommendation.id}`);
+          return chai.request(app).delete(`/recommendations/delete/${recommendation.id}/${token}`);
           // return chai.request(app).delete(`/recommendations/${recommendation.id}`);
         })
         .then(function(res) {

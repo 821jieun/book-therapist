@@ -304,3 +304,17 @@ form {
   }
 
 }
+
+.book-icon {
+  font-size: 24px;
+  float: left;
+}
+
+#js-login-form, #js-signup-form {
+  font-size: 0.8em;
+  font-family: 'Roboto Mono', monospace;
+  border-radius: 50px 20px;
+  /* width: 50%; */
+  text-align: center;
+
+}
