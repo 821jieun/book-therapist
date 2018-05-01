@@ -46,8 +46,6 @@ $(".show-and-hide-btn").click(() => {
       dataType: 'json',
       type: 'GET',
       success: function(data) {
-        console.log(data, 'this is the data retrieved from storage in mongo db');
-
         displayAllEntries(data)
       },
       error: function(err) {
@@ -197,7 +195,9 @@ function handleEntrySubmitForm() {
           // TODO: figure out why this isn't working!
             scrollTop: $(".recent-recs").offset().top
         }, 1000);
-        extractEntities(data);
+
+          googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
+
       },
       error: function(err) {
         console.error(err);
