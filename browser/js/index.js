@@ -41,9 +41,8 @@ $(".show-and-hide-btn").click(() => {
     }, 1500);
   }
 
-  const url = `${url}/recommendations/all/${localStorage.getItem("token")}`;
     $.ajax({
-      url: url,
+      url: `${url}/recommendations/all/${localStorage.getItem("token")}`,
       dataType: 'json',
       type: 'GET',
       success: function(data) {
@@ -114,10 +113,10 @@ $(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
 function deleteRecommendation() {
   const id = $(this).data('id');
   $(this).closest(".saved-book-rec").remove();
-  const url = `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`;
 
     $.ajax({
-      url: url,
+      url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`;
+,
       type: 'DELETE',
       success: function(data) {
         console.log('successfully deleted!');
@@ -149,11 +148,9 @@ function saveBookAndUpdateDb() {
     .text('saved!');
 
   //make get call to update db entry for savedbook
-  const url = `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`;
-
   console.log(url, 'update/ put url here')
     $.ajax({
-      url: url,
+      url: `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`;,
       type: 'PUT',
       data: {
         "id": id,
@@ -188,11 +185,9 @@ function handleEntrySubmitForm() {
   const userId = localStorage.getItem("userId");
   const username = localStorage.getItem("username");
 
-  const url = `${url}/recommendations/create/${token}`;
-
     $.ajax({
       type: 'POST',
-      url: url,
+      url: `${url}/recommendations/create/${token}`,
       data: {
         "entryText": entryText
       },
