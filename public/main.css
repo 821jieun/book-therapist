@@ -216,20 +216,7 @@ form {
   font-family: 'Roboto Mono', monospace;
   background-color: white;
 }
-/*
-@media screen and (max-width:555px) {
-  #js-signup-form {
-    display: flex;
-    flex-direction: column;
-    justify-content:space-around;
-  }
-  #js-login-form {
-    display: flex;
-    flex-direction: column;
-    justify-content:space-around;
 
-  }
-} */
 @media screen and (max-width:768px) {
   body {
     display: flex;
@@ -312,10 +299,14 @@ form {
 
 #js-login-form, #js-signup-form {
   padding: 10px;
+  margin-bottom: 50px;
   /* font-size: 0.8em;
   font-family: 'Roboto Mono', monospace;
   border-radius: 50px 20px;
   width: 50%;
    text-align: center; */
+}
 
+.login-button, .signup-button {
+  float:right;
 }
