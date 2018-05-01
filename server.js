@@ -8,7 +8,6 @@ const dotenv = require('dotenv');
 
 mongoose.Promise = global.Promise;
 const {PORT, MONGOLAB_URI} = require('./config');
-console.log(MONGOLAB_URI, 'mongolab uri here')
 const recRoutes = require('./src/recommendation/routes.recommendation');
 const userRoutes = require('./src/user/routes.user');
 

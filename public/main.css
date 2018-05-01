@@ -300,13 +300,12 @@ form {
 #js-login-form, #js-signup-form {
   padding: 10px;
   margin-bottom: 50px;
-  /* font-size: 0.8em;
-  font-family: 'Roboto Mono', monospace;
-  border-radius: 50px 20px;
-  width: 50%;
-   text-align: center; */
 }
 
 .login-button, .signup-button {
   float:right;
+}
+
+.intro {
+  font-family: 'Roboto Mono', monospace;
 }

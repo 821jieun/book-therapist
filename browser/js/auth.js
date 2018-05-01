@@ -141,6 +141,8 @@ function handleRegisterUserFormSubmit() {
         },
         dataType: 'json',
         success: function(data) {
+          signupForm.addClass('displayNone')
+          loginForm.removeClass('displayNone')
           console.log(data)
         },
         error: function(err) {
