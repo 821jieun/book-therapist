@@ -16,6 +16,10 @@ const signupFirstname= $('#signup-firstName')
 const signupLastname= $('#signup-lastName');
 const errorMsg = $(".error-message");
 
+// const url = 'http://localhost:8080'
+const url = 'https://cryptic-garden-89464.herokuapp.com'
+
+
 //user clicks on signup link
 $(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
   loginForm.addClass('displayNone');
@@ -36,7 +40,7 @@ $(".nav-with-login-signup-logout").on("click", ".login-link", function() {
 $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
   //show quote again
   $(".intro").removeClass('displayNone');
-  
+
   //reveal the options to signup and login
   signupLink.removeClass("displayNone");
   loginLink.removeClass("displayNone");
