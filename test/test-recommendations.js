@@ -60,7 +60,7 @@ describe('Recommendations API', function() {
   });
 
   describe(`Recommendations API`, function() {
-    it('should list recommendations for associated user on GET', function() {
+    it('should list recommendations on GET', function() {
       const username = 'jollyturtle';
       const password = 'hexagon';
       const firstName = 'harold';
@@ -93,12 +93,11 @@ describe('Recommendations API', function() {
           expect(res.body.recommendations.length).to.be.above(0);
           res.body.recommendations.forEach(function(recommendation) {
             console.log(recommendation, 'recommendation here')
+            console.log(Object.keys(recommendation), 'recommendation keys here')
             expect(recommendation).to.be.a('object');
-            expect(recommendation).to.have.all.keys(
-              'id', 'entryText')
+            expect(recommendation).to.include.all.keys('id', 'entryText')
           });
           userModel.remove({});
-
         });
     });
 
