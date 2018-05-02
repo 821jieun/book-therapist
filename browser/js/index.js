@@ -1,6 +1,6 @@
 
-const url = 'http://localhost:8080'
-// const url = 'https://cryptic-garden-89464.herokuapp.com'
+// const url = 'http://localhost:8080'
+const url = 'https://cryptic-garden-89464.herokuapp.com'
 
 $(".clear-results-btn").click(function() {
   $(".recent-recs").addClass("displayNone");
