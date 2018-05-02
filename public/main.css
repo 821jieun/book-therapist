@@ -9,11 +9,6 @@
 body {
   padding: 0;
   margin: 0;
-  /* background-image: url('http://1.bp.blogspot.com/_ZoShguOyP9w/TCOw_470OHI/AAAAAAAAA7c/pQohbcJphj4/s1600/blog+closeup+textures+4.jpg'); */
-  /* background-image: url('http://s3.gomedia.us/wp-content/uploads/2012/04/watercolor0501-300x291.jpg'); */
-  /* background-image: url('https://image.freepik.com/free-vector/abstract-background-with-a-watercolor-texture_1048-2144.jpg'); */
-  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnqQ1007ISO5ybf63IrR23sBdNF2gFYJ6Ikiy6COdPxotnd19Ncw'); */
-  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTotdUJ48j_G-i6Qe1bekUrj4dljlWUgublZEZtmLpxG0y2k1yv'); */
   background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuWKTTToxKH2cgxdJYL9nJpVY4l2magqADW8pCMZSa03I6mcj5Ng');
   background-size: cover;
 }
@@ -33,17 +28,17 @@ ul {
 }
 
 li {
-    float: right;
+  float: right;
 }
 
 li a {
-    display: block;
-    color: black;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    border-left: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  border-left: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
 li a:hover {
@@ -223,10 +218,12 @@ form {
     flex-direction: column;
     padding: 60px;
   }
+
   .feelings-form {
     padding: 20px;
     margin-bottom: 40px;
   }
+
   .saved-book-rec {
     display: flex;
     flex-direction: column;
@@ -243,6 +240,8 @@ form {
 }
 
 #js-login-form, #js-signup-form {
+  margin-left: 160px;
+  margin-top: 10px;
   padding: 10px;
   margin-bottom: 50px;
 }
