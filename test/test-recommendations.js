@@ -97,6 +97,8 @@ describe('Recommendations API', function() {
             expect(recommendation).to.have.all.keys(
               'id', 'entryText')
           });
+          userModel.remove({});
+
         });
     });
 
@@ -235,7 +237,7 @@ describe('Recommendations API', function() {
       };
 
       let token = jwt.sign(userToken, process.env.JWT_SECRET);
-      
+
       return chai.request(app)
         // first have to get
         .get(`/recommendations/all/${token}`)

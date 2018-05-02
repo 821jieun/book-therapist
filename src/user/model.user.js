@@ -16,8 +16,10 @@ const UserSchema = mongoose.Schema({
     required: true
   },
   firstName: {type: String, default: ''},
-  lastName: {type: String, default: ''}  
+  lastName: {type: String, default: ''}
 });
 
-
+UserSchema.methods.validatePassword = function(password) {
+  return bcrypt.compare(password, this.password);
+};
 module.exports = mongoose.model('User', UserSchema);
