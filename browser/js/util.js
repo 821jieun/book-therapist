@@ -8,7 +8,7 @@ const checkStrLength = (str) => {
 };
 
 const makeDateReadable = (str) => {
-  let dateArr = str.split("-");
+  let dateArr = str.split('-');
   const trimDateDetail = dateArr[2].slice(0, 2);
   const readableDate = `${dateArr[0]}-${dateArr[1]}-${trimDateDetail}`;
   return readableDate;
@@ -17,14 +17,14 @@ const makeDateReadable = (str) => {
 //check if entry even has a title
 //if not, then don't bother displaying the entry
 const checkIfEntryHasTitle = (recArray) => {
-  console.log(recArray, 'recARray in util')
+
   const recArrayWithTitles = [];
+
   recArray.forEach((entry) => {
     if (!(entry.title === 'n/a')) {
       recArrayWithTitles.push(entry)
     }
 
   });
-  console.log(recArrayWithTitles)
   return recArrayWithTitles;
 }

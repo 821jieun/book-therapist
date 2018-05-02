@@ -86,13 +86,11 @@ describe('Recommendations API', function() {
       return chai.request(app)
         .get(`/recommendations/all/${token}`)
         .then(function(res) {
-          // console.log(res.body.recommendations, 'res dot body dot recommendations!!!')
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body.recommendations).to.be.a('array');
           expect(res.body.recommendations.length).to.be.above(0);
           res.body.recommendations.forEach(function(recommendation) {
-            console.log(recommendation, 'recommendation here')
             console.log(Object.keys(recommendation), 'recommendation keys here')
             expect(recommendation).to.be.a('object');
             expect(recommendation).to.include.all.keys('id', 'entryText')
@@ -133,7 +131,6 @@ describe('Recommendations API', function() {
         .post(`/recommendations/create/${token}`)
         .send(newPost)
         .then(function(res) {
-          console.log(res, 'RES INSIDE')
           expect(res).to.have.status(201);
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');

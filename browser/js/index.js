@@ -2,8 +2,8 @@
 // const url = 'http://localhost:8080'
 const url = 'https://book-therapist.herokuapp.com'
 
-$(".clear-results-btn").click(function() {
-  $(".recent-recs").addClass("displayNone");
+$('.clear-results-btn').click(function() {
+  $('.recent-recs').addClass('displayNone');
 });
 
 let showAll = false;
@@ -15,23 +15,23 @@ $(".show-and-hide-btn").click(() => {
   if (showAll) {
     $('.recent-recs').addClass('displayNone');
     $('.all-saved-recs').removeClass('displayNone');
-    $(".show-and-hide-btn").text('hide saved');
+    $('.show-and-hide-btn').text('hide saved');
 
     $('html, body').animate({
-        scrollTop: $(".all-saved-recs").offset().top
+        scrollTop: $('.all-saved-recs').offset().top
     }, 1000);
 
   } else {
-    $(".show-and-hide-btn").text('show saved');
+    $('.show-and-hide-btn').text('show saved');
     $('.all-saved-recs').addClass('displayNone');
 
     $('html, body').animate({
-        scrollTop: $("header").offset().top
+        scrollTop: $('header').offset().top
     }, 1500);
   }
 
     $.ajax({
-      url: `${url}/recommendations/all/${localStorage.getItem("token")}`,
+      url: `${url}/recommendations/all/${localStorage.getItem('token')}`,
       dataType: 'json',
       type: 'GET',
       success: function(data) {
@@ -46,6 +46,7 @@ $(".show-and-hide-btn").click(() => {
 function displayAllEntries(data) {
   let recArray = data.recommendations;
   recArray = checkIfEntryHasTitle(recArray);
+  
   $('.js-all-entries').html('');
 
   recArray.forEach((rec) => {
@@ -95,11 +96,11 @@ function displayAllEntries(data) {
 }
 
 //delete recommendation from saved recommendations
-$(".js-all-entries").on("click", ".delete-button", deleteRecommendation);
+$('.js-all-entries').on('click', '.delete-button', deleteRecommendation);
 
 function deleteRecommendation() {
   const id = $(this).data('id');
-  $(this).closest(".saved-book-rec").remove();
+  $(this).closest('.saved-book-rec').remove();
 
     $.ajax({
       url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`,
@@ -110,7 +111,7 @@ function deleteRecommendation() {
       error: function(err) {
         console.error(err);
       }
-    })
+    });
 }
 
 //listen for click on save button
@@ -127,12 +128,10 @@ function saveBookAndUpdateDb() {
   const bookId = $(this).data('bookId');
   // TODO: allow users to save multiple books per entry (possible solution? change db schema to arrays)
 
-  // TODO: find out if is this a11y-friendly?
   $(this)
     .text('saved!');
 
   //make get call to update db entry for savedbook
-  console.log(url, 'update/ put url here')
     $.ajax({
       url: `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`,
       type: 'PUT',

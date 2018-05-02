@@ -1,23 +1,24 @@
 //cache jQuery variables
-const loginForm = $(".login-form");
-const signupForm = $(".signup-form");
-const signupLink = $(".signup-link");
-const loginLink = $(".login-link");
-const feelingsForm = $(".feelings-form");
-const recentRecs = $(".recent-recs");
-const allSavedRecs = $(".all-saved-recs");
-const logoutBtn = $(".logout-button");
-const btnWrapper = $(".btn-wrapper");
+const loginForm = $('.login-form');
+const signupForm = $('.signup-form');
+const signupLink = $('.signup-link');
+const loginLink = $('.login-link');
+const feelingsForm = $('.feelings-form');
+const recentRecs = $('.recent-recs');
+const allSavedRecs = $('.all-saved-recs');
+const logoutBtn = $('.logout-button');
+const btnWrapper = $('.btn-wrapper');
 const loginUsername = $('#login-username');
 const loginPassword = $('#login-password');
 const signupUsername = $('#signup-username');
 const signupPassword = $('#signup-password');
 const signupFirstname= $('#signup-firstName')
 const signupLastname= $('#signup-lastName');
-const errorMsg = $(".error-message");
+const errorMsg = $('.error-message');
+const loginSignupLogoutNav = $('.nav-with-login-signup-logout');
 
 //user clicks on signup link
-$(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
+loginSignupLogoutNav.on("click", ".signup-link", function() {
   loginForm.addClass('displayNone');
   signupForm.removeClass('displayNone');
 
@@ -25,7 +26,7 @@ $(".nav-with-login-signup-logout").on("click", ".signup-link", function() {
 });
 
 //user clicks on login link
-$(".nav-with-login-signup-logout").on("click", ".login-link", function() {
+loginSignupLogoutNav.on('click', '.login-link', function() {
   loginForm.removeClass('displayNone');
   signupForm.addClass('displayNone');
 
@@ -33,13 +34,13 @@ $(".nav-with-login-signup-logout").on("click", ".login-link", function() {
 });
 
 //when logout button is clicked
-$(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
+loginSignupLogoutNav.on('click', '.logout-button', function() {
   //show quote again
-  $(".intro").removeClass('displayNone');
+  $('.intro').removeClass('displayNone');
 
   //reveal the options to signup and login
-  signupLink.removeClass("displayNone");
-  loginLink.removeClass("displayNone");
+  signupLink.removeClass('displayNone');
+  loginLink.removeClass('displayNone');
 
   //hide feelings entry form and all recent recs and saved recs
   feelingsForm.addClass('displayNone');
@@ -61,7 +62,7 @@ $(".nav-with-login-signup-logout").on("click", ".logout-button", function() {
 });
 
 //user log in form
-$("#js-login-form").submit((e) => {
+$('#js-login-form').submit((e) => {
   e.preventDefault();
   const username = loginUsername.val();
   const password = loginPassword.val();
@@ -104,11 +105,11 @@ $("#js-login-form").submit((e) => {
 //after user logs in
 function onSuccessfulLogin(token, userId, username) {
   //disappear quote
-  $(".intro").addClass("displayNone");
+  $('.intro').addClass('displayNone');
 
   //disappear the links that were for signing up and logging in
-  signupLink.addClass("displayNone");
-  loginLink.addClass("displayNone");
+  signupLink.addClass('displayNone');
+  loginLink.addClass('displayNone');
   signupForm.addClass('displayNone');
   loginForm.addClass('displayNone');
 
@@ -120,9 +121,9 @@ function onSuccessfulLogin(token, userId, username) {
   //reveal the 'show all saved recs' button and 'clear results'
   btnWrapper.removeClass('displayNone');
 
-  localStorage.setItem("token", token);
-  localStorage.setItem("userId", userId);
-  localStorage.setItem("username", username);
+  localStorage.setItem('token', token);
+  localStorage.setItem('userId', userId);
+  localStorage.setItem('username', username);
 
 }
 
@@ -141,7 +142,6 @@ function handleRegisterUserFormSubmit() {
     signupFirstname.val('');
     signupLastname.val('');
 
-    console.log(url, 'url inside register user');
     $.ajax({
         type: 'POST',
         url: `${url}/user/register`,
@@ -166,8 +166,8 @@ function handleRegisterUserFormSubmit() {
 }
 
 function init() {
-  if (localStorage.getItem("token")) {
-    onSuccessfulLogin(localStorage.getItem("token"), localStorage.getItem("userId"), localStorage.getItem("username"));
+  if (localStorage.getItem('token')) {
+    onSuccessfulLogin(localStorage.getItem('token'), localStorage.getItem('userId'), localStorage.getItem('username'));
   }
 }
 

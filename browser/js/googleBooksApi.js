@@ -34,7 +34,7 @@ function displayBookRecommendations(recommendations, id) {
   const results = $('.js-rec-results');
 
   results.empty();
-  console.log(recommendations, 'list of recommendations inside displayBookRecommendations fn')
+
   recommendations.forEach((recommendation, index) => {
     $('.js-rec-results').append(
       `

@@ -6,19 +6,18 @@ exports.verifyToken = (req, res, next) => {
 
   if (!token) {
     res.status(401).json({
-      message: "no token provided"
+      message: 'no token provided'
     })
     return;
   }
   jwt.verify(token, process.env.JWT_SECRET, (err, decodedObj) => {
     if (err) {
       res.status(401).json({
-        message: "token is not valid!"
+        message: 'token is not valid!'
       })
       return;
     }
     req.user = decodedObj;
-    console.log(req.user, 'req dot user here');
     next();
   })
 }
@@ -54,8 +53,6 @@ exports.getRecommendation = (req, res) => {
 };
 
 exports.createRecommendation = (req, res) => {
-  console.log(req, 'req here req here' )
-
   const requiredFields = ['entryText'];
 
   for (let i = 0; i < requiredFields.length; i++) {
@@ -83,7 +80,6 @@ exports.createRecommendation = (req, res) => {
 
 exports.updateRecommendation = (req, res) => {
   // ensure that the id in the request path and the one in request body match
-
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
       `Request path id (${req.params.id}) and request body id ` +
@@ -94,7 +90,6 @@ exports.updateRecommendation = (req, res) => {
 
   const toUpdate = {};
   const updateableFields = ['title', 'description', 'bookId', 'author', 'image'];
-  console.log(toUpdate, 'toupdate here!');
   updateableFields.forEach(field => {
     if (field in req.body) {
       toUpdate[field] = req.body[field];
@@ -102,7 +97,6 @@ exports.updateRecommendation = (req, res) => {
   });
 
   recommendationModel
-    // all key/value pairs in toUpdate will be updated -- that's what `$set` does
     .findByIdAndUpdate(req.params.id, { $set: toUpdate })
     .then(recommendation => res.status(204).end())
     .catch(err => res.status(500).json({ message: 'Internal server error' }));

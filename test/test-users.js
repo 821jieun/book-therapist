@@ -58,7 +58,6 @@ describe('User API', function() {
             }
 
             const res = err.response;
-            console.log(res, 'RES INSIDE TEST USERS')
 
           });
       });
@@ -121,14 +120,9 @@ describe('User API', function() {
              lastName
            })
            .then(res => {
-             // console.log(res, 'RES INSIDE CREATE')
              expect(res).to.have.status(201);
              expect(res.body).to.be.an('object');
-             // expect(res.body.data).to.have.keys(
-             //   'username',
-             //   'firstName',
-             //   'lastName'
-             // );
+  
              expect(res.body.data.username).to.equal(username);
              expect(res.body.data.firstName).to.equal(firstName);
              expect(res.body.data.lastName).to.equal(lastName);
