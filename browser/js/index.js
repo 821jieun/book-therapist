@@ -194,29 +194,6 @@ function handleEntrySubmitForm() {
         console.error(err);
       }
     })
-    //
-    // $.ajax({
-    //   type: 'POST',
-    //   url: `${url}/recommendations/create/${token}`,
-    //   data: {
-    //     "entryText": entryText
-    //   },
-    //   dataType: 'json',
-    //   success: function(data) {
-    //     console.log(data, 'data in front end create function ')
-    //     $('html, body').animate({
-    //       // TODO: figure out why this isn't working!
-    //         scrollTop: $(".recent-recs").offset().top
-    //     }, 1000);
-    //     $('#sentiment-input').val('');
-    //       googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
-    //
-    //   },
-    //   error: function(err) {
-    //     console.error(err);
-    //   }
-    // })
-    //
 
   });
 }

@@ -24,7 +24,7 @@ exports.verifyToken = (req, res, next) => {
 }
 
 exports.getAllRecommendations = (req, res) => {
-  console.log(req, 'req in exports.getAllRecommendations')
+
   recommendationModel
     .find({
       userId: req.user.id})
@@ -42,22 +42,6 @@ exports.getAllRecommendations = (req, res) => {
       res.status(500).json({ message: 'Internal server error'});
     });
 };
-// exports.getAllRecommendations = (req, res) => {
-//   recommendationModel
-//     .find()
-//     .then(recommendations => {
-//
-//       res.json({
-//         recommendations: recommendations.map((recommendation) => {
-//           return recommendation.serialize();
-//         })
-//       })
-//     })
-//     .catch(err => {
-//       console.error(err);
-//       res.status(500).json({ message: 'Internal server error'});
-//     });
-// };
 
 exports.getRecommendation = (req, res) => {
   recommendationModel
@@ -72,7 +56,7 @@ exports.getRecommendation = (req, res) => {
 exports.createRecommendation = (req, res) => {
   console.log(req, 'req here req here' )
 
-  const requiredFields = ['entryText'];
+  const requiredFields = ['entryText', 'userId'];
 
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];

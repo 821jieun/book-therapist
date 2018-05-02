@@ -45,7 +45,7 @@ recommendationSchema.methods.serialize = function() {
     description: this.description || 'n/a',
     entryText: this.entryText,
     image: this.image || 'n/a',
-    userId: this.userId 
+    userId: this.userId  
   };
 }
 

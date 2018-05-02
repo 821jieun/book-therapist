@@ -28,9 +28,9 @@ let server;
 function runServer(databaseUrl = MONGOLAB_URI, port = PORT) {
 
   return new Promise((resolve, reject) => {
-    // mongoose.connect(databaseUrl, err => {
-    mongoose.connect('mongodb://user:password@ds161175.mlab.com:61175/book-therapist', err => {
-      // console.log(databaseUrl, 'database here')
+    mongoose.connect(databaseUrl, err => {
+    // mongoose.connect('mongodb://user:password@ds161175.mlab.com:61175/book-therapist', err => {
+      console.log(databaseUrl, 'database here')
       if (err) {
         return reject(err);
       }

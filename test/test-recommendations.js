@@ -1,17 +1,20 @@
 'use strict';
-
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
-
-const should = chai.should();
 const expect = chai.expect;
+const faker = require('faker');
+const mongoose = require('mongoose');
 
-const recommendationModel = require('../src/recommendation/model.recommendation');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+
 const {app, runServer, closeServer} = require('../server');
-const {TEST_DATABASE_URL} = require('../config');
-console.log(TEST_DATABASE_URL, 'test database url here in tests')
+const {TEST_DATABASE_URL, JWT_SECRET} = require('../config');
+
+const userModel = require('../src/user/model.user');
+const userController = require('../src/user/controller.user');
+const recController = require('../src/recommendation/controller.recommendation');
+const recModel = require('../src/recommendation/model.recommendation');
 
 chai.use(chaiHttp);
 
@@ -24,207 +27,227 @@ function tearDownDb() {
   });
 }
 
-function seedRecData() {
-  console.info('seeding recommendations data');
+function seedRecommendationData() {
+  console.info('seeding recommendation data');
   const seedData = [];
-  for (let i = 1; i <= 6; i++) {
-    seedData.push(generateRecData());
+  for (let i = 1; i <= 10; i++) {
+    seedData.push({
+      entryText: faker.lorem.sentence()
+      // userId: faker.lorem.sentence()
+    });
   }
-  return recommendationModel.insertMany(seedData);
+  // this will return a promise
+  return recModel.insertMany(seedData);
 }
 
-function generateEntryText() {
-  const emotions = 'anger anxiety frustration, anticipation joy nervousness, disgust anger self-loathing, fear shame failure, joy triumph at the same time, sadness lorem ipsum, surprise sensations sensitivity, trust trouble tricks'.split(', ');
-  return emotions[Math.floor(Math.random() * emotions.length)];
-}
-
-function generateTitle() {
-  const titles = 'Lorem ipsum dolor sit amet, ut dolore nullam ius. Ad ius facer nostro patrioque. Vel in unum omnesque salutatus, ad consul noster definiebas vix, eripuit deseruisse ei pro. Sea saperet scriptorem et, pro cu percipit ocurreret dissentiunt. Inani accumsan iracundia no his.'.split(' ');
-  return titles[Math.floor(Math.random() * titles.length)];
-}
-
-function generateAuthor() {
-   const authors = 'Amanda Gaskell, Raven Ebarb, Deeanna Stelling, Loura Bowker, Vonnie Willingham, Aurora Musgrove, Sudie Nau, Fannie Sones, Dacia Heckert'.split(',');
-   return authors[Math.floor(Math.random() * authors.length)];
-
-}
-
-function generateDescription() {
-  const description = 'Adolescens intellegebat eos no, sint postulant his in, nec ea repudiandae interpretaris. An pri causae doctus nominavi, cum vidit partem vivendo an, quo ad lorem repudiare hendrerit. Cu vero accusamus scriptorem usu, legere antiopam mediocritatem an eum. Electram scriptorem no sea, graeco latine argumentum qui ad. Luptatum phaedrum et mei, pro ut quot ubique populo. Vis ne mucius temporibus.'
-  return description;
-}
-
-function generateBookId() {
-  const ids = 'jsd,kad,jfk,sjd,fiw,ejf,lsd,jaf,sdk,fjf,lsk,djf,asl,dkj,fas,ldk,fjs,ldk,fj'.split(',');
-  return ids[Math.floor(Math.random() * ids.length)];
-}
-
-function generateUsername() {
-  const ids = 'a@a.com,b@b.com,c@c.com,d@d.com,e@e.com,f@f.com'.split(',');
-  return ids[Math.floor(Math.random() * ids.length)];
-}
-
-function generateId() {
-  const ids = 'abcdefg,hikjlmnop,qrstuvwx,wz12345,456ljfdlks'.split(',');
-  return ids[Math.floor(Math.random() * ids.length)];
-}
-
-function generateRecData() {
-  return {
-      _id: generateId(),
-      bookId: generateBookId(),
-      title: generateTitle(),
-      author: generateAuthor(),
-      description: generateDescription(),
-      entryText: generateEntryText(),
-      username: generateUsername()
-    }
-}
-
-describe('Recommendations API resource', function() {
+describe('Recommendations API', function() {
 
   before(function() {
     return runServer(TEST_DATABASE_URL);
   });
 
   beforeEach(function() {
-    let userToken = {
-      username: generateRecData().username,
-      id: generateRecData()._id
-    };
-
-    let token = jwt.sign(userToken, process.env.JWT_SECRET);
-
-    return seedRecData();
-  });
-
-  afterEach(function() {
-    return tearDownDb();
+    return seedRecommendationData();
   });
 
   after(function() {
     return closeServer();
   });
 
+  afterEach(function() {
+    // userModel.remove({});
+    tearDownDb();
+  });
 
-  describe('GET endpoint', function() {
-    it('should return all existing recommendations', function() {
-      let res;
-      return chai.request(app)
-        // .get(`/recommendations/all/`)
-        .get(`/recommendations/all/${token}`)
-        .then((_res) => {
-          res = _res;
-          res.should.have.status(200);
-          res.body.recommendations.should.have.lengthOf.at.least(1);
-          return recommendationModel.count();
+  describe(`Recommendations API`, function() {
+    it('should list recommendations for associated user on GET', function() {
+      const username = 'jollyturtle';
+      const password = 'hexagon';
+      const firstName = 'harold';
+      const lastName = 'hoola';
+
+      bcrypt.hash(password, 10)
+      .then(hashed => {
+        userModel.create({
+          username: username,
+          password: hashed,
+          firstName: firstName,
+          lastName: lastName
         })
-        .then((count) => {
-          res.body.recommendations.should.have.lengthOf(count);
-        });
-    });
+      });
 
-    it('should return recommendations with right fields', function() {
-      let resRecommendations;
+      let userToken = {
+        username: userModel.username,
+        id: userModel._id
+      };
+
+      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+
       return chai.request(app)
-        // .get('/recommendations')
         .get(`/recommendations/all/${token}`)
         .then(function(res) {
+          // console.log(res.body.recommendations, 'res dot body dot recommendations!!!')
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body.recommendations).to.be.a('array');
-          expect(res.body.recommendations).to.have.lengthOf.at.least(1);
-
+          expect(res.body.recommendations.length).to.be.above(0);
           res.body.recommendations.forEach(function(recommendation) {
-            expect(recommendation).to.be.a('object')
-            expect(recommendation).to.include.keys('id', 'entryText', 'username')
-
+            console.log(recommendation, 'recommendation here')
+            expect(recommendation).to.be.a('object');
+            expect(recommendation).to.have.all.keys(
+              'id', 'entryText')
           });
-          resRecommendations = res.body.recommendations[0];
-          return recommendationModel.findById(resRecommendations.id);
-        })
-        .then(function(recommendation) {
-          expect(resRecommendations.id).to.equal(recommendation.id);
-          expect(resRecommendations.entryText).to.equal(recommendation.entryText);
         });
     });
-  });
 
-describe('POST endpoint', function() {
-  it('should add a new entryText', function() {
-    const newEntry= {
-      entryText: 'feeling lost and tired'
-    };
+    it('should add a recommendation on POST', function() {
+      const username = 'jollyturtle';
+      const password = 'hexagon';
+      const firstName = 'harold';
+      const lastName = 'hoola';
 
-    return chai.request(app)
-      .post(`/recommendations/create/${token}`)
-      // .post('/recommendations')
-      .send(newEntry)
-      .then(function(res) {
-        expect(res).to.have.status(201);
-        expect(res).to.be.json;
-        expect(res.body).to.be.a('object');
-        expect(res.body).to.include.keys('id', 'entryText');
-        expect(res.body.entryText).to.equal(newEntry.entryText);
-        expect(res.body.id).to.not.be.null;
-        return recommendationModel.findById(res.body.id);
-      })
-      .then(function(recommendation) {
-        expect(recommendation.entryText).to.equal(newEntry.entryText);
-      });
-  });
-});
-
-describe('PUT endpoint', function() {
-  it('should update fields', function() {
-    const updateData = {
-      title: 'the odyssey',
-      author: 'homer',
-      description: 'tired man trying to get home',
-      bookId: 'lmno'
-    };
-
-    return recommendationModel
-      .findOne()
-      .then(function(recommendation) {
-        updateData.id = recommendation.id;
-        return chai.request(app)
-          .put(`/recommendations/update/${recommendation.id}/${token}`)
-          // .put(`/recommendations/${recommendation.id}`)
-          .send(updateData);
-      })
-      .then(function(res) {
-        expect(res).to.have.status(204);
-        return recommendationModel.findById(updateData.id);
-      })
-      .then(function(recommendation) {
-        expect(recommendation.title).to.equal(updateData.title);
-        expect(recommendation.author).to.equal(updateData.author);
-        expect(recommendation.description).to.equal(updateData.description);
-        expect(recommendation.bookId).to.equal(updateData.bookId);
-      });
-  });
-});
-
-  describe('DELETE endpoint', function() {
-    it('delete a recommendation by id', function() {
-      let recommendation;
-
-      return recommendationModel
-        .findOne()
-        .then(function(_recommendation) {
-          recommendation = _recommendation;
-          return chai.request(app).delete(`/recommendations/delete/${recommendation.id}/${token}`);
-          // return chai.request(app).delete(`/recommendations/${recommendation.id}`);
+      bcrypt.hash(password, 10)
+      .then(hashed => {
+        userModel.create({
+          username: username,
+          password: hashed,
+          firstName: firstName,
+          lastName: lastName
         })
+      });
+
+      let userToken = {
+        username: userModel.username,
+        id: userModel._id
+      };
+
+      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+
+      const newPost = {
+        entryText: faker.lorem.sentence(),
+        userId: faker.lorem.sentence()
+      };
+
+      return chai.request(app)
+        .post(`/recommendations/create/${token}`)
+        .send(newPost)
         .then(function(res) {
-          expect(res).to.have.status(204);
-          return recommendationModel.findById(recommendation.id);
-        })
-        .then(function(_recommendation) {
-          expect(_recommendation).to.be.null;
+          console.log(res, 'RES INSIDE')
+          expect(res).to.have.status(201);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('object');
+          expect(res.body.entryText).to.equal(newPost.entryText);
+          // expect(res.body.userId).to.equal(newPost.userId);
         });
     });
+    //
+    it('should error if POST missing expected values', function() {
+      const username = 'jollyturtle';
+      const password = 'hexagon';
+      const firstName = 'harold';
+      const lastName = 'hoola';
+
+      bcrypt.hash(password, 10)
+      .then(hashed => {
+        userModel.create({
+          username: username,
+          password: hashed,
+          firstName: firstName,
+          lastName: lastName
+        })
+      });
+
+      let userToken = {
+        username: userModel.username,
+        id: userModel._id
+      };
+
+      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+
+      const badRequestData = {};
+      return chai.request(app)
+        .post(`/recommendations/create/${token}`)
+        .send(badRequestData)
+        .catch(function(res) {
+          expect(res).to.have.status(400);
+        });
+    });
+    //
+    it('should update recommendation on PUT', function() {
+      const username = 'jollyturtle';
+      const password = 'hexagon';
+      const firstName = 'harold';
+      const lastName = 'hoola';
+
+      bcrypt.hash(password, 10)
+      .then(hashed => {
+        userModel.create({
+          username: username,
+          password: hashed,
+          firstName: firstName,
+          lastName: lastName
+        })
+      });
+
+      let userToken = {
+        username: userModel.username,
+        id: userModel._id
+      };
+
+      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+
+      return chai.request(app)
+        // first have to get
+        .get(`/recommendations/all/${token}`)
+        .then(function(res) {
+          const updatedRec = Object.assign(res.body.recommendations[0], {
+            title: faker.lorem.sentence(),
+            author: faker.name.firstName(),
+          });
+          return chai.request(app)
+            .put(`/recommendations/update/${res.body.recommendations[0].id}/${token}`)
+            .send(updatedRec)
+            .then(function(res) {
+              expect(res).to.have.status(204);
+            });
+        });
+    });
+
+    it('should delete posts on DELETE', function() {
+      const username = 'jollyturtle';
+      const password = 'hexagon';
+      const firstName = 'harold';
+      const lastName = 'hoola';
+
+      bcrypt.hash(password, 10)
+      .then(hashed => {
+        userModel.create({
+          username: username,
+          password: hashed,
+          firstName: firstName,
+          lastName: lastName
+        })
+      });
+
+      let userToken = {
+        username: userModel.username,
+        id: userModel._id
+      };
+
+      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+      
+      return chai.request(app)
+        // first have to get
+        .get(`/recommendations/all/${token}`)
+        .then(function(res) {
+          return chai.request(app)
+            .delete(`/recommendations/delete/${res.body.recommendations[0].id}/${token}`)
+            .then(function(res) {
+              expect(res).to.have.status(204);
+            });
+        });
+    });
+
   });
-//
+
 });
