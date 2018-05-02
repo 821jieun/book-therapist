@@ -23,8 +23,6 @@ ul {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    /* background-color: #e0e0e0; */
-    /* background-color: #e1f5fe; */
 }
 
 li {
@@ -237,13 +235,13 @@ form {
   .book-component {
     width: 100%;
   }
-}
 
-#js-login-form, #js-signup-form {
-  margin-left: 160px;
-  margin-top: 10px;
-  padding: 10px;
-  margin-bottom: 50px;
+  #js-login-form, #js-signup-form {
+    margin-left: 160px;
+    margin-top: 10px;
+    padding: 10px;
+    margin-bottom: 50px;
+  }
 }
 
 .login-button, .signup-button {
