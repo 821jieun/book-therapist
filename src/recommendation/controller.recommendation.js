@@ -56,7 +56,7 @@ exports.getRecommendation = (req, res) => {
 exports.createRecommendation = (req, res) => {
   console.log(req, 'req here req here' )
 
-  const requiredFields = ['entryText', 'userId'];
+  const requiredFields = ['entryText'];
 
   for (let i = 0; i < requiredFields.length; i++) {
     const field = requiredFields[i];
