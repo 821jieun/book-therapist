@@ -158,8 +158,12 @@ function handleRegisterUserFormSubmit() {
           console.log(data)
         },
         error: function(err) {
+          const errorMessage = 'uh oh! something went awry...please try again';
+          const outputElem = $('.error-message');
+          outputElem
+            .prop('hidden', false)
+            .html(`<p>${errorMessage}</p>`);
           console.error(err);
-
         }
     });
   });
