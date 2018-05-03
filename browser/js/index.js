@@ -46,7 +46,7 @@ $(".show-and-hide-btn").click(() => {
 function displayAllEntries(data) {
   let recArray = data.recommendations;
   recArray = checkIfEntryHasTitle(recArray);
-  
+
   $('.js-all-entries').html('');
 
   recArray.forEach((rec) => {
@@ -119,6 +119,11 @@ $(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
 
 //update entryText with saved book information
 function saveBookAndUpdateDb() {
+  //an array of book objects
+  //each time 'saved' is clicked,
+  //the book object is pushed into array of books objects
+  //how do i ensure savedBooks is not reset to an empty array each time save-book-button is clicked 
+  const savedBooks = [];
   const title = $(this).data('title');
   const publishDate = $(this).data('publishDate');
   const author = $(this).data('author');
