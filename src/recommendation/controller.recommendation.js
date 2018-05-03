@@ -27,7 +27,7 @@ exports.getAllRecommendations = (req, res) => {
   recommendationModel
     .find({
       userId: req.user.id})
-    .populate('userId', 'username')
+    .populate('userId')
     .then(recommendations => {
 
       res.json({
@@ -78,7 +78,7 @@ exports.createRecommendation = (req, res) => {
 };
 
 
-exports.updateRecommendation = (req, res) => {
+exports.addABookToRecommendation = (req, res) => {
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
@@ -97,8 +97,12 @@ exports.updateRecommendation = (req, res) => {
   });
 
   recommendationModel
-    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
-    .then(recommendation => res.status(204).end())
+    .findByIdAndUpdate(req.params.id, { $push: {books: toUpdate }})
+    // .then(recommendation => res.status(204).end())
+    .then(recommendation => {
+      console.log(recommendation, 'RECOMMENDATION in addABookToRecommendation')
+      res.status(204).end()
+    })
     .catch(err => res.status(500).json({ message: 'Internal server error' }));
 };
 

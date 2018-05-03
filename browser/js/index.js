@@ -1,6 +1,6 @@
 
-// const url = 'http://localhost:8080'
-const url = 'https://book-therapist.herokuapp.com'
+const url = 'http://localhost:8080'
+// const url = 'https://book-therapist.herokuapp.com'
 
 $('.clear-results-btn').click(function() {
   $('.recent-recs').addClass('displayNone');
@@ -43,56 +43,86 @@ $(".show-and-hide-btn").click(() => {
     });
 });
 
+// trying this out, see all books thing
+// let seeAllBooks = false;
+// $('.js-all-entries').on('click', '.see-all-books', toggleBookVisibility);
+//
+// function toggleBookVisibility () {
+//   const id = $(this).data('id');
+//
+//   seeAllBooks = !seeAllBooks;
+//   if (seeAllBooks) {
+//     $(this).closest('.all-books').removeClass('displayNone');
+//     $(this).closest('button').text('hide books');
+//   } else {
+//     $('.all-books').addClass('displayNone');
+//     $('.see-all-books').text('see all books');
+//   }
+//
+// }
 function displayAllEntries(data) {
   let recArray = data.recommendations;
-  recArray = checkIfEntryHasTitle(recArray);
-  
+  // console.log(recArray, 'recArray in displayAllEntries');
+  // recArray = checkIfEntryHasBookTitle(recArray);
+
   $('.js-all-entries').html('');
 
   recArray.forEach((rec) => {
-    let description = rec.description;
-    description = checkStrLength(description);
-
     let date = rec.publishDate;
     date = makeDateReadable(date);
-
-    const {id, entryText, title, author, image} = rec;
-
-    const body = encodeURIComponent(`
-    Title: ${title}
-
-    Author: ${author}
-
-    Description: ${description}
-
-    `);
-
-    const subject = encodeURIComponent('i thought this book might be of interest to you!');
-    const href = `mailto:email@email.com?subject=${subject}&body=${body}`
-
-    $('.js-all-entries').prepend(
-      `
-      <div class="saved-book-rec">
-        <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
-        <div class="book-component"><p class="date">Date: ${date}</p></div>
-        <div class="book-component title"><p class="title">Title: ${title}</p></div>
-        <div class="book-component author"><p class="author">Author: ${author}</p></div>
-        <div class="book-component"><p class="description">Description: ${description}</p></div>
-        <div class="thumbnail-image book-component">
-          <img src="${image}" alt="image of ${title}">
+    //get entryText, id
+    const { entryText, id } = rec;
+    $('.js-all-entries').append(`
+        <div class="saved-book-rec">
+          <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
+          <div class="book-component"><p class="date">Date: ${date}</p></div>
+          <div class="book-component interactive"><button data-id=${rec.id} class="see-all-books">see all books</button></div>
         </div>
-        <br />
-        <div class=button-and-links>
-          <div class="book-component interactive"><button data-id=${id} class="delete-button">delete</button></div>
-          <div class="book-component interactive"><a href=${href} data-id=${rec.id} class="email-link">share</a></div>
-          <div class="book-component interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${rec.id} class="get-book-link">get</a></div>
+        <div class="all-books displayNone" data-id=${rec.id}>
         </div>
-      </div>
-      `
-      // TODO: how to prepopulate search field with title name in .get-book-link in line 92?
+      `)
+      //another loop to iterate through the books array to extract the title, author, description, image for each book
+      // books = extractBookInformation(rec.books);
 
-    )
-  })
+      rec.books.forEach((book) => {
+
+        let description = book.description;
+        description = checkStrLength(description);
+
+        const {title, author, image} = book;
+
+        const body = encodeURIComponent(`
+        Title: ${title}
+
+        Author: ${author}
+
+        Description: ${description}
+
+        `);
+
+        const subject = encodeURIComponent('i thought this book might be of interest to you!');
+        const href = `mailto:email@email.com?subject=${subject}&body=${body}`
+
+        $(`div[data-id = ${id}]`).append(`
+          <div class="book">
+            <div class="book-component title"><p class="title">Title: ${title}</p></div>
+            <div class="book-component author"><p class="author">Author: ${author}</p></div>
+            <div class="book-component"><p class="description">Description: ${description}</p></div>
+            <div class="thumbnail-image book-component">
+              <img src="${image}" alt="image of ${title}">
+            </div>
+            <br />
+            <div class=button-and-links>
+              <div class="book-component interactive"><button data-id=${rec.id} class="delete-button">delete</button></div>
+              <div class="book-component interactive"><a href=${href} data-id=${rec.id} class="email-link">share</a></div>
+              <div class="book-component interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${rec.id} class="get-book-link">get</a></div>
+            </div>
+          </div>
+          `)
+      });
+
+
+  });
 }
 
 //delete recommendation from saved recommendations
@@ -100,7 +130,7 @@ $('.js-all-entries').on('click', '.delete-button', deleteRecommendation);
 
 function deleteRecommendation() {
   const id = $(this).data('id');
-  $(this).closest('.saved-book-rec').remove();
+  $(this).closest('.book').remove();
 
     $.ajax({
       url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`,
@@ -119,6 +149,7 @@ $(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
 
 //update entryText with saved book information
 function saveBookAndUpdateDb() {
+
   const title = $(this).data('title');
   const publishDate = $(this).data('publishDate');
   const author = $(this).data('author');
@@ -126,7 +157,6 @@ function saveBookAndUpdateDb() {
   const image = $(this).data('image');
   const id = $(this).data('id');
   const bookId = $(this).data('bookId');
-  // TODO: allow users to save multiple books per entry (possible solution? change db schema to arrays)
 
   $(this)
     .text('saved!');
