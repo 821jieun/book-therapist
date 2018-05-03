@@ -9,6 +9,8 @@ $('.clear-results-btn').click(function() {
 let showAll = false;
 //get all saved recommendations
 $(".show-and-hide-btn").click(() => {
+  // $('.all-books')
+  //   .prop('hidden', true);
 
   showAll = !showAll;
 
@@ -43,23 +45,23 @@ $(".show-and-hide-btn").click(() => {
     });
 });
 
-// trying this out, see all books thing
-// let seeAllBooks = false;
-// $('.js-all-entries').on('click', '.see-all-books', toggleBookVisibility);
+// see all books belonging to a particular feelings entry
+$('.js-all-entries').on('click', '.see-and-hide-all-books', toggleBookVisibility);
 //
-// function toggleBookVisibility () {
-//   const id = $(this).data('id');
-//
-//   seeAllBooks = !seeAllBooks;
-//   if (seeAllBooks) {
-//     $(this).closest('.all-books').removeClass('displayNone');
-//     $(this).closest('button').text('hide books');
-//   } else {
-//     $('.all-books').addClass('displayNone');
-//     $('.see-all-books').text('see all books');
-//   }
-//
-// }
+function toggleBookVisibility () {
+  const id = $(this).data('id');
+
+  let buttonText = $(`.see-and-hide-all-books[data-id =${id}]`).text();
+
+  if (buttonText == "see all books") {
+    $(`.saved-book-rec[data-id = ${id}]`).find('.book').removeClass('displayNone');
+    $(`.see-and-hide-all-books[data-id =${id}]`).text('hide all books');
+  } else {
+    $(`.saved-book-rec[data-id = ${id}]`).find('.book').addClass('displayNone');
+    $(`.see-and-hide-all-books[data-id =${id}]`).text('see all books');
+  }
+}
+
 function displayAllEntries(data) {
   let recArray = data.recommendations;
 
@@ -71,18 +73,18 @@ function displayAllEntries(data) {
     //get entryText, id
     const { entryText, id } = rec;
     $('.js-all-entries').prepend(`
-        <div class="saved-book-rec">
+        <div class="saved-book-rec" data-id=${rec.id}>
           <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
           <div class="book-component"><p class="date">Date: ${date}</p></div>
-          <div class="book-component interactive"><button data-id=${id} class="see-all-books">see all books</button></div>
-          <div class="book-component interactive"><button data-id=${id} class="delete-entry-button">delete</button></div>
+          <div class="book-component interactive"><button data-id=${id} class="see-and-hide-all-books">see all books</button></div>
+          <div class="book-component interactive"><button data-id=${id} class="delete-button">delete entire entry</button></div>
         </div>
-        <div class="all-books displayNone" data-id=${rec.id}>
+        <div class="all-books" data-id=${rec.id}>
         </div>
       `)
+
       //another loop to iterate through the books array in each entry to
       //extract the title, author, description, image for each book
-
       rec.books.forEach((book) => {
 
         let description = book.description;
@@ -103,7 +105,7 @@ function displayAllEntries(data) {
         const href = `mailto:email@email.com?subject=${subject}&body=${body}`
 
         $(`div[data-id = ${id}]`).append(`
-          <div class="book">
+          <div class="book displayNone">
             <div class="book-component title"><p class="title">Title: ${title}</p></div>
             <div class="book-component author"><p class="author">Author: ${author}</p></div>
             <div class="book-component"><p class="description">Description: ${description}</p></div>
@@ -112,7 +114,7 @@ function displayAllEntries(data) {
             </div>
             <br />
             <div class=button-and-links>
-              <div class="book-component interactive"><button data-id=${rec.id} class="delete-button">delete</button></div>
+              <div class="book-component interactive"><button data-id=${rec.id} class="delete-single-book-button">delete book</button></div>
               <div class="book-component interactive"><a href=${href} data-id=${rec.id} class="email-link">share</a></div>
               <div class="book-component interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${rec.id} class="get-book-link">get</a></div>
             </div>
@@ -127,7 +129,9 @@ $('.js-all-entries').on('click', '.delete-button', deleteRecommendation);
 
 function deleteRecommendation() {
   const id = $(this).data('id');
-  $(this).closest('.book').remove();
+  // $(this).closest('.book').remove();
+  // $(this).closest('.saved-book-rec').remove();
+  $(`.saved-book-rec[data-id = ${id}]`).remove();
 
     $.ajax({
       url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`,
@@ -186,8 +190,9 @@ function handleEntrySubmitForm() {
 
   const entryText = $('#sentiment-input').val();
 
-  $(".all-saved-recs").addClass('displayNone');
-  $(".recent-recs").removeClass('displayNone');
+  $('.all-saved-recs').addClass('displayNone');
+  // $('.show-and-hide-btn').text('show saved');
+  $('.recent-recs').removeClass('displayNone');
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
@@ -209,7 +214,6 @@ function handleEntrySubmitForm() {
       success: function(data) {
         console.log(data, 'data in front end create function ')
         $('html, body').animate({
-          // TODO: figure out why this isn't working!
             scrollTop: $(".recent-recs").offset().top
         }, 1000);
         $('#sentiment-input').val('');

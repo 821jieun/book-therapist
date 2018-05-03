@@ -24,7 +24,8 @@ const  recommendationSchema = mongoose.Schema({
 recommendationSchema.methods.serialize = function() {
 
   return {
-      id: this._id,
+    id: this._id,
+    bookId: this.bookId,
     publishDate: this.publishDate || 'n/a',
     entryText: this.entryText,
     userId: this.userId,

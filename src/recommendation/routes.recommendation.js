@@ -14,5 +14,6 @@ router.get('/all/:token', recController.verifyToken, recController.getAllRecomme
 router.post('/create/:token', recController.verifyToken, recController.createRecommendation);
 router.put('/update/:id/:token', recController.verifyToken, recController.addABookToRecommendation);
 router.delete('/delete/:id/:token', recController.verifyToken, recController.deleteRecommendation);
+// router.delete('/delete/:id/:token', recController.verifyToken, recController.deleteRecommendation);
 
 module.exports = router;

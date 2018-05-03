@@ -9,6 +9,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
       type: 'GET',
       success: function(data) {
         const recommendations = [];
+        console.log(data, 'data')
         data.items.forEach((result, index) => {
           const bookData = {
             title: result.volumeInfo.title || 'n/a',
@@ -21,6 +22,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
           }
           recommendations.push(bookData);
         });
+        console.log(recommendations, 'recommendations from google api')
         displayBookRecommendations(recommendations, id)
       },
       error: function(err) {
@@ -30,12 +32,13 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
 }
 
 function displayBookRecommendations(recommendations, id) {
-  // TODO:why does checkStrLength() work sometimes and not other times?
+
   const results = $('.js-rec-results');
 
   results.empty();
-
+console.log(recommendations)
   recommendations.forEach((recommendation, index) => {
+
     $('.js-rec-results').append(
       `
       <div class="book-rec">
@@ -52,7 +55,7 @@ function displayBookRecommendations(recommendations, id) {
       </div>
       <br />
       <div class="book-component">
-        <button class="save-book-button" data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+        <button class="save-book-button" book-id=${recommendation.bookId} data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
         </div>
       </div>
       `
