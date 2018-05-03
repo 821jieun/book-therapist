@@ -62,8 +62,6 @@ $(".show-and-hide-btn").click(() => {
 // }
 function displayAllEntries(data) {
   let recArray = data.recommendations;
-  // console.log(recArray, 'recArray in displayAllEntries');
-  // recArray = checkIfEntryHasBookTitle(recArray);
 
   $('.js-all-entries').html('');
 
@@ -72,17 +70,18 @@ function displayAllEntries(data) {
     date = makeDateReadable(date);
     //get entryText, id
     const { entryText, id } = rec;
-    $('.js-all-entries').append(`
+    $('.js-all-entries').prepend(`
         <div class="saved-book-rec">
           <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
           <div class="book-component"><p class="date">Date: ${date}</p></div>
-          <div class="book-component interactive"><button data-id=${rec.id} class="see-all-books">see all books</button></div>
+          <div class="book-component interactive"><button data-id=${id} class="see-all-books">see all books</button></div>
+          <div class="book-component interactive"><button data-id=${id} class="delete-entry-button">delete</button></div>
         </div>
         <div class="all-books displayNone" data-id=${rec.id}>
         </div>
       `)
-      //another loop to iterate through the books array to extract the title, author, description, image for each book
-      // books = extractBookInformation(rec.books);
+      //another loop to iterate through the books array in each entry to
+      //extract the title, author, description, image for each book
 
       rec.books.forEach((book) => {
 
@@ -120,8 +119,6 @@ function displayAllEntries(data) {
           </div>
           `)
       });
-
-
   });
 }
 
