@@ -6,31 +6,57 @@ $('.clear-results-btn').click(function() {
   $('.recent-recs').addClass('displayNone');
 });
 
-let showAll = false;
-//get all saved recommendations
-$(".show-and-hide-btn").click(() => {
-  // $('.all-books')
-  //   .prop('hidden', true);
 
-  showAll = !showAll;
+$('.show-and-hide-btn').click(() => {
+  //
 
-  if (showAll) {
-    $('.recent-recs').addClass('displayNone');
-    $('.all-saved-recs').removeClass('displayNone');
-    $('.show-and-hide-btn').text('hide saved');
+    const id = $(this).data('id');
 
-    $('html, body').animate({
-        scrollTop: $('.all-saved-recs').offset().top
-    }, 1000);
+    let buttonText = $('.show-and-hide-btn').text();
 
-  } else {
-    $('.show-and-hide-btn').text('show saved');
-    $('.all-saved-recs').addClass('displayNone');
+    if (buttonText == "show saved") {
+      $('html, body').animate({
+          scrollTop: $('.all-saved-recs').offset().top
+      }, 1000);
 
-    $('html, body').animate({
-        scrollTop: $('header').offset().top
-    }, 1500);
-  }
+      $('.recent-recs').addClass('displayNone');
+      $('.all-saved-recs').removeClass('displayNone');
+      $('.show-and-hide-btn').text("hide saved");
+
+
+    } else {
+      $('.all-saved-recs').addClass('displayNone');
+      $('.show-and-hide-btn').text("show saved");
+
+      $('html, body').animate({
+          scrollTop: $('header').offset().top
+      }, 1500);
+    }
+
+
+// let showAll = false;
+// //get all saved recommendations
+// $(".show-and-hide-btn").click(() => {
+//
+//   showAll = !showAll;
+//
+//   if (showAll) {
+//     $('.recent-recs').addClass('displayNone');
+//     $('.all-saved-recs').removeClass('displayNone');
+//     $('.show-and-hide-btn').text('hide saved');
+//
+//     $('html, body').animate({
+//         scrollTop: $('.all-saved-recs').offset().top
+//     }, 1000);
+//
+//   } else {
+//     $('.show-and-hide-btn').text('show saved');
+//     $('.all-saved-recs').addClass('displayNone');
+//
+//     $('html, body').animate({
+//         scrollTop: $('header').offset().top
+//     }, 1500);
+//   }
 
     $.ajax({
       url: `${url}/recommendations/all/${localStorage.getItem('token')}`,
