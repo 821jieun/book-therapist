@@ -30,7 +30,6 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
 }
 
 function displayBookRecommendations(recommendations, id) {
-  // TODO:why does checkStrLength() work sometimes and not other times?
   const results = $('.js-rec-results');
 
   results.empty();

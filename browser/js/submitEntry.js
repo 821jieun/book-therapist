@@ -86,7 +86,6 @@ function handleEntrySubmitForm() {
   event.preventDefault();
   const entryText = $('#sentiment-input').val();
   $('#sentiment-input').val('');
-  //TODO: create a post with this entryText in the database
   extractEntities(entryText)
 });
 }

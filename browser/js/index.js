@@ -89,8 +89,6 @@ function displayAllEntries(data) {
         </div>
       </div>
       `
-      // TODO: how to prepopulate search field with title name in .get-book-link in line 92?
-
     )
   })
 }
@@ -119,11 +117,7 @@ $(".js-rec-results").on('click', '.save-book-button', saveBookAndUpdateDb);
 
 //update entryText with saved book information
 function saveBookAndUpdateDb() {
-  //an array of book objects
-  //each time 'saved' is clicked,
-  //the book object is pushed into array of books objects
-  //how do i ensure savedBooks is not reset to an empty array each time save-book-button is clicked 
-  const savedBooks = [];
+
   const title = $(this).data('title');
   const publishDate = $(this).data('publishDate');
   const author = $(this).data('author');
@@ -131,7 +125,6 @@ function saveBookAndUpdateDb() {
   const image = $(this).data('image');
   const id = $(this).data('id');
   const bookId = $(this).data('bookId');
-  // TODO: allow users to save multiple books per entry (possible solution? change db schema to arrays)
 
   $(this)
     .text('saved!');
@@ -187,7 +180,6 @@ function handleEntrySubmitForm() {
       success: function(data) {
         console.log(data, 'data in front end create function ')
         $('html, body').animate({
-          // TODO: figure out why this isn't working!
             scrollTop: $(".recent-recs").offset().top
         }, 1000);
         $('#sentiment-input').val('');
