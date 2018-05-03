@@ -14,49 +14,24 @@ $('.show-and-hide-btn').click(() => {
 
     let buttonText = $('.show-and-hide-btn').text();
 
-    if (buttonText == "show saved") {
+    if (buttonText == "show all entries") {
       $('html, body').animate({
           scrollTop: $('.all-saved-recs').offset().top
       }, 1000);
 
       $('.recent-recs').addClass('displayNone');
       $('.all-saved-recs').removeClass('displayNone');
-      $('.show-and-hide-btn').text("hide saved");
+      $('.show-and-hide-btn').text("hide entries");
 
 
     } else {
       $('.all-saved-recs').addClass('displayNone');
-      $('.show-and-hide-btn').text("show saved");
+      $('.show-and-hide-btn').text("show all entries");
 
       $('html, body').animate({
           scrollTop: $('header').offset().top
       }, 1500);
     }
-
-
-// let showAll = false;
-// //get all saved recommendations
-// $(".show-and-hide-btn").click(() => {
-//
-//   showAll = !showAll;
-//
-//   if (showAll) {
-//     $('.recent-recs').addClass('displayNone');
-//     $('.all-saved-recs').removeClass('displayNone');
-//     $('.show-and-hide-btn').text('hide saved');
-//
-//     $('html, body').animate({
-//         scrollTop: $('.all-saved-recs').offset().top
-//     }, 1000);
-//
-//   } else {
-//     $('.show-and-hide-btn').text('show saved');
-//     $('.all-saved-recs').addClass('displayNone');
-//
-//     $('html, body').animate({
-//         scrollTop: $('header').offset().top
-//     }, 1500);
-//   }
 
     $.ajax({
       url: `${url}/recommendations/all/${localStorage.getItem('token')}`,
@@ -96,6 +71,7 @@ function displayAllEntries(data) {
   recArray.forEach((rec) => {
     let date = rec.publishDate;
     date = makeDateReadable(date);
+
     //get entryText, id
     const { entryText, id } = rec;
     $('.js-all-entries').prepend(`
