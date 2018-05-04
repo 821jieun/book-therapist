@@ -9,7 +9,6 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
       type: 'GET',
       success: function(data) {
         const recommendations = [];
-        console.log(data, 'data')
         data.items.forEach((result, index) => {
           const bookData = {
             title: result.volumeInfo.title || 'n/a',
@@ -36,9 +35,8 @@ function displayBookRecommendations(recommendations, id) {
   const results = $('.js-rec-results');
 
   results.empty();
-console.log(recommendations)
-  recommendations.forEach((recommendation, index) => {
 
+  recommendations.forEach((recommendation, index) => {
     $('.js-rec-results').append(
       `
       <div class="book-rec">
@@ -55,7 +53,7 @@ console.log(recommendations)
       </div>
       <br />
       <div class="book-component">
-        <button class="save-book-button" book-id=${recommendation.bookId} data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+        <button class="save-book-button" bookid=${recommendation.bookId} data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
         </div>
       </div>
       `

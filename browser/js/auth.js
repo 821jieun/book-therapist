@@ -107,6 +107,9 @@ function onSuccessfulLogin(token, userId, username) {
   //disappear quote
   $('.intro').addClass('displayNone');
 
+  //make sure button displays correct text
+  $('.show-and-hide-btn').text('show all entries')
+
   //disappear the links that were for signing up and logging in
   signupLink.addClass('displayNone');
   loginLink.addClass('displayNone');

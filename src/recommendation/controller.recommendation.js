@@ -27,11 +27,12 @@ exports.getAllRecommendations = (req, res) => {
   recommendationModel
     .find({
       userId: req.user.id})
-    .populate('userId')
+    .populate('userId', 'username')
     .then(recommendations => {
 
       res.json({
         recommendations: recommendations.map((recommendation) => {
+          console.log(recommendations, 'recommendations inside getall')
           return recommendation.serialize();
         })
       })
@@ -77,6 +78,33 @@ exports.createRecommendation = (req, res) => {
     });
 };
 
+exports.deleteSingleBook = (req, res) => {
+console.log(req.params, 'deleteSingleBook reqdotparams')
+console.log(req.params.token, 'deleteSingleBook reqdotparamsdottoken')
+console.log(req.param('bookId'), 'deleteSingleBook reqdot PARAM bookID')
+const bookId = req.param('bookId');
+//   db.test.findOneAndUpdate(
+//     { "sections._id" : ObjectId("56fea43a571332cc97e06d9e") },
+//     { "$pull": { "sections.$.registered": "e3d65a4e-2552-4995-ac5a-3c5180258d87" } }
+// )
+console.log(bookId)
+  recommendationModel
+  // .find(
+  //   { books: { $elemMatch: {bookId: bookId }}}
+  // )
+  // .findOneAndUpdate(
+  //   {"books._bookId": req.bookId},
+  //   {"$pull": { "books.$.bookId": bookId}}
+  // )
+  .update(
+    { },
+    { $pull: { books: { $in: [ bookId ] }}} 
+  )
+    .then(recommendation => {
+      res.status(204).end()
+    })
+    .catch(err => res.status(500).json({ message: 'Internal server error' }));
+}
 
 exports.addABookToRecommendation = (req, res) => {
   // ensure that the id in the request path and the one in request body match

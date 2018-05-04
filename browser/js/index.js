@@ -73,7 +73,8 @@ function displayAllEntries(data) {
     date = makeDateReadable(date);
 
     //get entryText, id
-    const { entryText, id } = rec;
+    const { entryText, id} = rec;
+    console.log(rec, 'rec inside displayall');
     $('.js-all-entries').prepend(`
         <div class="saved-book-rec" data-id=${rec.id}>
           <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
@@ -92,8 +93,7 @@ function displayAllEntries(data) {
         let description = book.description;
         description = checkStrLength(description);
 
-        const {title, author, image} = book;
-
+        const {title, author, image, bookId} = book;
         const body = encodeURIComponent(`
         Title: ${title}
 
@@ -116,7 +116,7 @@ function displayAllEntries(data) {
             </div>
             <br />
             <div class=button-and-links>
-              <div class="book-component interactive"><button data-id=${rec.id} class="delete-single-book-button">delete book</button></div>
+              <div class="book-component interactive"><button data-bookid=${bookId} data-id=${id} class="delete-single-book-button">delete book</button></div>
               <div class="book-component interactive"><a href=${href} data-id=${rec.id} class="email-link">share</a></div>
               <div class="book-component interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${rec.id} class="get-book-link">get</a></div>
             </div>
@@ -125,6 +125,27 @@ function displayAllEntries(data) {
       });
   });
 }
+//
+$('.js-all-entries').on('click', '.delete-single-book-button', deleteSingleBook);
+
+function deleteSingleBook() {
+  console.log('inside delete single book')
+  const bookId = $(this).data('bookid');
+  // console.log(bookId, 'bookId');
+  // $(`.book[data-bookid = ${bookId}]`).remove();
+
+      $.ajax({
+        url: `${url}/recommendations/delete/singlebook/${bookId}/${localStorage.getItem("token")}`,
+        type: 'DELETE',
+        success: function(data) {
+          console.log('successfully deleted!');
+        },
+        error: function(err) {
+          console.error(err);
+        }
+      });
+}
+
 
 //delete recommendation from saved recommendations
 $('.js-all-entries').on('click', '.delete-button', deleteRecommendation);
@@ -159,7 +180,7 @@ function saveBookAndUpdateDb() {
   const description = $(this).data('description');
   const image = $(this).data('image');
   const id = $(this).data('id');
-  const bookId = $(this).data('bookId');
+  const bookId = $(this).data('bookid');
 
   $(this)
     .text('saved!');
