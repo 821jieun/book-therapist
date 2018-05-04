@@ -240,8 +240,7 @@ describe('Recommendations API', function() {
         // first have to get
         .get(`/recommendations/all/${token}`)
         .then(function(res) {
-          console.log(res, 'res inside delete test')
-          console.log(res.body, 'res dot body inside delete test')
+          
           return chai.request(app)
             .delete(`/recommendations/delete/${res.body.recommendations[0].id}/${token}`)
             .then(function(res) {

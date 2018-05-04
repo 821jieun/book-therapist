@@ -84,8 +84,6 @@ exports.deleteSingleBook = (req, res) => {
 const bookId = req.params.bookId;
 const recommendationId = req.params.id;
 
-console.log(bookId, 'bookId here')
-console.log(recommendationId, 'rec id here')
   recommendationModel
     .findByIdAndUpdate(
       recommendationId,
@@ -122,7 +120,6 @@ exports.addABookToRecommendation = (req, res) => {
     .findByIdAndUpdate(req.params.id, { $push: {books: toUpdate }})
     // .then(recommendation => res.status(204).end())
     .then(recommendation => {
-      console.log(recommendation, 'RECOMMENDATION in addABookToRecommendation')
       res.status(204).end()
     })
     .catch(err => res.status(500).json({ message: 'Internal server error' }));

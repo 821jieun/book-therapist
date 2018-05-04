@@ -65,8 +65,7 @@ describe('Auth endpoints', function() {
          }
 
          const res = err.response;
-         console.log(res);
-         // expect(res).to.have.status(400);
+    
        });
    });
    it('Should reject requests with incorrect usernames', function () {
