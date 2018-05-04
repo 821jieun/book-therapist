@@ -135,8 +135,8 @@ describe('Recommendations API', function() {
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
           expect(res.body.entryText).to.equal(newPost.entryText);
-          // expect(res.body.userId).to.equal(newPost.userId);
         });
+          userModel.remove({});
     });
     //
     it('should error if POST missing expected values', function() {
@@ -169,6 +169,7 @@ describe('Recommendations API', function() {
         .catch(function(res) {
           expect(res).to.have.status(400);
         });
+          userModel.remove({});
     });
     //
     it('should update recommendation on PUT', function() {
@@ -209,6 +210,7 @@ describe('Recommendations API', function() {
               expect(res).to.have.status(204);
             });
         });
+          userModel.remove({});
     });
 
     it('should delete posts on DELETE', function() {
@@ -238,12 +240,15 @@ describe('Recommendations API', function() {
         // first have to get
         .get(`/recommendations/all/${token}`)
         .then(function(res) {
+          console.log(res, 'res inside delete test')
+          console.log(res.body, 'res dot body inside delete test')
           return chai.request(app)
             .delete(`/recommendations/delete/${res.body.recommendations[0].id}/${token}`)
             .then(function(res) {
               expect(res).to.have.status(204);
             });
         });
+          userModel.remove({});
     });
 
   });

@@ -1,6 +1,6 @@
 
-const url = 'http://localhost:8080'
-// const url = 'https://book-therapist.herokuapp.com'
+// const url = 'http://localhost:8080'
+const url = 'https://book-therapist.herokuapp.com'
 
 //Loading message
 $(document).ajaxStart(function() {
@@ -14,7 +14,6 @@ $(document).ajaxStop(function() {
 $('.clear-results-btn').click(function() {
   $('.recent-recs').addClass('displayNone');
 });
-
 
 $('.show-and-hide-btn').click(() => {
     const id = $(this).data('id');
@@ -93,7 +92,6 @@ function displayAllEntries(data) {
 
     //get entryText, id
     const { entryText, id} = rec;
-    console.log(rec, 'rec inside displayall');
     $('.js-all-entries').prepend(`
         <div class="saved-book-rec" data-id=${rec.id}>
           <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
@@ -213,9 +211,9 @@ function saveBookAndUpdateDb() {
         "image": image
       },
       success: function(data) {
+        $(this)
+          .text('saved!');
 
-          $(this)
-            .text('saved!');
         console.log('fullySUCCESSfully updated!')
       },
       error: function(err) {

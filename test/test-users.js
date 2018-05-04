@@ -78,7 +78,6 @@ describe('User API', function() {
               throw err;
             }
             const res = err.response;
-            console.log(res);
           });
       });
       it('Should reject users with empty username', function() {
@@ -100,13 +99,6 @@ describe('User API', function() {
            }
 
            const res = err.response;
-           console.log(res)
-           // expect(res).to.have.status(422);
-           // expect(res.body.reason).to.equal('ValidationError');
-           // expect(res.body.message).to.equal(
-           //   'Must be at least 1 characters long'
-           // );
-           // expect(res.body.location).to.equal('username');
          });
        });
        it('Should create a new user', function() {
@@ -122,7 +114,7 @@ describe('User API', function() {
            .then(res => {
              expect(res).to.have.status(201);
              expect(res.body).to.be.an('object');
-  
+
              expect(res.body.data.username).to.equal(username);
              expect(res.body.data.firstName).to.equal(firstName);
              expect(res.body.data.lastName).to.equal(lastName);
@@ -131,7 +123,6 @@ describe('User API', function() {
              });
            })
            .then(user => {
-             console.log(user, 'USER HERE')
              expect(user).to.not.be.null;
              expect(user.firstName).to.equal(firstName);
              expect(user.lastName).to.equal(lastName);

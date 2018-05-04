@@ -33,7 +33,6 @@ exports.getAllRecommendations = (req, res) => {
 
       res.json({
         recommendations: recommendations.map((recommendation) => {
-          console.log(recommendations, 'recommendations inside getall')
           return recommendation.serialize();
         })
       })

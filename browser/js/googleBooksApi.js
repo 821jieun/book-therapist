@@ -21,7 +21,6 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
           }
           recommendations.push(bookData);
         });
-        console.log(recommendations, 'recommendations from google api')
         displayBookRecommendations(recommendations, id)
       },
       error: function(err) {
