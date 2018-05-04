@@ -18,7 +18,7 @@ const errorMsg = $('.error-message');
 const loginSignupLogoutNav = $('.nav-with-login-signup-logout');
 
 //user clicks on signup link
-loginSignupLogoutNav.on("click", ".signup-link", function() {
+loginSignupLogoutNav.on('click', '.signup-link', function() {
   loginForm.addClass('displayNone');
   signupForm.removeClass('displayNone');
 
@@ -158,6 +158,9 @@ function handleRegisterUserFormSubmit() {
         success: function(data) {
           signupForm.addClass('displayNone')
           loginForm.removeClass('displayNone')
+          const outputElem = $('.error-message');
+          outputElem
+            .prop('hidden', true)
           console.log(data)
         },
         error: function(err) {

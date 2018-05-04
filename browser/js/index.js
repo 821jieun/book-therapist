@@ -2,29 +2,33 @@
 const url = 'http://localhost:8080'
 // const url = 'https://book-therapist.herokuapp.com'
 
+//Loading message
+$(document).ajaxStart(function() {
+  $('#loading').show();
+});
+
+$(document).ajaxStop(function() {
+  $('#loading').hide();
+});
+
 $('.clear-results-btn').click(function() {
   $('.recent-recs').addClass('displayNone');
 });
 
 
 $('.show-and-hide-btn').click(() => {
-  //
-
     const id = $(this).data('id');
 
     let buttonText = $('.show-and-hide-btn').text();
 
-    if (buttonText == "show all entries") {
-      $('html, body').animate({
-          scrollTop: $('.all-saved-recs').offset().top
-      }, 1000);
+    if (buttonText === "show all entries") {
 
       $('.recent-recs').addClass('displayNone');
       $('.all-saved-recs').removeClass('displayNone');
       $('.show-and-hide-btn').text("hide entries");
 
-
     } else {
+
       $('.all-saved-recs').addClass('displayNone');
       $('.show-and-hide-btn').text("show all entries");
 
@@ -54,19 +58,35 @@ function toggleBookVisibility () {
 
   let buttonText = $(`.see-and-hide-all-books[data-id =${id}]`).text();
 
-  if (buttonText == "see all books") {
+  if (buttonText == "see books") {
+    $('html, body').animate({
+        scrollTop: $(`.saved-book-rec[data-id = ${id}]`).offset().top
+    }, 1000);
     $(`.saved-book-rec[data-id = ${id}]`).find('.book').removeClass('displayNone');
-    $(`.see-and-hide-all-books[data-id =${id}]`).text('hide all books');
+    $(`.see-and-hide-all-books[data-id =${id}]`).text('hide books');
   } else {
     $(`.saved-book-rec[data-id = ${id}]`).find('.book').addClass('displayNone');
-    $(`.see-and-hide-all-books[data-id =${id}]`).text('see all books');
+    $(`.see-and-hide-all-books[data-id =${id}]`).text('see books');
   }
 }
 
 function displayAllEntries(data) {
   let recArray = data.recommendations;
 
-  $('.js-all-entries').html('');
+  if (!(recArray.length)) {
+    //display message to user that s/he has no saved entries
+    console.log('nothing in the recArray')
+    $('.js-all-entries')
+    .append("<p></p>")
+    .text("you have no saved entries yet")
+  } else {
+    $('.js-all-entries').html('');
+  }
+
+  $('html, body').animate({
+      scrollTop: $('.js-all-entries').offset().top
+  }, 1000);
+
 
   recArray.forEach((rec) => {
     let date = rec.publishDate;
@@ -131,14 +151,14 @@ $('.js-all-entries').on('click', '.delete-single-book-button', deleteSingleBook)
 function deleteSingleBook() {
   console.log('inside delete single book')
   const bookId = $(this).data('bookid');
-  // console.log(bookId, 'bookId');
-  // $(`.book[data-bookid = ${bookId}]`).remove();
+  const recommendationId = $(this).data('id');
 
       $.ajax({
-        url: `${url}/recommendations/delete/singlebook/${bookId}/${localStorage.getItem("token")}`,
+        url: `${url}/recommendations/delete/singlebook/${recommendationId}/${bookId}/${localStorage.getItem("token")}`,
         type: 'DELETE',
         success: function(data) {
           console.log('successfully deleted!');
+          $(this).closest('.book').remove();
         },
         error: function(err) {
           console.error(err);
@@ -146,21 +166,19 @@ function deleteSingleBook() {
       });
 }
 
-
 //delete recommendation from saved recommendations
 $('.js-all-entries').on('click', '.delete-button', deleteRecommendation);
 
 function deleteRecommendation() {
   const id = $(this).data('id');
-  // $(this).closest('.book').remove();
-  // $(this).closest('.saved-book-rec').remove();
-  $(`.saved-book-rec[data-id = ${id}]`).remove();
-
+  
     $.ajax({
       url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`,
       type: 'DELETE',
       success: function(data) {
         console.log('successfully deleted!');
+        $(`.saved-book-rec[data-id = ${id}]`).remove();
+
       },
       error: function(err) {
         console.error(err);
@@ -182,9 +200,6 @@ function saveBookAndUpdateDb() {
   const id = $(this).data('id');
   const bookId = $(this).data('bookid');
 
-  $(this)
-    .text('saved!');
-
   //make get call to update db entry for savedbook
     $.ajax({
       url: `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`,
@@ -199,6 +214,9 @@ function saveBookAndUpdateDb() {
         "image": image
       },
       success: function(data) {
+
+          $(this)
+            .text('saved!');
         console.log('fullySUCCESSfully updated!')
       },
       error: function(err) {
@@ -235,19 +253,17 @@ function handleEntrySubmitForm() {
         $(".loading-rec").hide();
       },
       success: function(data) {
-        console.log(data, 'data in front end create function ')
         $('html, body').animate({
             scrollTop: $(".recent-recs").offset().top
+
         }, 1000);
         $('#sentiment-input').val('');
           googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
-
       },
       error: function(err) {
         console.error(err);
       }
-    })
-
+    });
   });
 }
 

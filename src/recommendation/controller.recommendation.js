@@ -79,31 +79,25 @@ exports.createRecommendation = (req, res) => {
 };
 
 exports.deleteSingleBook = (req, res) => {
-console.log(req.params, 'deleteSingleBook reqdotparams')
-console.log(req.params.token, 'deleteSingleBook reqdotparamsdottoken')
-console.log(req.param('bookId'), 'deleteSingleBook reqdot PARAM bookID')
-const bookId = req.param('bookId');
-//   db.test.findOneAndUpdate(
-//     { "sections._id" : ObjectId("56fea43a571332cc97e06d9e") },
-//     { "$pull": { "sections.$.registered": "e3d65a4e-2552-4995-ac5a-3c5180258d87" } }
-// )
-console.log(bookId)
+
+// const bookId = req.param('bookId');
+const bookId = req.params.bookId;
+const recommendationId = req.params.id;
+
+console.log(bookId, 'bookId here')
+console.log(recommendationId, 'rec id here')
   recommendationModel
-  // .find(
-  //   { books: { $elemMatch: {bookId: bookId }}}
-  // )
-  // .findOneAndUpdate(
-  //   {"books._bookId": req.bookId},
-  //   {"$pull": { "books.$.bookId": bookId}}
-  // )
-  .update(
-    { },
-    { $pull: { books: { $in: [ bookId ] }}} 
-  )
+    .findByIdAndUpdate(
+      recommendationId,
+      {"$pull": { "books": {"bookId": bookId}}}
+    )
     .then(recommendation => {
       res.status(204).end()
     })
-    .catch(err => res.status(500).json({ message: 'Internal server error' }));
+    .catch(err => res.status(500).json({
+      data: err,
+      message: 'Internal server error'
+    }));
 }
 
 exports.addABookToRecommendation = (req, res) => {

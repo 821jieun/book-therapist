@@ -19,9 +19,7 @@ const  recommendationSchema = mongoose.Schema({
     ref: 'User'
   },
   books: []
-  // bookId: {
-  //   type: String
-  // }
+
 });
 
 recommendationSchema.methods.serialize = function() {

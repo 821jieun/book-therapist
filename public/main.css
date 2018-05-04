@@ -135,6 +135,7 @@ form {
     border-left: 1px solid #e0e0e0;
     padding-left: 2px;
     padding-right: 4px;
+    flex: 1;
 }
 .saved-book-rec {
   display: flex;
@@ -144,6 +145,7 @@ form {
   background: rgb(250, 250, 250, 0.5);
   width: 100%;
   align-items: center;
+  margin-bottom: 50px;
 }
 
 .signup, .login {
@@ -259,7 +261,7 @@ cite {
   float:right;
 }
 
-.title, .author {
+.title, .author, .feelings-entry {
   background-color: lemonchiffon;
 }
 
