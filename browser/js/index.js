@@ -199,6 +199,7 @@ function saveBookAndUpdateDb() {
 
   //make get call to update db entry for savedbook
     $.ajax({
+      context: this,
       url: `${url}/recommendations/update/${id}/${localStorage.getItem("token")}`,
       type: 'PUT',
       data: {
