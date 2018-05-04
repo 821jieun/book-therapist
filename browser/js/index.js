@@ -1,6 +1,6 @@
 
-const url = 'http://localhost:8080'
-// const url = 'https://book-therapist.herokuapp.com'
+// const url = 'http://localhost:8080'
+const url = 'https://book-therapist.herokuapp.com'
 
 //Loading message
 $(document).ajaxStart(function() {
