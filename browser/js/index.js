@@ -151,6 +151,7 @@ function deleteSingleBook() {
   const recommendationId = $(this).data('id');
 
       $.ajax({
+        context: this,
         url: `${url}/recommendations/delete/singlebook/${recommendationId}/${bookId}/${localStorage.getItem("token")}`,
         type: 'DELETE',
         success: function(data) {
@@ -173,9 +174,8 @@ function deleteRecommendation() {
       url: `${url}/recommendations/delete/${id}/${localStorage.getItem("token")}`,
       type: 'DELETE',
       success: function(data) {
-        console.log('successfully deleted!');
         $(`.saved-book-rec[data-id = ${id}]`).remove();
-
+        console.log('successfully deleted!');
       },
       error: function(err) {
         console.error(err);
