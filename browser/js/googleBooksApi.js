@@ -31,10 +31,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
 }
 
 function displayBookRecommendations(recommendations, id) {
-<<<<<<< HEAD
-=======
 
->>>>>>> save-multiple-books
   const results = $('.js-rec-results');
 
   results.empty();

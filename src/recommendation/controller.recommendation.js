@@ -1,5 +1,6 @@
 const recommendationModel = require('./model.recommendation');
 const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 exports.verifyToken = (req, res, next) => {
   const token = req.headers.authorization || req.params.token;
@@ -10,7 +11,7 @@ exports.verifyToken = (req, res, next) => {
     })
     return;
   }
-  jwt.verify(token, process.env.JWT_SECRET, (err, decodedObj) => {
+  jwt.verify(token, config.JWT_SECRET, (err, decodedObj) => {
     if (err) {
       res.status(401).json({
         message: 'token is not valid!'

@@ -4,6 +4,7 @@ const chaiHttp = require('chai-http');
 const expect = chai.expect;
 const faker = require('faker');
 const mongoose = require('mongoose');
+const config = require('../config');
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -33,7 +34,6 @@ function seedRecommendationData() {
   for (let i = 1; i <= 10; i++) {
     seedData.push({
       entryText: faker.lorem.sentence()
-      // userId: faker.lorem.sentence()
     });
   }
   // this will return a promise
@@ -81,7 +81,7 @@ describe('Recommendations API', function() {
         id: userModel._id
       };
 
-      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+      let token = jwt.sign(userToken, config.JWT_SECRET);
 
       return chai.request(app)
         .get(`/recommendations/all/${token}`)
@@ -120,7 +120,7 @@ describe('Recommendations API', function() {
         id: userModel._id
       };
 
-      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+      let token = jwt.sign(userToken, config.JWT_SECRET);
 
       const newPost = {
         entryText: faker.lorem.sentence(),
@@ -160,7 +160,7 @@ describe('Recommendations API', function() {
         id: userModel._id
       };
 
-      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+      let token = jwt.sign(userToken, config.JWT_SECRET);
 
       const badRequestData = {};
       return chai.request(app)
@@ -192,7 +192,7 @@ describe('Recommendations API', function() {
         id: userModel._id
       };
 
-      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+      let token = jwt.sign(userToken, config.JWT_SECRET);
 
       return chai.request(app)
         // first have to get
@@ -232,7 +232,7 @@ describe('Recommendations API', function() {
         id: userModel._id
       };
 
-      let token = jwt.sign(userToken, process.env.JWT_SECRET);
+      let token = jwt.sign(userToken, config.JWT_SECRET);
 
       return chai.request(app)
         // first have to get

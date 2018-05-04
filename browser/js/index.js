@@ -21,7 +21,7 @@ $('.show-and-hide-btn').click(() => {
 
     let buttonText = $('.show-and-hide-btn').text();
 
-    if (buttonText === "show all entries") {
+    if (buttonText === "show entries") {
 
       $('.recent-recs').addClass('displayNone');
       $('.all-saved-recs').removeClass('displayNone');
@@ -30,7 +30,7 @@ $('.show-and-hide-btn').click(() => {
     } else {
 
       $('.all-saved-recs').addClass('displayNone');
-      $('.show-and-hide-btn').text("show all entries");
+      $('.show-and-hide-btn').text("show entries");
 
       $('html, body').animate({
           scrollTop: $('header').offset().top
@@ -50,23 +50,15 @@ $('.show-and-hide-btn').click(() => {
     });
 });
 
-<<<<<<< HEAD
-function displayAllEntries(data) {
-  let recArray = data.recommendations;
-  recArray = checkIfEntryHasTitle(recArray);
-
-  $('.js-all-entries').html('');
-=======
 // see all books belonging to a particular feelings entry
 $('.js-all-entries').on('click', '.see-and-hide-all-books', toggleBookVisibility);
-//
+
 function toggleBookVisibility () {
   const id = $(this).data('id');
->>>>>>> save-multiple-books
 
   let buttonText = $(`.see-and-hide-all-books[data-id =${id}]`).text();
 
-  if (buttonText == "see books") {
+  if (buttonText === "see books") {
     $('html, body').animate({
         scrollTop: $(`.saved-book-rec[data-id = ${id}]`).offset().top
     }, 1000);
@@ -83,7 +75,6 @@ function displayAllEntries(data) {
 
   if (!(recArray.length)) {
     //display message to user that s/he has no saved entries
-    console.log('nothing in the recArray')
     $('.js-all-entries')
     .append("<p></p>")
     .text("you have no saved entries yet")
@@ -107,7 +98,7 @@ function displayAllEntries(data) {
         <div class="saved-book-rec" data-id=${rec.id}>
           <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
           <div class="book-component"><p class="date">Date: ${date}</p></div>
-          <div class="book-component interactive"><button data-id=${id} class="see-and-hide-all-books">see all books</button></div>
+          <div class="book-component interactive"><button data-id=${id} class="see-and-hide-all-books">see books</button></div>
           <div class="book-component interactive"><button data-id=${id} class="delete-button">delete entire entry</button></div>
         </div>
         <div class="all-books" data-id=${rec.id}>
@@ -157,7 +148,7 @@ function displayAllEntries(data) {
 $('.js-all-entries').on('click', '.delete-single-book-button', deleteSingleBook);
 
 function deleteSingleBook() {
-  console.log('inside delete single book')
+
   const bookId = $(this).data('bookid');
   const recommendationId = $(this).data('id');
 
