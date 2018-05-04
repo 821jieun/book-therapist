@@ -21,6 +21,7 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
           }
           recommendations.push(bookData);
         });
+        console.log(recommendations, 'recommendations from google api')
         displayBookRecommendations(recommendations, id)
       },
       error: function(err) {
@@ -30,6 +31,10 @@ function googleBookSearchForTitles(keyWords, entryText, id) {
 }
 
 function displayBookRecommendations(recommendations, id) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> save-multiple-books
   const results = $('.js-rec-results');
 
   results.empty();
@@ -51,7 +56,7 @@ function displayBookRecommendations(recommendations, id) {
       </div>
       <br />
       <div class="book-component">
-        <button class="save-book-button" data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+        <button class="save-book-button" bookid=${recommendation.bookId} data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
         </div>
       </div>
       `

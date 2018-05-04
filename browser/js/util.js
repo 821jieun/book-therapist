@@ -13,18 +13,3 @@ const makeDateReadable = (str) => {
   const readableDate = `${dateArr[0]}-${dateArr[1]}-${trimDateDetail}`;
   return readableDate;
 }
-
-//check if entry even has a title
-//if not, then don't bother displaying the entry
-const checkIfEntryHasTitle = (recArray) => {
-
-  const recArrayWithTitles = [];
-
-  recArray.forEach((entry) => {
-    if (!(entry.title === 'n/a')) {
-      recArrayWithTitles.push(entry)
-    }
-
-  });
-  return recArrayWithTitles;
-}

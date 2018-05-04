@@ -12,7 +12,7 @@ router.use((req, res, next) => {
 
 router.get('/all/:token', recController.verifyToken, recController.getAllRecommendations);
 router.post('/create/:token', recController.verifyToken, recController.createRecommendation);
-router.put('/update/:id/:token', recController.verifyToken, recController.updateRecommendation);
+router.put('/update/:id/:token', recController.verifyToken, recController.addABookToRecommendation);
 router.delete('/delete/:id/:token', recController.verifyToken, recController.deleteRecommendation);
-
+router.delete('/delete/singlebook/:id/:bookId/:token', recController.verifyToken, recController.deleteSingleBook);
 module.exports = router;

@@ -32,6 +32,7 @@ exports.getAllRecommendations = (req, res) => {
 
       res.json({
         recommendations: recommendations.map((recommendation) => {
+          console.log(recommendations, 'recommendations inside getall')
           return recommendation.serialize();
         })
       })
@@ -77,8 +78,29 @@ exports.createRecommendation = (req, res) => {
     });
 };
 
+exports.deleteSingleBook = (req, res) => {
 
-exports.updateRecommendation = (req, res) => {
+// const bookId = req.param('bookId');
+const bookId = req.params.bookId;
+const recommendationId = req.params.id;
+
+console.log(bookId, 'bookId here')
+console.log(recommendationId, 'rec id here')
+  recommendationModel
+    .findByIdAndUpdate(
+      recommendationId,
+      {"$pull": { "books": {"bookId": bookId}}}
+    )
+    .then(recommendation => {
+      res.status(204).end()
+    })
+    .catch(err => res.status(500).json({
+      data: err,
+      message: 'Internal server error'
+    }));
+}
+
+exports.addABookToRecommendation = (req, res) => {
   // ensure that the id in the request path and the one in request body match
   if (!(req.params.id && req.body.id && req.params.id === req.body.id)) {
     const message = (
@@ -97,8 +119,12 @@ exports.updateRecommendation = (req, res) => {
   });
 
   recommendationModel
-    .findByIdAndUpdate(req.params.id, { $set: toUpdate })
-    .then(recommendation => res.status(204).end())
+    .findByIdAndUpdate(req.params.id, { $push: {books: toUpdate }})
+    // .then(recommendation => res.status(204).end())
+    .then(recommendation => {
+      console.log(recommendation, 'RECOMMENDATION in addABookToRecommendation')
+      res.status(204).end()
+    })
     .catch(err => res.status(500).json({ message: 'Internal server error' }));
 };
 
