@@ -11,6 +11,21 @@ exports.registerUser = (req, res) => {
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
 
+  const fieldShouldBeStrings = ['username', 'password', 'firstName', 'lastName'];
+  const notAString = fieldShouldBeStrings.find((field) => {
+      field in req.body && typeof req.body[field] !== 'string'
+    }
+  );
+
+  if (notAString) {
+    return res.status(422).json({
+      code: 422,
+      reason: 'ValidationError',
+      message: 'Incorrect field type: expected string',
+      location: nonStringField
+    });
+  }
+
   //check to see if user is in the db by email
   User.findOne({
     username: username
