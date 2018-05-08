@@ -78,8 +78,10 @@ function displayAllEntries(data) {
   if (!(recArray.length)) {
     //display message to user that s/he has no saved entries
     $('.js-all-entries')
-    .append("<p></p>")
-    .text("you have no saved entries yet")
+    .html("<p class='no-saved-entries'>you have no saved sessions yet</p>")
+
+    // .append("<p class='no-saved-entries'></p>")
+    // .text("you have no saved sessions yet")
   } else {
     $('.js-all-entries').html('');
   }
@@ -96,14 +98,16 @@ function displayAllEntries(data) {
     //get entryText, id
     const { entryText, id} = rec;
     $('.js-all-entries').prepend(`
-        <div class="saved-book-rec" data-id=${rec.id}>
-          <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
-          <div class="book-component"><p class="date">Date: ${date}</p></div>
-          <div class="book-component interactive"><button data-id=${id} class="see-and-hide-all-books">see books</button></div>
-          <div class="book-component interactive"><button data-id=${id} class="delete-button">delete entire entry</button></div>
+
+          <div class="saved-book-rec" data-id=${rec.id}>
+            <div class="book-component"><p class="feelings-entry">Feelings Entry: ${entryText}</p></div>
+            <div class="book-component"><p class="date">Date: ${date}</p></div>
+            <div class="book-component interactive"><button data-id=${id} class="see-and-hide-all-books">see books</button></div>
+            <div class="book-component interactive"><button data-id=${id} class="delete-button">delete entire entry</button></div>
+          </div>
         </div>
         <div class="all-books" data-id=${rec.id}>
-        </div>
+
       `)
 
       //another loop to iterate through the books array in each entry to

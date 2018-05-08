@@ -38,23 +38,25 @@ function displayBookRecommendations(recommendations, id) {
   recommendations.forEach((recommendation, index) => {
     $('.js-rec-results').append(
       `
-      <div class="book-rec">
-        <div class="book-component"><p class="rec-title">Title: ${recommendation.title}</p>
-      </div>
-      <div class="book-component">
-        <p class="rec-author">Author: ${recommendation.author}</p>
-      </div>
-      <div class="book-component">
-        <p class="rec-description">Description: ${checkStrLength(recommendation.description)}</p>
-      </div>
-      <div class="rec-thumbnail-image book-component">
-        <img src="${recommendation.image}" alt="thumbnail of ${recommendation.title}">
-      </div>
-      <br />
-      <div class="book-component">
-        <button class="save-book-button" bookid=${recommendation.bookId} data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+
+        <div class="book-rec">
+          <div class="book-component"><p class="rec-title">Title: ${recommendation.title}</p>
         </div>
-      </div>
+        <div class="book-component">
+          <p class="rec-author">Author: ${recommendation.author}</p>
+        </div>
+        <div class="book-component">
+          <p class="rec-description">Description: ${checkStrLength(recommendation.description)}</p>
+        </div>
+        <div class="rec-thumbnail-image book-component">
+          <img src="${recommendation.image}" alt="thumbnail of ${recommendation.title}">
+        </div>
+        <br />
+        <div class="book-component">
+          <button class="save-book-button" bookid=${recommendation.bookId} data-id="${id}" data-bookId="${recommendation.bookId}" data-title="${recommendation.title}" data-author="${recommendation.author}" data-description="${recommendation.description}" data-image="${recommendation.image}">save</button>
+          </div>
+        </div>
+
       `
     )
   })
