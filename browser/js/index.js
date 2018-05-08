@@ -1,6 +1,7 @@
 
-const url = 'http://localhost:8080'
-// const url = 'https://book-therapist.herokuapp.com'
+// const url = 'http://localhost:8080'
+const url = 'https://book-therapist.herokuapp.com'
+
 $(document).ready(function() {
     M.updateTextFields();
   });
