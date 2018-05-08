@@ -23,16 +23,16 @@ $('.show-and-hide-btn').click(() => {
 
     let buttonText = $('.show-and-hide-btn').text();
 
-    if (buttonText === "show entries") {
+    if (buttonText === "show sessions") {
 
       $('.recent-recs').addClass('displayNone');
       $('.all-saved-recs').removeClass('displayNone');
-      $('.show-and-hide-btn').text("hide entries");
+      $('.show-and-hide-btn').text("hide sessions");
 
     } else {
 
       $('.all-saved-recs').addClass('displayNone');
-      $('.show-and-hide-btn').text("show entries");
+      $('.show-and-hide-btn').text("show sessions");
 
       $('html, body').animate({
           scrollTop: $('header').offset().top

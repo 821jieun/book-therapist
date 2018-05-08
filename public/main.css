@@ -11,6 +11,10 @@ body {
   background-size: cover;
 }
 
+main {
+  font-family: 'Roboto Mono', monospace;
+}
+
 button {
   font-family: 'Roboto Mono', monospace;
 }
@@ -31,20 +35,12 @@ header {
   padding: 20px;
 }
 
-form {
+form, footer {
   text-align: center;
-}
-
-#sentiment-input {
-  width:80%;
 }
 
 .error-message {
   padding: 20px;
-}
-
-footer {
-  text-align: center;
 }
 
 .js-rec-results, .js-all-entries {
@@ -60,10 +56,6 @@ footer {
   padding: 20px;
   background: rgb(238, 238, 238, 0.5);
 }
-
-/* .feelings-entry, .date, .rec-title, .rec-author {
-  background: #fff9c4;
-} */
 
 .title, .author, .feelings-entry, .rec-title, .rec-author {
   background-color: lemonchiffon;
@@ -82,6 +74,7 @@ footer {
 button:hover {
   background-color: #fce4ec;
 }
+
 .btn-wrapper {
   position: relative;
 }
@@ -125,23 +118,21 @@ form {
   font-size: 1.2em;
   width: 80%;
   text-align: center;
-}
-
-#js-sentiment-entry-form {
-  z-index: 3;
+  margin-bottom: 10px;
 }
 
 .entry-input {
   color: black;
-  font-size: 16px;;
+  font-size: 16px;
 }
 
 #sentiment-input {
   font-size: 0.8em;
   font-family: 'Roboto Mono', monospace;
   border-radius: 50px 20px;
-
   text-align: center;
+  width: 50%;
+  margin-bottom: 20px;
 }
 
 .signup, .login {
@@ -152,11 +143,21 @@ form {
   font-family: 'Roboto Mono', monospace;
 }
 
+blockquote {
+  border-left: 5px solid #e0e0e0;
+}
+
+.entry-button {
+  font-size: 12px;
+}
+
 @media screen and (min-width: 1100px) {
+
   .book-rec, .saved-book-rec {
     width: 500px;
     float: left;
     margin-top: 40px;
+    margin-left: 50px;
   }
 }
 
@@ -193,7 +194,6 @@ form {
     padding: 10px;
     margin-bottom: 40px;
     margin-right: 10px;
-
   }
 }
 
@@ -230,279 +230,8 @@ form {
   .btn-footer button:hover{
     background-color: #fce4ec;
   }
-}
 
-
-/* body {
-  padding: 0;
-  margin: 0;
-  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuWKTTToxKH2cgxdJYL9nJpVY4l2magqADW8pCMZSa03I6mcj5Ng');
-  background-size: cover;
-}
-
-main {
-  display: flex;
-}
-
-/*logout button */
-/* ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-li {
-  float: right;
-}
-
-li a {
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  border-left: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-li a:hover {
-  background-color: #b3e5fc
-}
-
-button {
-  font-family: 'Roboto Mono', monospace;
-} */
-
-/*header styling*/
-/* .section-with-line {
-  position: relative;
-  width: 90px;
-  margin: 60px auto;
-  padding: 10px 0;
-}
-
-.section-with-line:before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  width: 1px;
-  height: 100%;
-  border-top: 50px solid #000;
-  border-bottom: 30px solid #000;
-  -webkit-transform: rotate(8deg);
-  -ms-transform: rotate(8deg);
-  transform: rotate(8deg);
-}
-
-header {
-  font-family: 'Homemade Apple', cursive;
-}
-
-h1 {
-  line-height: 120%;
-}
-
-form {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1.2em;
-}
-
-#sentiment-input {
-  font-size: 0.8em;
-  font-family: 'Roboto Mono', monospace;
-  border-radius: 50px 20px;
-  width: 50%;
-  text-align: center;
-}
-
-.entry-button {
-  margin-top: 10px;
-  float:right;
-  border-radius: 50px 20px;
-  padding: 10px;
-}
-
-.flex-container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-
-.js-rec-results {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-family: 'Roboto Mono', monospace;
-}
-
-.js-all-entries {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-family: 'Roboto Mono', monospace;
-}
-
-.book-rec {
-  display: flex;
-  justify-content: space-between;
-  margin: 5px;
-  padding: 20px;
-  background: rgb(250, 250, 250, 0.5);
-  width: 100%;
-}
-
-.book-component {
-    border-left: 1px solid #e0e0e0;
-    padding-left: 2px;
-    padding-right: 4px;
-} */
-/*
-@media screen and (min-width:768px) {
-  .saved-book-rec {
-    margin: 5px;
-    padding: 20px;
-    background: rgb(250, 250, 250, 0.5);
-    width: 100%;
-    margin-bottom: 50px;
-  }
-} */
-/* .saved-book-rec {
-  margin: 5px;
-  padding: 20px;
-  background: rgb(250, 250, 250, 0.5);
-  width: 100%;
-  margin-bottom: 50px;
-}
-
-.signup, .login {
-  font-family: 'Roboto Mono', monospace;
-}
-
-.logout-button, .signup-link, .login-link {
-  font-family: 'Roboto Mono', monospace;
-}
-
-.btn-wrapper {
-  position: relative;
-}
-
-.btn-footer-wrapper {
-  margin-top:10px;
-  position: fixed;
-  width: 100%;
-  background: #fce4ec;
-  bottom: 0;
-  z-index: 9;
-  height: 8vh;
-}
-
-.btn-footer {
-  display: flex;
-  justify-content: center;
-}
-
-.btn-footer button{
-  width: 20%;
-  height: 70%;
-  font-size: 1em;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-top: 10px;
-  border-radius: 50px 20px;
-}
-
-.btn-footer button:hover{
-  background-color: #fce4ec;
-} */
-
-/*styling buttons and links for delete, share, get*/
-/* .button-and-links {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.interactive {
-  flex: 1;
-  text-decoration: none;
-}
-
-.interactive a {
-  -webkit-appearance: button;
-  -moz-appearance: button;
-  appearance: button;
-  padding: 2px;
-  border-radius: 30%;
-  text-decoration: none;
-  color: black;
-  font-family: 'Roboto Mono', monospace;
-  background-color: white;
-}
-
-@media screen and (max-width:768px) {
-  .saved-book-rec {
-    display: flex;
-    flex-direction: column;
-    padding: 60px;
-  }
-
-  .feelings-form {
-    padding: 20px;
-    margin-bottom: 40px;
-  }
-
-  .book-rec {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .book-component {
-    width: 100%;
-  }
-
-  #js-login-form, #js-signup-form {
-    margin-left: 160px;
-    margin-top: 10px;
-    padding: 10px;
-    margin-bottom: 50px;
+  .entry-button {
+    float: none;
   }
 }
-
-.login-button, .signup-button {
-  float:right;
-}
-
-.intro {
-  font-family: 'Roboto Mono', monospace;
-  padding-left: 30px;
-  padding-right: 30px;
-}
-
-cite {
-  float:right;
-}
-
-.title, .author, .feelings-entry, .rec-title, .rec-author {
-  background-color: lemonchiffon;
-}
-
-.book {
-
-  margin: auto;
-  width: 80%;
-}
-
-img {
-  display: block;
-  margin: auto;
-}
-
-.save-book-button {
-  display: block;
-  margin: auto;
-}  */

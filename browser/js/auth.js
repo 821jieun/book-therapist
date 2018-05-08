@@ -108,7 +108,7 @@ function onSuccessfulLogin(token, userId, username) {
   $('.intro').addClass('displayNone');
 
   //make sure button displays correct text
-  $('.show-and-hide-btn').text('show entries')
+  $('.show-and-hide-btn').text('show sessions')
 
   //disappear the links that were for signing up and logging in
   signupLink.addClass('displayNone');
