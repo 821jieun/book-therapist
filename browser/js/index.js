@@ -1,6 +1,9 @@
 
-// const url = 'http://localhost:8080'
-const url = 'https://book-therapist.herokuapp.com'
+const url = 'http://localhost:8080'
+// const url = 'https://book-therapist.herokuapp.com'
+$(document).ready(function() {
+    M.updateTextFields();
+  });
 
 //Loading message
 $(document).ajaxStart(function() {
@@ -224,13 +227,14 @@ function saveBookAndUpdateDb() {
 }
 
 function handleEntrySubmitForm() {
+
+
   $('#js-sentiment-entry-form').submit((e) => {
   e.preventDefault();
 
   const entryText = $('#sentiment-input').val();
 
   $('.all-saved-recs').addClass('displayNone');
-  // $('.show-and-hide-btn').text('show saved');
   $('.recent-recs').removeClass('displayNone');
 
   const token = localStorage.getItem("token");

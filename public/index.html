@@ -5,7 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="book therapist app">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Dokdo|Homemade+Apple|Roboto+Mono" rel="stylesheet">
+    <link href="float-grid.css" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -15,14 +17,15 @@
   <body>
       <nav role="navigation">
         <ul class="nav-with-login-signup-logout">
-          <li><a class="displayNone logout-button" href="#">logout</a></li>
-          <li><a class="signup-link" href="#">sign up</a></li>
-          <li><a class="login-link" href="#">log in</a></li>
+          <li><a class="displayNone logout-button" href="#" aria-live="assertive">logout</a></li>
+          <li><a class="signup-link" href="#" aria-live="assertive">sign up</a></li>
+          <li><a class="login-link" href="#" aria-live="assertive">log in</a></li>
         </ul>
       </nav>
 
       <header role="banner">
-        <div class="section-with-line"><h1>book therapist</h1>
+        <div class="section-with-line">
+          <h1>book therapist</h1>
         </div>
 
         <div class="intro">
@@ -40,11 +43,11 @@
 
       <section role="region" class="login">
         <form role="form" id="js-login-form" class="login-form">
-          <div>
+          <div class="input-field active">
             <label class="username" for="username">USERNAME: </label>
             <input id="login-username" type="text" name="username" required>
           </div>
-          <div>
+          <div class="input-field active">
             <label class="password" for="password">PASSWORD: </label>
             <input id="login-password" type="password" name="password" required>
           </div>
@@ -55,20 +58,20 @@
       </section>
 
       <section role="region" class="signup">
-        <form role="form" id="js-signup-form" class="displayNone signup-form">
-          <div>
+        <form role="form" id="js-signup-form" class="displayNone signup-form" aria-live="assertive">
+          <div class="input-field active">
             <label class="username" for="username">USERNAME: </label>
             <input id="signup-username" type="text" name="username" required>
           </div>
-          <div>
+          <div class="input-field active">
             <label class="password" for="password">PASSWORD: </label>
             <input id="signup-password" type="password" name="password" required>
           </div>
-          <div>
+          <div class="input-field active">
             <label class="firstName" for="firstName">FIRST NAME: </label>
             <input id="signup-firstName" name="firstName">
           </div>
-          <div>
+          <div class="input-field active">
             <label class="lastName" for="lastName">LAST NAME: </label>
             <input id="signup-lastName" name="lastName">
           </div>
@@ -81,19 +84,19 @@
       </section>
 
       <section role="region">
-        <form role="form" id="js-sentiment-entry-form" class="feelings-form displayNone">
+        <form role="form" id="js-sentiment-entry-form" class="feelings-form displayNone" aria-live="assertive">
           <label class="entry-input" for="sentiment-input">how do you feel?</label>
           <input id="sentiment-input" aria-label="sentiment-search-box" name="entryText" required>
           <button type="submit" class="entry-button" aria-label="submit-button">submit</button>
         </form>
       </section>
 
-      <section role="region" class="recent-recs displayNone">
+      <section role="region" class="recent-recs displayNone" aria-live="assertive">
         <div class="js-rec-results">
         </div>
       </section>
 
-      <section role="region" class="all-saved-recs displayNone">
+      <section role="region" class="all-saved-recs displayNone" aria-live="assertive">
         <div class="js-all-entries" aria-live="assertive">
         </div>
 
@@ -102,7 +105,7 @@
       </section>
     </main>
 
-    <footer role="contentinfo" class="btn-wrapper displayNone">
+    <footer role="contentinfo" class="btn-wrapper displayNone" aria-live="assertive">
       <div class="btn-footer-wrapper affix" aria-live="assertive">
         <div class="btn-footer">
           <button class="show-and-hide-btn">show entries</button>
@@ -113,6 +116,7 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <script type="text/javascript" src="./js/googleBooksApi.js"></script>
     <script type="text/javascript" src="./js/util.js"></script>
     <script type="text/javascript" src="./js/index.js"></script>
