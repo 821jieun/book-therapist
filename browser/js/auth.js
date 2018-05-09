@@ -92,11 +92,11 @@ $('#js-login-form').submit((e) => {
 
       },
       error: function(err) {
-        const errorMessage = 'uh oh! something went awry...please try again';
+        const errorMessage = 'Uh oh! Something went awry...please try again.';
         const outputElem = $('.error-message');
         outputElem
           .prop('hidden', false)
-          .html(`<p>${errorMessage}</p>`);
+          .html(`<p class="error">${errorMessage}</p>`);
         console.error(err);
       }
   });

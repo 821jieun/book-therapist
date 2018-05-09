@@ -38,7 +38,7 @@
         </div>
       </header>
 
-      <main role="main" class="flex-container">
+      <main role="main">
 
       <section role="region" class="login">
         <form role="form" id="js-login-form" class="login-form">
@@ -90,18 +90,24 @@
         </form>
       </section>
 
-      <section role="region" class="recent-recs displayNone" aria-live="assertive">
-        <div class="js-rec-results">
-        </div>
-      </section>
+      <div class="side-by-side">
+        <section role="region" class="recent-recs displayNone" aria-live="assertive">
+          <div class="js-rec-results">
+          </div>
+          <div id="loading" hidden>Loading...
+          </div>
+        </section>
 
-      <section role="region" class="all-saved-recs displayNone" aria-live="assertive">
-        <div class="js-all-entries" aria-live="assertive">
-        </div>
+        <section role="region" class="all-saved-recs displayNone" aria-live="assertive">
+          <div class="js-all-entries" aria-live="assertive">
+          </div>
 
-        <div id="loading" hidden>Loading...
-        </div>
-      </section>
+          <div id="loading" hidden>Loading...
+          </div>
+        </section>
+      </div>
+
+
     </main>
 
     <footer role="contentinfo" class="btn-wrapper displayNone" aria-live="assertive">

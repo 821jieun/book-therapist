@@ -1,6 +1,19 @@
 
-// const url = 'http://localhost:8080'
-const url = 'https://book-therapist.herokuapp.com'
+const url = 'http://localhost:8080'
+// const url = 'https://book-therapist.herokuapp.com'
+//
+// go();
+// window.addEventListener('resize', go);
+//
+// function go(){
+//   const screenWidth = document.documentElement.clientWidth;
+//   const screenHeight = document.documentElement.clientHeight;
+//   if (screenWidth > 750) {
+//       $('.btn-wrapper').addClass('displayNone');
+//   } else {
+//     $('.btn-wrapper').removeClass('displayNone');
+//   }
+// }
 
 $(document).ready(function() {
     M.updateTextFields();
@@ -232,8 +245,6 @@ function saveBookAndUpdateDb() {
 }
 
 function handleEntrySubmitForm() {
-
-
   $('#js-sentiment-entry-form').submit((e) => {
   e.preventDefault();
 
@@ -241,6 +252,7 @@ function handleEntrySubmitForm() {
 
   $('.all-saved-recs').addClass('displayNone');
   $('.recent-recs').removeClass('displayNone');
+
 
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
