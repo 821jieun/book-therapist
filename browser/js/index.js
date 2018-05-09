@@ -2,20 +2,24 @@
 const url = 'http://localhost:8080'
 // const url = 'https://book-therapist.herokuapp.com'
 //
-// go();
-// window.addEventListener('resize', go);
-//
-// function go(){
-//   const screenWidth = document.documentElement.clientWidth;
-//   const screenHeight = document.documentElement.clientHeight;
-//   if (screenWidth > 750) {
-//       $('.btn-wrapper').addClass('displayNone');
-//   } else {
-//     $('.btn-wrapper').removeClass('displayNone');
-//   }
-// }
+
+window.addEventListener('resize', go);
+
+function go(){
+  const screenWidth = document.documentElement.clientWidth;
+  const screenHeight = document.documentElement.clientHeight;
+
+  if (screenWidth > 750) {
+      $('.all-saved-recs').removeClass('displayNone');
+      $('.recent-recs').removeClass('displayNone');
+  } else {
+    $('.all-saved-recs').addClass('displayNone');
+    $('.recent-recs').removeClass('displayNone');
+  }
+}
 
 $(document).ready(function() {
+  go();
     M.updateTextFields();
   });
 
@@ -32,16 +36,31 @@ $('.clear-results-btn').click(function() {
   $('.recent-recs').addClass('displayNone');
 });
 
-$('.show-and-hide-btn').click(() => {
+$('.btn-wrapper').on('click', '.show-and-hide-btn', showAllSessions);
+
+function showAllSessions() {
     const id = $(this).data('id');
 
     let buttonText = $('.show-and-hide-btn').text();
 
-    if (buttonText === "show sessions") {
+    const screenWidth = document.documentElement.clientWidth;
+    const screenHeight = document.documentElement.clientHeight;
+
+    if (( screenWidth > 750) && (buttonText === "show sessions")) {
+      $('.all-saved-recs').removeClass('displayNone');
+      $('.recent-recs').removeClass('displayNone');
+      $('.show-and-hide-btn').text("hide sessions");
+
+    } else if (buttonText === "show sessions") {
 
       $('.recent-recs').addClass('displayNone');
       $('.all-saved-recs').removeClass('displayNone');
       $('.show-and-hide-btn').text("hide sessions");
+
+    } else if ((screenWidth > 750) && (buttonText === "hide sessions")) {
+
+      $('.all-saved-recs').addClass('displayNone');
+      $('.show-and-hide-btn').text("show sessions");
 
     } else {
 
@@ -64,13 +83,16 @@ $('.show-and-hide-btn').click(() => {
         console.error(err);
       }
     });
-});
+
+}
 
 // see all books belonging to a particular feelings entry
 $('.js-all-entries').on('click', '.see-and-hide-all-books', toggleBookVisibility);
 
 function toggleBookVisibility () {
   const id = $(this).data('id');
+
+  $(`.saved-book-rec[data-id = ${id}]`).find('.book').removeClass('displayNone');
 
   let buttonText = $(`.see-and-hide-all-books[data-id =${id}]`).text();
 
@@ -94,8 +116,6 @@ function displayAllEntries(data) {
     $('.js-all-entries')
     .html("<p class='no-saved-entries'>you have no saved sessions yet</p>")
 
-    // .append("<p class='no-saved-entries'></p>")
-    // .text("you have no saved sessions yet")
   } else {
     $('.js-all-entries').html('');
   }
@@ -218,6 +238,43 @@ function saveBookAndUpdateDb() {
   const id = $(this).data('id');
   const bookId = $(this).data('bookid');
 
+  //to make saved book immediately available for user experience
+  localStorage.setItem('title', title)
+  localStorage.setItem('publishDate', publishDate)
+  localStorage.setItem('author', author)
+  localStorage.setItem('description', description)
+  localStorage.setItem('image', image)
+  localStorage.setItem('id', id)
+  localStorage.setItem('bookId', bookId)
+
+  const body = encodeURIComponent(`
+  Title: ${title}
+
+  Author: ${author}
+
+  Description: ${description}
+
+  `);
+
+  const subject = encodeURIComponent('i thought this book might be of interest to you!');
+  const href = `mailto:email@email.com?subject=${subject}&body=${body}`
+
+   $(`.saved-book-rec[data-id =${id}]`).append(
+     `<div class="book displayNone">
+    <div class="book-component title"><p class="title">Title: ${title}</p></div>
+    <div class="book-component author"><p class="author">Author: ${author}</p></div>
+    <div class="book-component"><p class="description">Description: ${description}</p></div>
+    <div class="thumbnail-image book-component">
+      <img src="${image}" alt="image of ${title}">
+    </div>
+    <br />
+    <div class=button-and-links>
+      <div class="book-component interactive"><button data-bookid=${bookId} data-id=${id} class="delete-single-book-button">delete book</button></div>
+      <div class="book-component interactive"><a href=${href} data-id=${id} class="email-link">share</a></div>
+      <div class="book-component interactive"><a href="https://www.abebooks.com?hp-search-title&tn=${title}" target="_blank" data-id=${id} class="get-book-link">get</a></div>
+    </div>
+  </div>`
+   )
   //make get call to update db entry for savedbook
     $.ajax({
       context: this,
@@ -250,10 +307,6 @@ function handleEntrySubmitForm() {
 
   const entryText = $('#sentiment-input').val();
 
-  $('.all-saved-recs').addClass('displayNone');
-  $('.recent-recs').removeClass('displayNone');
-
-
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const username = localStorage.getItem("username");
@@ -272,12 +325,15 @@ function handleEntrySubmitForm() {
         $(".loading-rec").hide();
       },
       success: function(data) {
+
         $('html, body').animate({
             scrollTop: $(".recent-recs").offset().top
 
         }, 1000);
         $('#sentiment-input').val('');
           googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
+          go();
+          showAllSessions();
       },
       error: function(err) {
         console.error(err);
