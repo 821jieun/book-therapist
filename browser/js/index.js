@@ -334,6 +334,7 @@ function handleEntrySubmitForm() {
           googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
           go();
           showAllSessions();
+          checkWhatShowsDependingOnViewport();
       },
       error: function(err) {
         console.error(err);
@@ -341,5 +342,18 @@ function handleEntrySubmitForm() {
     });
   });
 }
+function checkWhatShowsDependingOnViewport() {
+  const screenWidth = document.documentElement.clientWidth;
 
+  if (screenWidth > 750) {
+    $('.btn-footer-wrapper').addClass('displayNone');
+  }
+
+  if (screenWidth < 750) {
+    $('.recent-recs').removeClass('displayNone');
+    $('.btn-footer-wrapper').removeClass('displayNone');
+
+  }
+
+}
 $(handleEntrySubmitForm());
