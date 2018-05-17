@@ -127,7 +127,7 @@ function onSuccessfulLogin(token, userId, username) {
 
   //reveal the logout button, since user is now logged in
   logoutBtn.removeClass('displayNone');
-  //reveal the 'show all saved recs' button and 'clear results'
+  //reveal the 'show all saved sessions' button and 'clear results'
   btnWrapper.removeClass('displayNone');
 
   localStorage.setItem('token', token);

@@ -61,5 +61,5 @@ function displayBookRecommendations(recommendations, id) {
     )
 
   })
-  // $('.recent-recs').removeClass('displayNone');
+  $('.recent-recs').removeClass('displayNone');
 }

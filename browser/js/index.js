@@ -1,26 +1,10 @@
 
 const url = 'http://localhost:8080'
 // const url = 'https://book-therapist.herokuapp.com'
-//
-
-window.addEventListener('resize', go);
-
-function go(){
-  const screenWidth = document.documentElement.clientWidth;
-  const screenHeight = document.documentElement.clientHeight;
-
-  if (screenWidth > 750) {
-      $('.all-saved-recs').removeClass('displayNone');
-      $('.recent-recs').removeClass('displayNone');
-  } else {
-    $('.all-saved-recs').addClass('displayNone');
-    $('.recent-recs').removeClass('displayNone');
-  }
-}
 
 
 $(document).ready(function() {
-  go();
+
     M.updateTextFields();
   });
 
@@ -47,23 +31,13 @@ function showAllSessions() {
     const screenWidth = document.documentElement.clientWidth;
     const screenHeight = document.documentElement.clientHeight;
 
-    if (( screenWidth > 750) && (buttonText === "show sessions")) {
-      $('.all-saved-recs').removeClass('displayNone');
-      $('.recent-recs').removeClass('displayNone');
-      $('.show-and-hide-btn').text("hide sessions");
-
-    } else if (buttonText === "show sessions") {
+     if (buttonText === "show sessions") {
 
       $('.recent-recs').addClass('displayNone');
       $('.all-saved-recs').removeClass('displayNone');
       $('.show-and-hide-btn').text("hide sessions");
 
-    } else if ((screenWidth > 750) && (buttonText === "hide sessions")) {
-
-      $('.all-saved-recs').addClass('displayNone');
-      $('.show-and-hide-btn').text("show sessions");
-
-    } else {
+    }  else {
 
       $('.all-saved-recs').addClass('displayNone');
       $('.show-and-hide-btn').text("show sessions");
@@ -333,9 +307,7 @@ function handleEntrySubmitForm() {
         }, 1000);
         $('#sentiment-input').val('');
           googleBookSearchForTitles(data.entryText.split(" "), data.entryText, data.id)
-          go();
-          showAllSessions();
-          checkWhatShowsDependingOnViewport();
+
       },
       error: function(err) {
         console.error(err);
@@ -343,18 +315,5 @@ function handleEntrySubmitForm() {
     });
   });
 }
-function checkWhatShowsDependingOnViewport() {
-  const screenWidth = document.documentElement.clientWidth;
 
-  if (screenWidth > 750) {
-    $('.btn-footer-wrapper').addClass('displayNone');
-  }
-
-  if (screenWidth < 750) {
-    $('.recent-recs').removeClass('displayNone');
-    $('.btn-footer-wrapper').removeClass('displayNone');
-
-  }
-
-}
 $(handleEntrySubmitForm());
