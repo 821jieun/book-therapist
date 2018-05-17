@@ -1,6 +1,6 @@
 
-// const url = 'http://localhost:8080'
-const url = 'https://book-therapist.herokuapp.com'
+const url = 'http://localhost:8080'
+// const url = 'https://book-therapist.herokuapp.com'
 //
 
 window.addEventListener('resize', go);
@@ -17,6 +17,7 @@ function go(){
     $('.recent-recs').removeClass('displayNone');
   }
 }
+
 
 $(document).ready(function() {
   go();

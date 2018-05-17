@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="book therapist app">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Dokdo|Homemade+Apple|Roboto+Mono" rel="stylesheet">
     <link href="main.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dokdo|Homemade+Apple|Roboto+Mono" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
   </head>
@@ -29,9 +30,11 @@
 
         <div class="intro">
             <blockquote>
-              book a session with the book therapist:
-              sign up, log in, and share your feelings to discover thoughts, stories...whole worlds, even,
-              to help you navigate your way
+              “You think your pain and your heartbreak are unprecedented in the history of the world,
+              but then you read. It was books that taught me that the things that tormented me most
+              were the very things that connected me with all the people who were alive,
+              or who had ever been alive.”
+              <cite>-James Baldwin</cite>
             </blockquote>
         </div>
       </header>
@@ -41,11 +44,11 @@
       <section role="region" class="login">
         <form role="form" id="js-login-form" class="login-form">
           <div class="input-field active">
-            <label class="username" for="username">USERNAME: </label>
+            <label class="username active" for="username">USERNAME: </label>
             <input id="login-username" type="text" name="username" required>
           </div>
           <div class="input-field active">
-            <label class="password" for="password">PASSWORD: </label>
+            <label class="password active" for="password">PASSWORD: </label>
             <input id="login-password" type="password" name="password" required>
           </div>
           <div>
@@ -57,19 +60,19 @@
       <section role="region" class="signup">
         <form role="form" id="js-signup-form" class="displayNone signup-form" aria-live="assertive">
           <div class="input-field active">
-            <label class="username" for="username">USERNAME: </label>
+            <label class="username active" for="username">USERNAME: </label>
             <input id="signup-username" type="text" name="username" required>
           </div>
           <div class="input-field active">
-            <label class="password" for="password">PASSWORD: </label>
+            <label class="password active" for="password">PASSWORD: </label>
             <input id="signup-password" type="password" name="password" required>
           </div>
           <div class="input-field active">
-            <label class="firstName" for="firstName">FIRST NAME: </label>
+            <label class="firstName active" for="firstName">FIRST NAME: </label>
             <input id="signup-firstName" name="firstName">
           </div>
           <div class="input-field active">
-            <label class="lastName" for="lastName">LAST NAME: </label>
+            <label class="lastName active" for="lastName">LAST NAME: </label>
             <input id="signup-lastName" name="lastName">
           </div>
           <div>
