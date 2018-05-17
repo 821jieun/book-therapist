@@ -38,6 +38,9 @@ loginSignupLogoutNav.on('click', '.logout-button', function() {
   //show quote again
   $('.intro').removeClass('displayNone');
 
+  //show landing-page
+  $('.landing-page').removeClass('displayNone');
+
   //reveal the options to signup and login
   signupLink.removeClass('displayNone');
   loginLink.removeClass('displayNone');
@@ -106,6 +109,9 @@ $('#js-login-form').submit((e) => {
 function onSuccessfulLogin(token, userId, username) {
   //disappear quote
   $('.intro').addClass('displayNone');
+
+  //disappear landing-page
+  $('.landing-page').addClass('displayNone');
 
   //make sure button displays correct text
   $('.show-and-hide-btn').text('show sessions')
