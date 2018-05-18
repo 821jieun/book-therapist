@@ -26,9 +26,13 @@ main {
 }
 
 .landing-page-steps {
-  border: 1px solid pink;
+  border: 3px solid lemonchiffon;
   background: pink;
   padding: 5px;
+}
+
+.show-and-hide-btn {
+  margin-top: 6px;
 }
 
 h6 {
@@ -204,6 +208,7 @@ blockquote {
 }
 
 h5 {
+  border: 1px pink solid;
   padding: 5px;
   margin-left: 10px;
   margin-right: 10px;
@@ -211,6 +216,10 @@ h5 {
 }
 
 @media screen and (min-width: 1100px) {
+  .show-and-hide-btn {
+    margin-top: 10px;
+  }
+
   blockquote {
     font-size: 20px;
   }
@@ -221,6 +230,7 @@ h5 {
 }
 
 @media screen and (min-width: 500px) {
+
   .landing-page {
      margin-top:50px;
      text-align: center;
@@ -274,6 +284,7 @@ h5 {
 }
 
 @media screen and (min-width:751px) {
+
   .js-all-entries, .js-rec-results {
     width: 70%;
     margin: 0 auto;
