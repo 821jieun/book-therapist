@@ -213,6 +213,10 @@ h5 {
   background: lemonchiffon;
 }
 
+header {
+  font-family: 'Homemade Apple', cursive;
+}
+
 @media screen and (min-width: 1100px) {
   .show-and-hide-btn {
     margin-top: 10px;
